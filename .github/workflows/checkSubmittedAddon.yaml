@@ -55,8 +55,9 @@ jobs:
           stringVersion = [str(int) for int in version]
           filename = ".".join(stringVersion)
           if not os.path.isdir(os.path.join(os.path.dirname(__file__), "addons", dir):
-            os.path.makedirs(dir)
+            os.makedirs(dir)
           outputFile = os.path.join(dir, filename)
           with open(filename, "wt") as f:
             json.dump(data, f)
+          print(created")
       shell: python-
