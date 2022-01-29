@@ -40,18 +40,12 @@ jobs:
     - name: Create json file
       run: runcreatejson addon.nvda-addon
       shell: cmd
-    - name: Checkout datastore repo
-      uses: actions/checkout@v2
-      with:
-        repository: nvdaes/addon-datastore
-        path: datastore
     - name: Dump json
       run: |
         import os
         import json
-        with open(os.path.join("${{ github.workspace }}", "output", "output.json"), "rt", encoding="utf-8") as f:
+        jsonFile = os.path.join("output", "output.json")
+        with open(jsonFile, "rt") as f:
           data = json.load(f)
-        data["publisher"] = "${{ steps.get-data.outputs.publisher }}"
         data["sourceUrl"] = "${{ steps.get-data.outputs.sourceUrl }}"
-      shell: python
         
