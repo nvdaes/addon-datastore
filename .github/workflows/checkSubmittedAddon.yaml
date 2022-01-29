@@ -51,7 +51,7 @@ jobs:
         import json
         with open(os.path.join("${{ github.workspace }}", "output", "output.json"), "rt") as f:
           data = json.load(f)
-        data["publisher"] = ${{ steps.get-data.outputs.publisher }}
-        data["sourceUrl"] = ${{ steps.get-data.outputs.sourceUrl }}
+        data["publisher"] = "${{ steps.get-data.outputs.publisher }}"
+        data["sourceUrl"] = "${{ steps.get-data.outputs.sourceUrl }}"
       shell: python
         
