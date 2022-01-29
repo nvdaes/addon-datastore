@@ -55,13 +55,12 @@ jobs:
           dir = data["addonId"]
           version = data["addonVersionNumber"].split(".")
           stringVersion = [str(int) for int in version]
-          filename = ".".join(stringVersion)
+          filename = ".".join(stringVersio, "json"n)
           if os.path.isfile(os.path.join(os.path.dirname(__file__), "addons", dir, filename)):
             raise ValueError("Submission has been sent before")
           if not os.path.isdir(os.path.join(os.path.dirname(__file__), "addons", dir)):
             os.makedirs(dir)
           outputFile = os.path.join(dir, filename)
           with open(outputFile, "wt") as f:
-            json.dump(data, f)
-          print("Created json file")
+            json.dump(data, f, indent="\t")
       shell: python-
