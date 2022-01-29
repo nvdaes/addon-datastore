@@ -49,8 +49,7 @@ jobs:
       run: |
         import os
         import json
-        if os.path.isfile(os.path.join(os.path.dirname(__file__), "output", "output.json")):
-          print("Success")
-        else:
-          print("No")
+        with open(os.path.join(os.path.dirname(__file__), "output", "output.json"), "rt") as f:
+          data = json.load(f)
       shell: python
+        
