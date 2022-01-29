@@ -49,12 +49,12 @@ jobs:
         import json
         jSonFile = os.path.join(os.path.dirname(__file__), "addon-datastore-validation", "output", "output.json")
         with open(jsonFile, "rt") as f:
-          data = jsonFile.load()
+          data = f.load()
           dir = data["addonId"]
           version = data["addonVersionNumber"].split(".")
           stringVersion = [str(int) for int in version]
           filename = ".".join(stringVersion)
-          if not os.path.isdir(os.path.join(os.path.dirname(__file__), "addons", dir):
+          if not os.path.isdir(os.path.join(os.path.dirname(__file__), "addons", dir)):
             os.makedirs(dir)
           outputFile = os.path.join(dir, filename)
           with open(filename, "wt") as f:
