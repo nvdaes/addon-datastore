@@ -24,6 +24,8 @@ jobs:
           core.setOutput('sourceUrl', sourceUrl)
           const channel = body.split("### Channel")[1].split("###")[0].trim()
           core.setOutput('channel', channel)
+          const publisher = context.payload.sender.login
+          core.setOutput('publisher', publisher)
     - name: Checkout datastore repo
       uses: actions/checkout@v2
     - name: Checkout validate repo
@@ -36,12 +38,25 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: 3.8
-    - name: Install addon-datastore-validation dependencies
-      run: |
-        python -m pip install --upgrade wheel
-        pip install -r addon-datastore-validation/requirements.txt
     - name: Download add-on
       run: curl --location --output addon.nvda-addon ${{ steps.get-data.outputs.downloadUrl }}
     - name: Create json file
       run: addon-datastore-validation/runcreatejson addon.nvda-addon
       shell: cmd
+    - name: Dump json
+      run: |
+        import os
+        import json
+        jSonFile = os.path.join(os.path.dirname(__file__), "addon-datastore-validation", "output", "output.json")
+        with open(jsonFile, "rt") as f:
+          data = jsonFile.load()
+          dir = data["addonId"]
+          version = data["addonVersionNumber"].split(".")
+          stringVersion = [str(int) for int in version]
+          filename = ".".join(stringVersion)
+          if not os.path.isdir(os.path.join(os.path.dirname(__file__), "addons", dir):
+            os.path.makedirs(dir)
+          outputFile = os.path.join(dir, filename)
+          with open(filename, "wt") as f:
+            json.dump(f)
+      shell: python-
