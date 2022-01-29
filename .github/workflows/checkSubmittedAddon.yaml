@@ -55,7 +55,7 @@ jobs:
           dir = data["addonId"]
           version = data["addonVersionNumber"].split(".")
           stringVersion = [str(int) for int in version]
-          filename = ".".join(stringVersio, "json"n)
+          filename = ".".join(stringVersio, "json")
           if os.path.isfile(os.path.join(os.path.dirname(__file__), "addons", dir, filename)):
             raise ValueError("Submission has been sent before")
           if not os.path.isdir(os.path.join(os.path.dirname(__file__), "addons", dir)):
