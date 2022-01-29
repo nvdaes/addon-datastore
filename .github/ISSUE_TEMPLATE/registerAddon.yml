@@ -32,4 +32,4 @@ body:
     description: Channel for this release (maybe stable or beta)
     options:
       - label: This is a stable release
-        required: true
+        required: false

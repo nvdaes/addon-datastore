@@ -8,7 +8,7 @@ on:
       - edited
 
 jobs:
-  check-addon
+  check-addon:
     name: Check add-on
     runs-on: windows-latest
     steps:
