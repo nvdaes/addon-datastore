@@ -48,7 +48,7 @@ jobs:
     - name: Download add-on
       run: curl --location --output addon.nvda-addon ${{ steps.get-data.outputs.downloadUrl }}
     - name: Create json file
-      run: runcreatejson addon.nvda-addon datastore/addons ${{ steps.get-data.outputs.channel }} ${{ steps.get-data.outputs.publisher }} ${{ steps.get-data.outputs.sourceUrl }}
+      run: runcreatejson addon.nvda-addon datastore/addons ${{ steps.get-data.outputs.channel }} ${{ steps.get-data.outputs.publisher }} ${{ steps.get-data.outputs.sourceUrl }} ${{ steps.get-data.outputs.downloadUrl }}
       shell: cmd
     - name: Commit changes
       run: |
