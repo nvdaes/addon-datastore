@@ -39,7 +39,7 @@ jobs:
         repo: nvdaes/datastore
         path: datastore
     - name: Download add-on
-      run: curl --location --output validate/addon.nvda-addon ${{ steps.getMetadata.downloadUrl }}
+      run: curl --location --output validate/addon.nvda-addon ${{ steps.get-data.downloadUrl }}
     - name: Create comment
       uses: actions/github-script@v5
       with:
