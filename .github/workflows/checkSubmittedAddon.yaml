@@ -40,3 +40,16 @@ jobs:
     - name: Create json file
       run: runcreatejson addon.nvda-addon
       shell: cmd
+    - name: Checkout datastore repo
+      uses: actions/checkout@v2
+      with:
+        repository: nvdaes/addon-datastore
+        path: datastore
+    - name: Dump json
+      import os
+      import json
+      if os.path.isfile(os.path.join(os.path.dirname(__file__), "output", "output.json)):
+        print("Success")
+      else:
+        print("No")
+      shell: python
