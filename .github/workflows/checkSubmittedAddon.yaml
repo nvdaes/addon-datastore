@@ -26,13 +26,10 @@ jobs:
           core.setOutput('channel', channel)
           const publisher = context.payload.sender.login
           core.setOutput('publisher', publisher)
-    - name: Checkout datastore repo
-      uses: actions/checkout@v2
     - name: Checkout validate repo
       uses: actions/checkout@v2
       with:
         repository: nvdaes/addon-datastore-validation
-        path: addon-datastore-validation
         submodules: true
     - name: Set up Python 3.8
       uses: actions/setup-python@v2
@@ -41,12 +38,5 @@ jobs:
     - name: Download add-on
       run: curl --location --output addon.nvda-addon ${{ steps.get-data.outputs.downloadUrl }}
     - name: Create json file
-      run: addon-datastore-validation/runcreatejson addon.nvda-addon
+      run: runcreatejson addon.nvda-addon
       shell: cmd
-    - name: Dump json
-      run: |
-        import os
-        import json
-        jsonFile = os.path.join(os.path.dirname(__file__), "addon-datastore-validation", "output", "output.json")
-        with open(jsonFile, "rt") as f:
-      shell: python-
