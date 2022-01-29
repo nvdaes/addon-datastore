@@ -1,4 +1,4 @@
-name: Check submitted add-on
+name: Send json file
 
 on:
   issues:
@@ -24,25 +24,24 @@ jobs:
           core.setOutput('sourceUrl', sourceUrl)
           const channel = body.split("### Channel")[1].split("###")[0].trim()
           core.setOutput('channel', channel)
+    - name: Checkout datastore repo
+      uses: actions/checkout@v2
+    - name: Checkout validate repo
+      uses: actions/checkout@v2
+      with:
+        repository: nvdaes/addon-datastore-validation
+        path: addon-datastore-validation
+        submodules: true
     - name: Set up Python 3.8
       uses: actions/setup-python@v2
       with:
         python-version: 3.8
-    - name: Checkout validate
-      uses: actions/checkout@v2
-      with:
-        repo: nvdaes/addon-store-validation
-        path: validate
-    - name: Checkout datastore
-      uses: actions/checkout@v2
-      with:
-        repo: nvdaes/datastore
-        path: datastore
-    - name: Download add-on
-      run: curl --location --output validate/addon.nvda-addon ${{ steps.get-data.outputs.downloadUrl }}
-    - name: Create json file
+    - name: Install addon-datastore-validation dependencies
       run: |
-        cd validate
-        runcreatejson addon.nvda-addon
-        cd..
-        shell: cmd
+        python -m pip install --upgrade wheel
+        pip install -r addon-datastore-validation/requirements.txt
+    - name: Download add-on
+      run: curl --location --output addon-datastore-validation/addon.nvda-addon ${{ steps.get-data.outputs.downloadUrl }}
+    - name: Create json file
+      run: addon-datastore-validation/runcreatejson addon.nvda-addon
+      shell: cmd
