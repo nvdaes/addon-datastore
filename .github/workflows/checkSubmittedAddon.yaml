@@ -41,7 +41,7 @@ jobs:
         python -m pip install --upgrade wheel
         pip install -r addon-datastore-validation/requirements.txt
     - name: Download add-on
-      run: curl --location --output addon-datastore-validation/addon.nvda-addon ${{ steps.get-data.outputs.downloadUrl }}
+      run: curl --location --output addon.nvda-addon ${{ steps.get-data.outputs.downloadUrl }}
     - name: Create json file
       run: addon-datastore-validation/runcreatejson addon.nvda-addon
       shell: cmd
