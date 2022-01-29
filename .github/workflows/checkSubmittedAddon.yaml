@@ -49,7 +49,7 @@ jobs:
         import json
         jsonFile = os.path.join(os.path.dirname(__file__), "addon-datastore-validation", "output", "output.json")
         with open(jsonFile, "rt") as f:
-          data = f.load()
+          data = json.load(f)
           data["sourceUrl"] = ${ steps.get-data.outputs.sourceUrl }}
           data["publisher"] = ${ steps.get-data.outputs.publisher }}
           dir = data["addonId"]
