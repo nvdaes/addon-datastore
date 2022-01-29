@@ -25,12 +25,12 @@ jobs:
           const channel = body.split("### Channel")[1].split("###")[0].trim()
           core.setOutput('channel', channel)
     - Name: Checkout datastore
-       uses: checkout@v2
+       uses: github/checkout@v2
        with:
          repo: nvaccess/addon-datastore
          path: datastore
     - Name: Checkout validate
-       uses: checkout@v2
+       uses: github/checkout@v2
        with:
          repo: nvaccess/addon-datastore-validation
          path: validate
@@ -39,7 +39,7 @@ jobs:
       with:
         python-version: 3.8
     - name: Download add-on
-      run: curl ${{steps.getMetadata.downloadUrl }} --output --location validate/addon.nvda-addon
+      run: curl ${{ steps.getMetadata.downloadUrl }} --output --location validate/addon.nvda-addon
     - name: Create comment
       uses: actions/github-script@v5
       with:
