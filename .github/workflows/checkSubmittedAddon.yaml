@@ -22,7 +22,12 @@ jobs:
           core.setOutput('downloadUrl', downloadUrl)
           const sourceUrl = body.split("### Source URL")[1].split("###")[0].trim()
           core.setOutput('sourceUrl', sourceUrl)
-          const channel = body.split("### Channel")[1].split("###")[0].trim()
+          const releaseChannel = body.split("### Channel")[1].split("###")[0].trim()
+          if (releaseChannel === "- [x] This is a stable release") {
+            channel = "stable"
+          } else {
+            channel = "beta"
+          }
           core.setOutput('channel', channel)
           const publisher = context.payload.sender.login
           core.setOutput('publisher', publisher)
