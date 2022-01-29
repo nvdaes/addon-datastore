@@ -31,6 +31,11 @@ jobs:
       with:
         repository: nvdaes/addon-datastore-validation
         submodules: true
+    - name: Checkout datastore repo
+      uses: actions/checkout@v2
+      with:
+        repository: nvdaes/addon-datastore
+        path: datastore
     - name: Set up Python 3.8
       uses: actions/setup-python@v2
       with:
@@ -38,14 +43,5 @@ jobs:
     - name: Download add-on
       run: curl --location --output addon.nvda-addon ${{ steps.get-data.outputs.downloadUrl }}
     - name: Create json file
-      run: runcreatejson addon.nvda-addon
+      run: runcreatejson addon.nvda-addon datastore/addons ${{ steps.get-data.outputs.channel }} ${{ steps.get-data.outputs.publisher }} ${{ steps.get-data.outputs.sourceUrl }}
       shell: cmd
-    - name: Dump json
-      run: |
-        import os
-        import json
-        jsonFile = os.path.join("output", "output.json")
-        with open(jsonFile, "rt") as f:
-          data = json.load(f)
-        data["sourceUrl"] = "${{ steps.get-data.outputs.sourceUrl }}"
-        
