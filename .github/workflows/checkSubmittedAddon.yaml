@@ -24,12 +24,12 @@ jobs:
           core.setOutput('sourceUrl', sourceUrl)
           const channel = body.split("### Channel")[1].split("###")[0].trim()
           core.setOutput('channel', channel)
-    - Name: Checkout datastore
+    - name: Checkout datastore
        uses: github/checkout@v2
        with:
          repo: nvaccess/addon-datastore
          path: datastore
-    - Name: Checkout validate
+    - name: Checkout validate
        uses: github/checkout@v2
        with:
          repo: nvaccess/addon-datastore-validation
