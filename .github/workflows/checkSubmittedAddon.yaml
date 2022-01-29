@@ -58,5 +58,5 @@ jobs:
             os.path.makedirs(dir)
           outputFile = os.path.join(dir, filename)
           with open(filename, "wt") as f:
-            json.dump(f)
+            json.dump(data, f)
       shell: python-
