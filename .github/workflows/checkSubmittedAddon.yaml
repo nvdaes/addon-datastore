@@ -1,0 +1,53 @@
+name: Check submitted add-on
+
+on:
+  issues:
+    types: 
+      - opened
+      - reopened
+      - edited
+
+jobs:
+  check-addon
+    name: Check add-on
+    runs-on: windows-latest
+    steps:
+    - name: Get data
+      id: get-data
+      uses: actions/github-script@v5
+      with:
+        script: |
+          const body = context.payload.issue.body   
+          const downloadUrl = body.split("### Download URL")[1].split("###")[0].trim()
+          core.setOutput('downloadUrl', downloadUrl)
+          const sourceUrl = body.split("### Source URL")[1].split("###")[0].trim()
+          core.setOutput('sourceUrl', sourceUrl)
+          const channel = body.split("### Channel")[1].split("###")[0].trim()
+          core.setOutput('channel', channel)
+    - Name: Checkout datastore
+       uses: checkout@v2
+       with:
+         repo: nvaccess/addon-datastore
+         path: datastore
+    - Name: Checkout validate
+       uses: checkout@v2
+       with:
+         repo: nvaccess/addon-datastore-validation
+         path: validate
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Download add-on
+      run: curl ${{steps.getMetadata.downloadUrl }} --output --location validate/addon.nvda-addon
+    - name: Create comment
+      uses: actions/github-script@v5
+      with:
+        script: |
+          github.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: 'add-on downloaded'
+          })
+          
