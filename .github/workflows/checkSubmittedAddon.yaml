@@ -28,8 +28,18 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: 3.8
+    - name: Checkout validate
+      uses: actions/checkout@v2
+      with:
+        repo: nvdaes/addon-store-validation
+        path: validate
+    - name: Checkout datastore
+      uses: actions/checkout@v2
+      with:
+        repo: nvdaes/datastore
+        path: datastore
     - name: Download add-on
-      run: curl ${{ steps.getMetadata.downloadUrl }} --output --location validate/addon.nvda-addon
+      run: curl --location --output validate/addon.nvda-addon ${{ steps.getMetadata.downloadUrl }}
     - name: Create comment
       uses: actions/github-script@v5
       with:
