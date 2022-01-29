@@ -50,14 +50,18 @@ jobs:
         jSonFile = os.path.join(os.path.dirname(__file__), "addon-datastore-validation", "output", "output.json")
         with open(jsonFile, "rt") as f:
           data = f.load()
+          data["sourceUrl"] = ${ steps.get-data.outputs.sourceUrl }}
+          data["publisher"] = ${ steps.get-data.outputs.publisher }}
           dir = data["addonId"]
           version = data["addonVersionNumber"].split(".")
           stringVersion = [str(int) for int in version]
           filename = ".".join(stringVersion)
+          if os.path.isfile(os.path.join(os.path.dirname(__file__), "addons", dir, filename)):
+            raise ValueError("Submission has been sent before")
           if not os.path.isdir(os.path.join(os.path.dirname(__file__), "addons", dir)):
             os.makedirs(dir)
           outputFile = os.path.join(dir, filename)
-          with open(filename, "wt") as f:
+          with open(outputFile, "wt") as f:
             json.dump(data, f)
-          print(created")
+          print("Created json file")
       shell: python-
