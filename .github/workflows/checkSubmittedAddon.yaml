@@ -40,14 +40,7 @@ jobs:
         path: datastore
     - name: Download add-on
       run: curl --location --output validate/addon.nvda-addon ${{ steps.get-data.outputs.downloadUrl }}
-    - name: Create comment
-      uses: actions/github-script@v5
-      with:
-        script: |
-          github.rest.issues.createComment({
-            issue_number: context.issue.number,
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            body: 'add-on downloaded'
-          })
-          
+    - name: Create json file
+      run: |
+        cd validate
+        runcreatejson addon.nvda-addon
