@@ -39,12 +39,12 @@ jobs:
         repo: nvdaes/datastore
         path: datastore
     - name: Download add-on
-      run: curl --location --output validate/addon.nvda-addon ${{ steps.get-data.downloadUrl }}
+      run: curl --location --output validate/addon.nvda-addon ${{ steps.get-data.outputs.downloadUrl }}
     - name: Create comment
       uses: actions/github-script@v5
       with:
         script: |
-          github.issues.createComment({
+          github.rest.issues.createComment({
             issue_number: context.issue.number,
             owner: context.repo.owner,
             repo: context.repo.repo,
