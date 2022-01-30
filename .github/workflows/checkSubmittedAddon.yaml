@@ -58,4 +58,4 @@ jobs:
       uses: peter-evans/create-pull-request@v3
       with:
         path: datastore
-        commit-message: ${{ steps.get-data.outputs.title }} (closes issue #${steps.get-data.outputs.number }})
+        commit-message: ${{ steps.get-data.outputs.title }} (closes issue #${{ steps.get-data.outputs.number }})
