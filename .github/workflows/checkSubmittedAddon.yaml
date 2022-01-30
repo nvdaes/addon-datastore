@@ -17,6 +17,10 @@ jobs:
       uses: actions/github-script@v5
       with:
         script: |
+          const title = context.payload.issue.title
+          core.setOutput('title', title)
+          const number = context.payload.issue.number
+          core.setOutput('number', number)
           const body = context.payload.issue.body   
           const downloadUrl = body.split("### Download URL")[1].split("###")[0].trim()
           core.setOutput('downloadUrl', downloadUrl)
@@ -50,11 +54,8 @@ jobs:
     - name: Create json file
       run: runcreatejson addon.nvda-addon datastore/addons ${{ steps.get-data.outputs.channel }} ${{ steps.get-data.outputs.publisher }} ${{ steps.get-data.outputs.sourceUrl }} ${{ steps.get-data.outputs.downloadUrl }}
       shell: cmd
-    - name: Commit changes
-      run: |
-        cd datastore
-        git config user.name github-actions
-        git config user.email github-actions@github.com
-        git add .
-        git commit -m "Add add-on"
-        git push
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v3
+      with:
+        path: datastore
+        commit-message: ${{ steps.get-data.outputs.title }} (closes issue #${steps.get-data.outputs.number }})
