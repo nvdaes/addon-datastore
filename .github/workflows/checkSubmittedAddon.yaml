@@ -19,7 +19,7 @@ jobs:
         script: |
           const title = context.payload.issue.title
           core.setOutput('title', title)
-          const number = context.payload.issue.number
+          const number = context.payload.issue.issue_number
           core.setOutput('number', number)
           const body = context.payload.issue.body   
           const downloadUrl = body.split("### Download URL")[1].split("###")[0].trim()
@@ -58,4 +58,4 @@ jobs:
       uses: peter-evans/create-pull-request@v3
       with:
         path: datastore
-        commit-message: ${{ steps.get-data.outputs.title }} (closes issue #${{ steps.get-data.outputs.number }})
+        commit-message: ${{ steps.get-data.outputs.title }} (closes issue #${{ steps.get-data.outputs.number)  }})
