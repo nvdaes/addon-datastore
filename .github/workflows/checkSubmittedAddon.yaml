@@ -17,9 +17,9 @@ jobs:
       uses: actions/github-script@v5
       with:
         script: |
-          const title = context.issue.title
+          const title = context.payload.issue.title
           core.setOutput('title', title)
-          const number = context.issue.number
+          const number = context.payload.issue.number
           core.setOutput('number', number)
           const body = context.payload.issue.body   
           const downloadUrl = body.split("### Download URL")[1].split("###")[0].trim()
