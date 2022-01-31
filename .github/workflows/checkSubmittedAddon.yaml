@@ -17,11 +17,11 @@ jobs:
       uses: actions/github-script@v5
       with:
         script: |
-          const title = context.payload.issue.title
+          const title = context.issue.title
           core.setOutput('title', title)
           const number = context.issue.number
           core.setOutput('number', number)
-          const body = context.payload.issue.body   
+          const body = context.issue.body   
           const downloadUrl = body.split("### Download URL")[1].split("###")[0].trim()
           core.setOutput('downloadUrl', downloadUrl)
           const sourceUrl = body.split("### Source URL")[1].split("###")[0].trim()
@@ -58,4 +58,5 @@ jobs:
       uses: peter-evans/create-pull-request@v3
       with:
         path: datastore
-        commit-message: ${{ steps.get-data.outputs.title }} (closes issue #${{ steps.get-data.outputs.number)  }})
+        commit-message: ${{ steps.get-data.outputs.title }}
+        body: Closes issue #{{ steps.get-data.outputs.number }}
