@@ -21,7 +21,7 @@ jobs:
           core.setOutput('title', title)
           const number = context.issue.number
           core.setOutput('number', number)
-          const body = context.issue.body   
+          const body = context.payload.issue.body   
           const downloadUrl = body.split("### Download URL")[1].split("###")[0].trim()
           core.setOutput('downloadUrl', downloadUrl)
           const sourceUrl = body.split("### Source URL")[1].split("###")[0].trim()
