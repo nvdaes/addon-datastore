@@ -57,6 +57,7 @@ jobs:
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v3
       with:
+        token: ${{secrets.PR_TOKEN }}
         path: datastore
         commit-message: ${{ steps.get-data.outputs.title }}
         body: Closes issue ${{ steps.get-data.outputs.number }}
