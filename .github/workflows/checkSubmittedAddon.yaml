@@ -67,3 +67,4 @@ jobs:
       uses: peter-evans/enable-pull-request-automerge@v1
       with:
         token: ${{ secrets.PR_TOKEN }}
+        pull-request-number: ${{ steps.cpr.outputs.pull-request-number }}
