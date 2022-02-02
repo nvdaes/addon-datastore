@@ -55,9 +55,15 @@ jobs:
       run: runcreatejson addon.nvda-addon datastore/addons ${{ steps.get-data.outputs.channel }} ${{ steps.get-data.outputs.publisher }} ${{ steps.get-data.outputs.sourceUrl }} ${{ steps.get-data.outputs.downloadUrl }}
       shell: cmd
     - name: Create Pull Request
+      id: cpr
       uses: peter-evans/create-pull-request@v3
       with:
         token: ${{secrets.PR_TOKEN }}
         path: datastore
         commit-message: ${{ steps.get-data.outputs.title }}
         body: Closes issue ${{ steps.get-data.outputs.number }}
+    - name: Enable Pull Request Automerge
+      if: steps.cpr.outputs.pull-request-operation == 'created'
+      uses: peter-evans/enable-pull-request-automerge@v1
+      with:
+        token: ${{ secrets.PR_TOKEN }}
