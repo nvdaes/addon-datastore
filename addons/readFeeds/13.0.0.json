@@ -1,6 +1,6 @@
 {
 	"displayName": "Read Feeds",
-	"publisher": "nvdaes",
+	"publisher": "test",
 	"description": "Add-on for using NVDA as a feed reader.",
 	"homepage": "https://github.com/nvdaes/readFeeds",
 	"addonId": "readFeeds",
