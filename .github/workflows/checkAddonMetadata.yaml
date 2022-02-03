@@ -55,7 +55,7 @@ jobs:
           const diff_url = context.payload.pull_request.diff_url
           const result = await github.request(diff_url)
           const diff = result.data
-          if (diff.search(/-\s+"publisher":/) === -1) {
+          if (diff.search(/-\s+"publisher":/) !== -1) {
             throw "Publishers don't match"
           }
     - name: Checkout validate repo
