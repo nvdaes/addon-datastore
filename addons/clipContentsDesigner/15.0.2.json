@@ -20,7 +20,7 @@
 		"minor": 3,
 		"patch": 1
 	},
-	"channel": "beta",
+	"channel": "stable",
 	"URL": "https://github.com/nvdaes/clipContentsDesigner/releases/download/15.0.2/clipContentsDesigner-15.0.2.nvda-addon",
 	"sha256": "638c6fbde3e5b455b73d12c5f2f40516a6536daccfc10f96d51782b61bcb9f58",
 	"sourceURL": "https://github.com/nvdaes/clipContentsDesigner/",
