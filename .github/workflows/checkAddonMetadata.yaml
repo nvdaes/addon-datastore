@@ -74,6 +74,7 @@ jobs:
           return lastVer
     - name: Get last tested version
       run: |
+        import os
         import json
-        addon = json.load(${{ steps.getMetadata.outputs.result}})
+        addon = json.load(os.path.join(${{ github.workspace}}, ${{ steps.getMetadata.outputs.result}}))
       shell: python
