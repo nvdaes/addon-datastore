@@ -71,8 +71,8 @@ jobs:
       run: |
         import os
         import sys
-        sys.path.append(os.path.join(os.path.dirname(__file__), "transform", "src"))
-        from src.transform.transform import readAddons, readnvdaAPIVersionInfo
+        sys.path.append(os.path.join(os.path.dirname(__file__), "transform", "src", "transform"))
+        from transform import readAddons, readnvdaAPIVersionInfo
         versionsPath = os.path.join(os.path.dirname(__file__, "transform" "nvdaAPIVersions.json"))
         versions = readnvdaAPIVersionInfo(versionsPath)
         lastVersion = versions[-1]
