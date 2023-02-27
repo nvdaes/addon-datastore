@@ -69,16 +69,13 @@ jobs:
         path: transform
     - name: Check version
       run: |
-        import os
-        import sys
-        sys.path.append(os.path.join("${{ github.workspace }}", "transform", "src"" transform"))
-        import transform
-        from transform import readAddons, readnvdaAPIVersionInfo
+        import json
         versionsPath = os.path.join("${ github.workspace}}", "transform", "nvdaAPIVersions.json")
-        versions = readnvdaAPIVersionInfo(versionsPath)
-        lastVersion = versions[-1]
-        maxApiVer = lastVersion.apiVer
-        for addon in readAddons(os.path.dirname(__file__)):
-          if addon.lastTestedVersion > maxApiVer:
-            raise ValueError("Bad version")
+        versions = json.load(versionsPath)
+        maxVersion = versions[-1]
+        maxApiVer = maxVersion["apiVer"]
+        maxVerMajor = maxApiVer["major"]
+        lastTestedMajor = $ {{ steps.getMetadata.outputs.result}}.split(".")[0]
+        if int(lastTestedMajor) > maxVerMajor:
+          raise ValueError("Invalid last tested version")
       shell: python
