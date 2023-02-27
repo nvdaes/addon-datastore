@@ -72,3 +72,8 @@ jobs:
           const data = result.data
           const lastVer = data[-1]
           return lastVer
+    - name: Get last tested version
+      run: |
+        import json
+        addon = json.load(${{ steps.getMetadata.outputs.result}})
+      shell: python
