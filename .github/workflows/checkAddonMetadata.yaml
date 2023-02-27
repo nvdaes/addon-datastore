@@ -71,7 +71,7 @@ jobs:
       run: |
         import os
         import json
-        versionsPath = os.path.join("${ github.workspace}}", "transform", "nvdaAPIVersions.json")
+        versionsPath = os.path.join(${ github.workspace}}, "transform", "nvdaAPIVersions.json")
         versions = json.load(versionsPath)
         maxVersion = versions[-1]
         maxApiVer = maxVersion["apiVer"]
