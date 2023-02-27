@@ -69,6 +69,7 @@ jobs:
         path: transform
     - name: Check version
       run: |
+        import os
         import json
         versionsPath = os.path.join("${ github.workspace}}", "transform", "nvdaAPIVersions.json")
         versions = json.load(versionsPath)
