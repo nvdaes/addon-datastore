@@ -67,7 +67,7 @@ jobs:
       id: getVer
       with:
         script: |
-          const url = 'https://raw.githubusercontent.com/nvaccess/addon-datastore-transform/main/nvdaAPIVersions.json'
+          const url = https://raw.githubusercontent.com/nvaccess/addon-datastore-transform/main/nvdaAPIVersions.json
           const result = await github.request(url)
           const data = result.data
           const lastVer = data[-1]
