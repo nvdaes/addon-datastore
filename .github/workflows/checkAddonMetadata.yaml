@@ -68,22 +68,12 @@ jobs:
         repository: nvaccess/addon-datastore-transform
         path: transform
     - name: Check version
-      run: |
-        import os
-        import json
-        versionsPath = os.path.join(${ github.workspace}}, "transform", "nvdaAPIVersions.json")
-        versions = json.load(versionsPath)
-        maxVersion = versions[-1]
-        maxApiVer = maxVersion["apiVer"]
-        maxVerMajor = maxApiVer["major"]
-        maxVerMinor = maxApiVer["minor"]
-        maxVerPatch = maxApiVer["patch"]
-        addon = json.load("$ {{ steps.getMetadata.outputs.result}}")
-        lastTestedVersion = add-on["lastTestedVersion"]
-        if lastTestedVersion["major"] > maxVerMajor:
-          raise ValueError(f"Invalid last tested version: major > {maxVerMajor}")
-        if lastTestedVersionMajor == maxVerMajor:
-          if lastTestedVersionMinor > maxVerMinor:
-            raise ValueError(f"Invalid version minor: minor > {maxVerMinor}")
-           
-      shell: python
+    - name: Get API versions
+      uses: actions/github-script@v6
+      id: getVer
+      with:
+        script: |
+          const url = 'https://raw.githubusercontent.com/nvaccess/addon-datastore-transform/main/nvdaAPIVersions.json'
+          const result = await github.request(url)
+          const data = result.data
+          const lastVer = data[-1]
