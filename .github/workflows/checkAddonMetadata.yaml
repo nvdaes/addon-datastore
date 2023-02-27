@@ -62,12 +62,6 @@ jobs:
         pip install -r addon-datastore-validation/requirements.txt
     - name: Validate metadata
       run: addon-datastore-validation/runvalidate ${{steps.getMetadata.outputs.result}}
-    - name: Checkout transformation repo
-      uses: actions/checkout@v3
-      with:
-        repository: nvaccess/addon-datastore-transform
-        path: transform
-    - name: Check version
     - name: Get API versions
       uses: actions/github-script@v6
       id: getVer
@@ -77,3 +71,4 @@ jobs:
           const result = await github.request(url)
           const data = result.data
           const lastVer = data[-1]
+          return lastVer
