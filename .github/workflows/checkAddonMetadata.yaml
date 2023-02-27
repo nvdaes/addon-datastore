@@ -72,7 +72,7 @@ jobs:
         import os
         import sys
         sys.path.append(os.path.join("${{ github.workspace }}", "transform", "src", "transform"))
-        from transform import readAddons, readnvdaAPIVersionInfo
+        from ${{ github.workspace }}.transform.src.transform import readAddons, readnvdaAPIVersionInfo
         versionsPath = os.path.join("${ github.workspace}}", "transform", "nvdaAPIVersions.json")
         versions = readnvdaAPIVersionInfo(versionsPath)
         lastVersion = versions[-1]
