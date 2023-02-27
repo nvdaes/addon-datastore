@@ -77,7 +77,7 @@ jobs:
         maxVerMajor = maxApiVer["major"]
         maxVerMinor = maxApiVer["minor"]
         maxVerPatch = maxApiVer["patch"]
-        addon = json.load()"$ {{ steps.getMetadata.outputs.result}}")
+        addon = json.load("$ {{ steps.getMetadata.outputs.result}}")
         lastTestedVersion = add-on["lastTestedVersion"]
         if lastTestedVersion["major"] > maxVerMajor:
           raise ValueError(f"Invalid last tested version: major > {maxVerMajor}")
