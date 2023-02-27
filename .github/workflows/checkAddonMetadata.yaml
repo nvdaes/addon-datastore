@@ -71,10 +71,10 @@ jobs:
           const result = await github.request(url)
           const data = result.data
           const lastVer = data[-1]
+          const addon = JSON.parse(${{ steps.getMetadata.outputs.result}})
           return lastVer
-    - name: Get last tested version
-      run: |
-        import os
-        import json
-        addon = json.load(os.path.join(${{ github.workspace}}, ${{ steps.getMetadata.outputs.result}}))
-      shell: python
+    - name: get properties
+      id: getProperties
+      uses: zoexx/github-action-json-file-properties@release
+      with:
+        file_path: ${{steps.getMetadata.outputs.result}}
