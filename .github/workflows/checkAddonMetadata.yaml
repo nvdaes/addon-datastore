@@ -62,3 +62,22 @@ jobs:
         pip install -r addon-datastore-validation/requirements.txt
     - name: Validate metadata
       run: addon-datastore-validation/runvalidate ${{steps.getMetadata.outputs.result}}
+    - name: Checkout transformation repo
+      uses: actions/checkout@v3
+      with:
+        repository: nvaccess/addon-datastore-transform
+        path: transform
+    - name: Check versions
+      run: |
+       import os
+        import sys
+         import json
+          sys.path.append(os.path.join(os.path.dirname(__file__), "transform", "src"))
+        addon = json.load(${{steps.getMetadata.outputs.result}})
+          apiVersions = json.load(os.path.join("transform", "nvdaAPIVersions.json")
+             from transform.src.datastructures import MajorMinorPatch
+                      lastApiVersion = MajorMinorPatch(apiVersions[-1])
+         lastTestedVersion = MajorMinorPatch(addon.lastTestedVersion)
+         if lastTestedVersion > lastApiVersion:
+           raise ValueError("Invalid version")
+        shell: python
