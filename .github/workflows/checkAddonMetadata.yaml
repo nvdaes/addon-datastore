@@ -73,7 +73,7 @@ jobs:
         import sys
         sys.path.append(os.path.join("${{ github.workspace }}", "transform", "src"))
         from src.transform import readAddons, readnvdaAPIVersionInfo
-        versionsPath = os.path.join("${ github.workspace}}", "transform" "nvdaAPIVersions.json"))
+        versionsPath = os.path.join("${ github.workspace}}", "transform", "nvdaAPIVersions.json"))
         versions = readnvdaAPIVersionInfo(versionsPath)
         lastVersion = versions[-1]
         maxApiVer = lastVersion.apiVer
