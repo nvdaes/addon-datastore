@@ -60,6 +60,8 @@ jobs:
     - name: Checkout datastore repo
       uses: actions/checkout@v3
       with:
+        repository: nvdaes/datastore
+        ref: master
         path: datastore
     - name: Set up Python 3.8
       uses: actions/setup-python@v4
@@ -73,7 +75,7 @@ jobs:
       shell: cmd
     - name: Create Pull Request
       id: cpr
-      uses: peter-evans/create-pull-request@v3
+      uses: peter-evans/create-pull-request@v4
       with:
         token: ${{secrets.PR_TOKEN }}
         path: datastore
