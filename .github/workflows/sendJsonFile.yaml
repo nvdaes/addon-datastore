@@ -14,7 +14,7 @@ jobs:
     steps:
     - name: Get data
       id: get-data
-      uses: actions/github-script@v5
+      uses: actions/github-script@v6
       with:
         script: |
           // Allow identifying the issue later.
@@ -52,17 +52,16 @@ jobs:
           const licenseUrl = body.split(licenseUrlMd)[1].split(header3Prefix)[0].trim()
           core.setOutput('licenseUrl', licenseUrl)
     - name: Checkout validate repo
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         repository: nvaccess/addon-datastore-validation
         submodules: true
     - name: Checkout datastore repo
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
-        repository: nvaccess/addon-datastore
         path: datastore
     - name: Set up Python 3.8
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: 3.8
     - name: Download add-on
@@ -80,7 +79,7 @@ jobs:
         body: Closes issue ${{ steps.get-data.outputs.issueNumber }}
     - name: Enable Pull Request Automerge
       if: steps.cpr.outputs.pull-request-operation == 'created'
-      uses: peter-evans/enable-pull-request-automerge@v1
+      uses: peter-evans/enable-pull-request-automerge@v2
       with:
         token: ${{ secrets.PR_TOKEN }}
         pull-request-number: ${{ steps.cpr.outputs.pull-request-number }}
