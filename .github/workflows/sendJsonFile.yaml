@@ -86,3 +86,8 @@ jobs:
       with:
         token: ${{ secrets.PR_ACCESS_TOKEN }}
         pull-request-number: ${{ steps.cpr.outputs.pull-request-number }}
+    - name: Close Issue
+      uses: peter-evans/close-issue@v2
+      with:
+        issue-number: 1
+        comment: Auto-closing issue
