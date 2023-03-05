@@ -77,7 +77,7 @@ jobs:
         token: ${{secrets.PR_ACCESS_TOKEN }}
         path: datastore
         title: ${{ steps.get-data.outputs.issueTitle }}
-        branch: =${{ github.event.sender.login }}${{ steps.get-data.outputs.issueNumber }}
+        branch: ${{ github.event.sender.login }}${{ steps.get-data.outputs.issueNumber }}
         commit-message: ${{ steps.get-data.outputs.issueTitle }}
         body: Closes issue #${{ steps.get-data.outputs.issueNumber }}
     - name: Enable Pull Request Automerge
