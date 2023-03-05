@@ -23,7 +23,7 @@
 	},
 	"channel": "stable",
 	"publisher": "nvdaes",
-	"sourceURL": "https://github.com/nvdaes/emoticons//",
+	"sourceURL": "https://github.com/emoticons/",
 	"license": "GPL v2",
-	"licenseURL": "https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
+	"licenseURL": "https://www.gnu.org/licenses/gpl-2.0.html"
 }
