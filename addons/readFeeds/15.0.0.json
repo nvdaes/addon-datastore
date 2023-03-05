@@ -1,0 +1,29 @@
+{
+	"addonId": "readFeeds",
+	"displayName": "Read Feeds",
+	"URL": "https://github.com/nvdaes/readFeeds/releases/download/15.0/readFeeds-15.0.nvda-addon",
+	"description": "Add-on for using NVDA as a feed reader.",
+	"sha256": "bd62b8f5190793bd4e5cb510a17d30da5342c77794a4152590c2ffd7a9549c75",
+	"homepage": "https://github.com/nvdaes/readFeeds",
+	"addonVersionName": "15.0",
+	"addonVersionNumber": {
+		"major": 15,
+		"minor": 0,
+		"patch": 0
+	},
+	"minNVDAVersion": {
+		"major": 2019,
+		"minor": 3,
+		"patch": 0
+	},
+	"lastTestedVersion": {
+		"major": 2023,
+		"minor": 1,
+		"patch": 0
+	},
+	"channel": "stable",
+	"publisher": "nvdaes",
+	"sourceURL": "https://github.com/nvdaes/readFeeds/",
+	"license": "GPL v2",
+	"licenseURL": "https://www.gnu.org/licenses/gpl-2.0.html"
+}
