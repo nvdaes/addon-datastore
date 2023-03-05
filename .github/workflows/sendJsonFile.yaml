@@ -71,7 +71,7 @@ jobs:
       run: curl --location --output addon.nvda-addon ${{ steps.get-data.outputs.downloadUrl }}
     - name: Create json file
       run: |
-        validation\runcreatejson -f addon.nvda-addon --dir datastore\addons --channel=stable --publisher=${{ github.event.sender.login }} --sourceUrl=${{ steps.get-data.outputs.sourceUrl }} --url=${{ steps.get-data.outputs.downloadUrl }}
+        validation\runcreatejson -f addon.nvda-addon --dir datastore\addons --channel=${{ steps.get-data.outputs.releaseChannel }} --publisher=${{ github.event.sender.login }} --sourceUrl=${{ steps.get-data.outputs.sourceUrl }} --url=${{ steps.get-data.outputs.downloadUrl }} --licName=${{ steps.get-data.outputs.licenseName }} --licUrl=${{ steps.get-data.outputs.licenseURL }}
       shell: cmd
     - name: Create Pull Request
       id: cpr
