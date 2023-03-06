@@ -12,14 +12,18 @@ jobs:
     name: Check add-on
     runs-on: windows-latest
     steps:
-    - name: Checkout to access .js file
-      uses: actions/checkout@v3    
+    - name: Checkout datastore repo
+      uses: actions/checkout@v3
+      with:
+        repository: nvdaes/addon-datastore
+        ref: master
+        path: datastore
     - name: Get data
       id: get-data
       uses: actions/github-script@v6
       with:
         script: |
-          const script = require('./getData.js')
+          const script = require('./datastore/github/workflows/getData.js')
           script({context, core})
     - name: Checkout validate repo
       uses: actions/checkout@v3
@@ -27,12 +31,6 @@ jobs:
         repository: nvaccess/addon-datastore-validation
         submodules: true
         path: validation
-    - name: Checkout datastore repo
-      uses: actions/checkout@v3
-      with:
-        repository: nvdaes/addon-datastore
-        ref: master
-        path: datastore
     - name: Set up Python 3.8
       uses: actions/setup-python@v4
       with:
