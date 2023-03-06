@@ -23,7 +23,7 @@ jobs:
       uses: actions/github-script@v6
       with:
         script: |
-          const script = require('datastore/getData.js')
+          const script = require('./datastore/getData.js')
           script({context, core})
     - name: Checkout validate repo
       uses: actions/checkout@v3
