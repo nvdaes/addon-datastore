@@ -3,9 +3,7 @@ name: Send json file
 on:
   issues:
     types: 
-      - opened
-      - reopened
-      - edited
+      - labeled
 
 jobs:
   check-addon:
