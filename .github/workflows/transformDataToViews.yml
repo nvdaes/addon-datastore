@@ -20,12 +20,12 @@ jobs:
     - name: Checkout addon data
       uses: actions/checkout@v3
       with:
-        repository: nvaccess/addon-datastore
+        repository: nvdaes/addon-datastore
         path: data
     - name: Checkout views branch into separate folder
       uses: actions/checkout@v3
       with:
-        repository: nvaccess/addon-datastore
+        repository: nvdaes/addon-datastore
         path: views
         ref: views
     - name: Checkout transformation repo
