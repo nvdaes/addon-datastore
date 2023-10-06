@@ -14,13 +14,12 @@ jobs:
           script: |
             const query = `query($owner:String!, $name:String!) {
               repository(owner:$owner, name:$name){
+                id
+                name
                 discussionCategories(first: 10) {
-                  edges {
-                    node {
-                      id
-                      name
-                    }
-                    cursor
+                  nodes {
+                    id
+                    name
                   }
                 }
               }
@@ -31,4 +30,3 @@ jobs:
             }
             const result = await github.graphql(query, variables)
             console.log(result)
-          result-encoding: string
