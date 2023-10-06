@@ -20,11 +20,9 @@ jobs:
         uses: abirismyname/create-discussion@v1.1.0
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}      
-          REPO_ID: '232845702'
-          CAT_ID: 'DIC_kwDODeDxhs4CZ6Q7'
         with:
           title: Feelings
           body: |
             Let's talk!
-          repository-id: ${{ env.REPO_ID }}
-          category-id: ${{ env.CAT_ID }}  
+          repository-id: '232845702'
+          category-id: 'DIC_kwDODeDxhs4CZ6Q7'
