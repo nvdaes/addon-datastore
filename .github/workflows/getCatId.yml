@@ -14,8 +14,6 @@ jobs:
           script: |
             const query = `query($owner:String!, $name:String!) {
               repository(owner:$owner, name:$name){
-                id
-                name
                 discussionCategories(first: 10) {
                   nodes {
                     id
@@ -29,4 +27,4 @@ jobs:
               name: context.repo.repo
             }
             const result = await github.graphql(query, variables)
-            console.log(result.data)
+            console.log(result.data.discussionCategories.nodes[0].id)
