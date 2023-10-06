@@ -21,5 +21,5 @@ jobs:
           const mutation = `mutation {
             createDiscussion(input: {repositoryId: "232845702", categoryId: "DIC_kwDODeDxhs4CZ6Q7", body: "The body", title: "The title"}) {
           }`;
-          { discussion: { id } }
+          { discussion: { title } { body } }
           github.graphql(mutation)
