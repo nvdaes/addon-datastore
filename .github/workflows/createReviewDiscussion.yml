@@ -24,7 +24,7 @@ jobs:
               id 
              }
             }
-          }
+          }`;
           github.graphql(mutation)
 
                     
