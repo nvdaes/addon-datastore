@@ -1,0 +1,33 @@
+# https://github.com/nvaccess/addon-datastore-transform/
+
+name: Create GitHub Discussion
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+
+jobs:
+  createGitHubDiscussion:
+    runs-on: windows-latest
+
+    
+    steps:
+      - name: Create a new GitHub Discussion
+        id: create-discussion
+        uses: abirismyname/create-discussion@v1.x
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}      
+          REPO_ID: 232845702
+          CAT_ID: DIC_kwDODeDxhs4CZ6Q7
+        with:
+          title: Feelings
+          body: |
+            Let's talk!
+          repository-id: ${{ env.REPO_ID }}
+          category-id: ${{ env.CAT_ID }}  
+      - name: Print discussion url and id
+        run: |
+          echo discussion-id: ${{steps.create-discussion.outputs.discussion-id}} 
+          echo discussion-url: ${{steps.create-discussion.outputs.discussion-url}}             
+          
