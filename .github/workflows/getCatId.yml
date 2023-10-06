@@ -31,4 +31,4 @@ jobs:
             }
             const result = await github.graphql(query, variables)
             console.log(result)
-            result-encoding: string
+          result-encoding: string
