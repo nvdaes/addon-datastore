@@ -27,4 +27,4 @@ jobs:
               name: context.repo.repo
             }
             const result = await github.graphql(query, variables)
-            console.log(result.data.discussionCategories.nodes[0].id)
+            console.log(result)
