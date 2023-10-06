@@ -18,8 +18,8 @@ jobs:
         uses: abirismyname/create-discussion@v1.x
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}      
-          REPO_ID: 232845702
-          CAT_ID: DIC_kwDODeDxhs4CZ6Q7
+          REPO_ID: '232845702'
+          CAT_ID: 'DIC_kwDODeDxhs4CZ6Q7'
         with:
           title: Feelings
           body: |
