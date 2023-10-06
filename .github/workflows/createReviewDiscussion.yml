@@ -26,8 +26,3 @@ jobs:
             Let's talk!
           repository-id: ${{ env.REPO_ID }}
           category-id: ${{ env.CAT_ID }}  
-      - name: Print discussion url and id
-        run: |
-          echo discussion-id: ${{steps.create-discussion.outputs.discussion-id}} 
-          echo discussion-url: ${{steps.create-discussion.outputs.discussion-url}}             
-          
