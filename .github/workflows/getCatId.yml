@@ -1,0 +1,33 @@
+name: Test
+on:
+  workflow_call:
+  workflow_dispatch:
+
+
+
+jobs:
+  get-cat-id:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            const query = `query($owner:String!, $name:String!) {
+              repository(owner:$owner, name:$name){
+                discussionCategories(first: 10) {
+                  edges {
+                    node {
+                      id
+                      name
+                    }
+                    cursor
+                  }
+                }
+              }
+            }`;
+            const variables = {
+              owner: context.repo.owner,
+              name: context.repo.repo
+            }
+            const result = await github.graphql(query, variables)
+            console.log(result)
