@@ -15,15 +15,9 @@ jobs:
 
 
     steps:
-      - uses: actions/checkout@v3
-      - name: Create a new GitHub Discussion
-        id: create-discussion
-        uses: abirismyname/create-discussion@v1.1.0
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}      
-        with:
-          title: Feelings
-          body: |
-            Let's talk!
-          repository-id: '232845702'
-          category-id: 'DIC_kwDODeDxhs4CZ6Q7'
+    - uses: actions/github-script@v6
+      with:
+        script: |
+          const mutation = `mutation {
+            createDiscussion(input: {repositoryId: "232845702", categoryId: "DIC_kwDODeDxhs4CZ6Q7", body: "The body", title: "The title"}) {
+          }`;
