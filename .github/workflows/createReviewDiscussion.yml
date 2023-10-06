@@ -20,6 +20,11 @@ jobs:
         script: |
           const mutation = `mutation {
             createDiscussion(input: {repositoryId: "232845702", categoryId: "DIC_kwDODeDxhs4CZ6Q7", body: "The body", title: "The title"}) {
-          }`;
-          { discussion: { title } { body } }
+            discussion {
+              id 
+             }
+            }
+          }
           github.graphql(mutation)
+
+                    
