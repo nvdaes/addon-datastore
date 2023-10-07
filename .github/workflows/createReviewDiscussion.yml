@@ -1,24 +1,30 @@
+# https://github.com/nvaccess/addon-datastore-transform/
+
 name: Create GitHub Discussion
 
 on:
   workflow_call:
   workflow_dispatch:
 
+
 jobs:
   createGitHubDiscussion:
     runs-on: windows-latest
     permissions:
       discussions: write
-    
+
+
     steps:
-      - name: Create discussion
-        uses: abirismyname/create-discussion@v1.1.0
-        env:
-          REPO_ID: MDEwOlJlcG9zaXRvcnkyMzI4NDU3MDI=
-          CAT_ID: DIC_kwDODeDxhs4CZ6Q7
-        with:
-          title: Reviews for add-on x
-          body: Version 0.0.0
-          repository-id: env.REPO_ID
-          category-id: env.CAT_ID
-        
+    - uses: actions/github-script@v6
+      with:
+        script: |
+          const mutation = `mutation {
+            createDiscussion(input: {repositoryId: "MDEwOlJlcG9zaXRvcnkyMzI4NDU3MDI=", categoryId: "DIC_kwDODeDxhs4CZ6Q7", body: "The body", title: "The title"}) {
+            discussion {
+              id 
+             }
+            }
+          }`;
+          github.graphql(mutation)
+
+                    
