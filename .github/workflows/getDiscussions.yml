@@ -12,7 +12,7 @@ jobs:
       - uses: actions/github-script@v6
         with:
           script: |
-            const query = `query($owner:String!, $name:String!, categoryId: ID!) {
+            const query = `query($owner:String!, $name:String!) {
               repository(owner:$owner, name:$name){
                 discussions(first: 10, categoryId: "DIC_kwDODeDxhs4CZ6Q6") {
                   nodes {
