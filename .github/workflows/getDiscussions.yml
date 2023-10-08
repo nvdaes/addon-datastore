@@ -16,11 +16,9 @@ jobs:
           script: |
             const query = `query($owner:String!, $name:String!) {
               repository(owner:$owner, name:$name){
-                discussions() {
+                discussions(categoryId='DIC_kwDODeDxhs4CZ6Q6') {
                   nodes {
                     id
-                    title
-                    category
                   }
                 }
               }
