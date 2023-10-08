@@ -8,15 +8,15 @@ on:
 
 
 jobs:
-  get-cat-id:
+  getdiscus:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/github-script@v6
         with:
           script: |
-            const query = `query($owner:String!, $name:String!, $title:String!) {
+            const query = `query($owner:String!, $name:String!) {
               repository(owner:$owner, name:$name){
-                discussions(first:100, title: $title) {
+                discussions(first:100) {
                   nodes {
                     id
                   }
@@ -25,8 +25,7 @@ jobs:
             }`;
             const variables = {
               owner: context.repo.owner,
-              name: context.repo.repo,
-              title: 'The title'
+              name: context.repo.repo
             }
             const result = await github.graphql(query, variables)
             console.log(JSON.stringify(result))
