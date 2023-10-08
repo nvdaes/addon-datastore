@@ -1,14 +1,12 @@
 # https://qiita.com/shooter/items/d59fbb43d0f118c95092
 
-name: Test
+name: Get discussions
 on:
   workflow_call:
   workflow_dispatch:
 
-
-
 jobs:
-  getdiscus:
+  get-discus:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/github-script@v6
@@ -16,7 +14,7 @@ jobs:
           script: |
             const query = `query($owner:String!, $name:String!) {
               repository(owner:$owner, name:$name){
-                discussions(first: 10, categoryId='DIC_kwDODeDxhs4CZ6Q6') {
+                discussions(first: 10) {
                   nodes {
                     id
                   }
