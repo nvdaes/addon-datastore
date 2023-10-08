@@ -25,6 +25,3 @@ jobs:
             }
           }`;
           github.graphql(mutation)
-          console.log(JSON.stringify(mutation.discussion))
-
-                    
