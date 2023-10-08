@@ -12,9 +12,9 @@ jobs:
       - uses: actions/github-script@v6
         with:
           script: |
-            const query = `query($owner:String!, $name:String!) {
+            const query = `query($owner:String!, $name:String!, categoryId: ID!) {
               repository(owner:$owner, name:$name){
-                discussions(first: 10) {
+                discussions(first: 10, categoryId:$categoryId) {
                   nodes {
                     id
                   }
@@ -23,7 +23,8 @@ jobs:
             }`;
             const variables = {
               owner: context.repo.owner,
-              name: context.repo.repo
+              name: context.repo.repo,
+              categoryId: 'DIC_kwDODeDxhs4CZ6Q6'
             }
             const result = await github.graphql(query, variables)
             console.log(JSON.stringify(result))
