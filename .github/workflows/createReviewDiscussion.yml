@@ -35,7 +35,7 @@ jobs:
         body: |
           Let's talk!
         repository-id: 'MDEwOlJlcG9zaXRvcnkyMzI4NDU3MDI='
-        category-id: 'DIC_kwDODeDxhs4CZ6Q7'
+        category-id: 'DIC_kwDODeDxhs4CZ6Q6'
     - name: Print discussion url and id
       run: |
         echo discussion-id: ${{steps.create-discussion.outputs.discussion-id}} 
