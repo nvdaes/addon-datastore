@@ -1,0 +1,32 @@
+# https://qiita.com/shooter/items/d59fbb43d0f118c95092
+
+name: Test
+on:
+  workflow_call:
+  workflow_dispatch:
+
+
+
+jobs:
+  get-cat-id:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            const query = `query($owner:String!, $name:String!, $title:String!) {
+              repository(owner:$owner, name:$name){
+                discussions(first:100, title: $title) {
+                  nodes {
+                    id
+                  }
+                }
+              }
+            }`;
+            const variables = {
+              owner: context.repo.owner,
+              name: context.repo.repo,
+              title: 'The title'
+            }
+            const result = await github.graphql(query, variables)
+            console.log(JSON.stringify(result))
