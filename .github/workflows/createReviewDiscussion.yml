@@ -25,3 +25,18 @@ jobs:
             }
           }`;
           github.graphql(mutation)
+    - name: Create a new GitHub Discussion
+      id: create-discussion
+      uses: abirismyname/create-discussion@v1.x
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}      
+      with:
+        title: Feelings
+        body: |
+          Let's talk!
+        repository-id: 'MDEwOlJlcG9zaXRvcnkyMzI4NDU3MDI='
+        category-id: 'DIC_kwDODeDxhs4CZ6Q7'
+    - name: Print discussion url and id
+      run: |
+        echo discussion-id: ${{steps.create-discussion.outputs.discussion-id}} 
+        echo discussion-url: ${{steps.create-discussion.outputs.discussion-url}}             
