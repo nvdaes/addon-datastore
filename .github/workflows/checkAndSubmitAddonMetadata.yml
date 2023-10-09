@@ -240,6 +240,22 @@ jobs:
         # If there is a different error, a different non-zero exit code is used.
         exit $? # Exit with the same exit code as jq
 
+    - name: Create review comment
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const fs = require('fs')
+          const data = JSON.parse(fs.readFileSync('discussions.json'))
+          const addonId = ${{ steps.getAddonIdAndVersion.outputs.addonId }}
+          const discussionId = data.addonId
+          const mutation = `mutation {
+            addDiscussionComment(input: {body: "Version ${{ steps.getAddonIdAndVersion.outputs.addonVersion }}", discussionId}) {
+              clientMutationId
+              comment
+             }
+            }
+          }`;
+          github.graphql(mutation)
     - name: Create discussion for add-on id
       id: createDiscussion
       if: failure()
