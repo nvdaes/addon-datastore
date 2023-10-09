@@ -232,9 +232,6 @@ jobs:
         )
         jqCode="
         . | .[\"$addonId\"]
-        | select(
-          .discussionId
-        )
         "
   
         jq -e "$jqCode" discussions.json
