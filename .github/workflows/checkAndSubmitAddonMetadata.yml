@@ -245,9 +245,9 @@ jobs:
       with:
         script: |
           const fs = require('fs')
-          const data = JSON.parse(fs.readFileSync('./discussions.json'))
+          const data = JSON.parse(fs.readFileSync('./github/workflows/discussions.json'))
           const addonId = ${{ steps.getAddonIdAndVersion.outputs.addonId }}
-          const discussionId = data["addonId"]["discussionId"]
+          const discussionId = data.addonId.discussionId
           const mutation = `mutation {
             addDiscussionComment(input: {body: "Version ${{ steps.getAddonIdAndVersion.outputs.addonVersion }}", discussionId}) {
               clientMutationId
