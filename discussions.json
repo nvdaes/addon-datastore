@@ -1,1 +1,10 @@
-{}
+{
+  "reportSymbols": {
+    "discussionId": [
+      "$ {{ createDiscussion.outputs.discussion-id }}"
+    ],
+    "discussionUrl": [
+      "$ {{ createDiscussion.outputs.discussion-url }}"
+    ]
+  }
+}
