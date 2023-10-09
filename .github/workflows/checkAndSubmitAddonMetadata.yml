@@ -276,8 +276,8 @@ jobs:
           | sed -r "s|addons/(.*)/.*\.json|\1|g"
         )
         jqCode="
-        .[\"$addonId\"].discussionId = [\"$ {{ steps.createDiscussion.outputs.discussion-id }}\"]
-        | .[\"$addonId\"].discussionUrl = [\"$ {{ steps.createDiscussion.outputs.discussion-url }}\"]
+        .[\"$addonId\"].discussionId = \"$ {{ steps.createDiscussion.outputs.discussion-id }}\"
+        | .[\"$addonId\"].discussionUrl = \"$ {{ steps.createDiscussion.outputs.discussion-url }}\"
         "
   
         mv discussions.json discussions.old.json
