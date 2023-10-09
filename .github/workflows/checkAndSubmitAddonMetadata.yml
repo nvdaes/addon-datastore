@@ -245,8 +245,8 @@ jobs:
       with:
         script: |
           const fs = require('fs')
-          const data = JSON.parse(fs.readFileSync('./discussions.json'))
-          console.log(data)
+          const fileContents = fs.readFileSync('./discussions.json')
+          const data = JSON.parse(fileContents)
           const addonId = ${{ steps.getAddonIdAndVersion.outputs.addonId }}
           const discussionId = data.addonId.discussionId
           const mutation = `mutation {
