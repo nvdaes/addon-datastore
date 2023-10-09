@@ -251,7 +251,7 @@ jobs:
         category-id: 'DIC_kwDODeDxhs4CZ6Q6'
         title: Reviews for ${{ steps.getAddonIdAndVersion.outputs.addonId }} add-on
         body: |
-          Version ${{ steps.getAddonIdAndVersion.outputs.version }}
+          Version ${{ steps.getAddonIdAndVersion.outputs.addonVersion }}
     - name: Add add-on ID and discussion data to json file
       if: failure()
       run: |
@@ -269,3 +269,11 @@ jobs:
         jqExitCode=$?
         rm discussions.old.json
         exit $jqExitCode
+    - name: Commit and push
+      if: failure()
+      run: |
+        git config user.name github-actions
+        git config user.email github-actions@github.com
+        git add .
+        git commit -m "Update discussions.json"
+        git push
