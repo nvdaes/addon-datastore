@@ -221,7 +221,7 @@ jobs:
           const addonFilename = ${{ needs.getAddonFilename.outputs.addonFileName }}
           const addonId = addonFilename.split('/')[1]
           core.setOutput('addonId', addonId)
-          const addonVersion = addonFilename.split('/')[2].slice(0, -6)
+          const addonVersion = addonFilename.split('/')[2].replace('json', '')
           core.setOutput('addonVersion', addonVersion)
     - name: Check if discussion for this add-on exists
       id: checkDiscussion
@@ -260,8 +260,8 @@ jobs:
           | sed -r "s|addons/(.*)/.*\.json|\1|g"
         )
         jqCode="
-        .[\"$addonId\"].discussionId = [\"$ {{ createDiscussion.outputs.discussion-id }}\"]
-        | .[\"$addonId\"].discussionUrl = [\"$ {{ createDiscussion.outputs.discussion-url }}\"]
+        .[\"$addonId\"].discussionId = [\"$ {{ steps.createDiscussion.outputs.discussion-id }}\"]
+        | .[\"$addonId\"].discussionUrl = [\"$ {{ steps.createDiscussion.outputs.discussion-url }}\"]
         "
   
         mv discussions.json discussions.old.json
