@@ -198,3 +198,61 @@ jobs:
   call-workflow:
     needs: mergeToMaster
     uses: ./.github/workflows/transformDataToViews.yml
+
+  createReviewComment:
+    # jq for windows has issues parsing multiline strings (e.g. CRLF),
+    # use linux instead.
+    runs-on: ubuntu-latest
+    needs: [getAddonFilename]
+    strategy:
+      matrix:
+        python-version: [ 3.11 ]
+    permissions:
+      contents: write
+      discussions: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Check if discussion for this add-on exists
+        id: checkDiscussion
+        run: |
+          addonId=$(
+            echo ${{ needs.getAddonFilename.outputs.addonFileName }} \
+            | sed -r "s|addons/(.*)/.*\.json|\1|g"
+          )
+          jqCode="
+          . | .[\"$addonId\"]
+          )
+          "
+  
+          jq -e "$jqCode" submitters.json
+          # -e only sets the exit status of jq to 0 if there is "truthy" output.
+          # If no valid result is produced, i.e. no add-on id is found, jq exits with status 4.
+          # If there is a different error, a different non-zero exit code is used.
+          exit $? # Exit with the same exit code as jq
+      - name: Create discussion for add-on id
+        id: createDiscussion
+        uses: abirismyname/create-discussion@v1.1.0
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}      
+        with:
+          title: Feelings
+          body: |
+            Let's talk!
+      - name: Add add-on ID and discussion data to json file
+        if: failure()
+        run: |
+          addonId=$(
+            echo ${{ needs.getAddonFilename.outputs.addonFileName }} \
+            | sed -r "s|addons/(.*)/.*\.json|\1|g"
+          )
+          jqCode="
+          .[\"$addonId\"].discussionId = [\"$ {{ createDiscussion.outputs.discussion-id }}\"]
+          | .[\"$addonId\"].discussionUrl = [\"$ {{ createDiscussion.outputs.discussion-url }}\"]
+          "
+  
+          mv discussions.json discussions.old.json
+          jq -e "$jqCode" discussions.old.json > discussions.json
+          jqExitCode=$?
+          rm discuss.old.json
+          exit $jqExitCode
