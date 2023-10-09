@@ -237,9 +237,10 @@ jobs:
       uses: actions/github-script@v6
       with:
         script: |
-          const addonId = ${{ needs.getFilename }}.split('/', 1)
+          const addonFilename = ${{ needs.getAddonFilename.outputs.addonFileName }}
+          const addonId = addonFilename.split('/')[1]
           core.setOutput('addonId', addonId)
-          const addonVersion = ${{ needs.getFilename  }}.split('/')[2].slice(0, -6)
+          const addonVersion = addonFilename.split('/')[2].slice(0, -6)
           core.setOutput('addonVersion', addonVersion)
     - name: Create discussion for add-on id
       id: createDiscussion
