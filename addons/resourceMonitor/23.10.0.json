@@ -1,13 +1,13 @@
 {
 	"addonId": "resourceMonitor",
 	"displayName": "Resource Monitor",
-	"URL": "https://github.com/kefaslungu/resourceMonitor/releases/download/23.09/resourceMonitor-23.09.nvda-addon",
+	"URL": "https://github.com/kefaslungu/resourceMonitor/releases/download/23.10/resourceMonitor-23.10.nvda-addon",
 	"description": "A handy resource monitor to report CPU load, memory usage, battery, disk usage status and more.",
-	"sha256": "358a9d1ad15e7cdd09bd335b980c6d8fde04504c702c69400a2aedc8cb9ef35a",
-	"addonVersionName": "23.09",
+	"sha256": "35f575f2cccdf409d1897b22efdb5b14ec85c02d55df3b9beb15910136409eab",
+	"addonVersionName": "23.10",
 	"addonVersionNumber": {
 		"major": 23,
-		"minor": 9,
+		"minor": 10,
 		"patch": 0
 	},
 	"minNVDAVersion": {
@@ -16,8 +16,8 @@
 		"patch": 0
 	},
 	"lastTestedVersion": {
-		"major": 2024,
-		"minor": 1,
+		"major": 2023,
+		"minor": 3,
 		"patch": 0
 	},
 	"channel": "stable",
@@ -175,7 +175,7 @@
 		{
 			"language": "tr",
 			"displayName": "Kaynak \u0130zleme",
-			"description": "A handy resource monitor to report CPU load, memory usage, battery, disk usage status and more."
+			"description": "CPU y\u00fck\u00fc, haf\u0131za kullan\u0131m\u0131, pil ve disk kullan\u0131m durumunu takip etmek ve daha fazlas\u0131 i\u00e7in pratik bir ara\u00e7."
 		},
 		{
 			"language": "uk",
