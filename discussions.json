@@ -1,6 +1,6 @@
 {
   "reportSymbols": {
-    "discussionId": "$ {{ steps.createDiscussion.outputs.discussion-id }}",
-    "discussionUrl": "$ {{ steps.createDiscussion.outputs.discussion-url }}"
+    "discussionId": "D_kwDODeDxhs4AV0Fm",
+    "discussionUrl": "https://github.com/nvdaes/addon-datastore/discussions/167"
   }
 }
