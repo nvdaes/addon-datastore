@@ -222,6 +222,8 @@ jobs:
           )
           jqCode="
           . | .[\"$addonId\"]
+          | select(
+            .discussionId
           )
           "
   
