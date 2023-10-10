@@ -247,7 +247,7 @@ jobs:
           const fs = require('fs')
           const contents = fs.readFileSync('discussions.json')
           const data = JSON.parse(contents)
-          const addonId = ${{ steps.getAddonIdAndVersion.outputs.addonId }}
+          const addonId = "${{ steps.getAddonIdAndVersion.outputs.addonId }}""
           console.log(data[addonId])
     - name: Create discussion for add-on id
       id: createDiscussion
