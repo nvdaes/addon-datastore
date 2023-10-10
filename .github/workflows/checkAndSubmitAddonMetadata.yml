@@ -245,9 +245,8 @@ jobs:
         script: |
           const mutation = `mutation {
             addDiscussionComment(input: {repositoryId: "MDEwOlJlcG9zaXRvcnkyMzI4NDU3MDI=", categoryId: "DIC_kwDODeDxhs4CZ6Q7", body: "The body", title: "The title"}) {
-              discussion {
-                id 
-              }
+              comment
+
             }
           }`;
           github.graphql(mutation)
