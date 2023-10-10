@@ -234,7 +234,6 @@ jobs:
         . | .[\"$addonId\"]
         "
         jq -e "$jqCode" discussions.json
-        jq -e "$jqCode" discussions.json
         # -e only sets the exit status of jq to 0 if there is "truthy" output.
         # If no valid result is produced, i.e. no add-on id is found, jq exits with status 4.
         # If there is a different error, a different non-zero exit code is used.
@@ -248,16 +247,26 @@ jobs:
           const contents = fs.readFileSync('discussions.json')
           const data = JSON.parse(contents)
           const addonId = "${{ steps.getAddonIdAndVersion.outputs.addonId }}"
-          console.log(data[addonId])
+          const addonVersion = "${{ steps.getAddonIdAndVersion.outputs.addonVersion }}"
+          const mutation = `mutation {
+            addDiscussionComment(input: {body: addonVersion, discussionId}) {
+            discussion {
+              id 
+             }
+            }
+          }`;
+          github.graphql(mutation)
     - name: Create discussion for add-on id
       id: createDiscussion
       if: failure()
       uses: abirismyname/create-discussion@v1.1.0
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}      
+        REPO_ID: 'MDEwOlJlcG9zaXRvcnkyMzI4NDU3MDI='
+        CAT_ID: 'DIC_kwDODeDxhs4CZ6Q6'
       with:
-        repository-id: 'MDEwOlJlcG9zaXRvcnkyMzI4NDU3MDI='
-        category-id: 'DIC_kwDODeDxhs4CZ6Q6'
+        repository-id: env.REPO_ID
+        category-id: env.CAT_ID
         title: Reviews for ${{ steps.getAddonIdAndVersion.outputs.addonId }} add-on
         body: |
           Version ${{ steps.getAddonIdAndVersion.outputs.addonVersion }}
