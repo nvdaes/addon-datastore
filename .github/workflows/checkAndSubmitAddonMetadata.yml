@@ -266,8 +266,8 @@ jobs:
         REPO_ID: 'MDEwOlJlcG9zaXRvcnkyMzI4NDU3MDI='
         CAT_ID: 'DIC_kwDODeDxhs4CZ6Q6'
       with:
-        repository-id: $env.REPO_ID
-        category-id: $env.CAT_ID
+        repository-id: 'MDEwOlJlcG9zaXRvcnkyMzI4NDU3MDI='
+        category-id: 'DIC_kwDODeDxhs4CZ6Q6'
         title: Reviews for ${{ steps.getAddonIdAndVersion.outputs.addonId }} add-on
         body: |
           Version ${{ steps.getAddonIdAndVersion.outputs.addonVersion }}
