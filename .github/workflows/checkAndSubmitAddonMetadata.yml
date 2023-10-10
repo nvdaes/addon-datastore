@@ -243,10 +243,15 @@ jobs:
       uses: actions/github-script@v6
       with:
         script: |
+          const fs = require('fs')
+          const contents = fs.readFileSync('discussions.json')
+          const data = JSON.parse(contents)
+          const addonId = "${{ steps.getAddonIdAndVersion.outputs.addonId }}"
+          const addonVersion = "${{ steps.getAddonIdAndVersion.outputs.addonVersion }}"
+          const discussionId = data[addonId]["discussionId"]
           const mutation = `mutation {
-            addDiscussionComment(input: {repositoryId: "MDEwOlJlcG9zaXRvcnkyMzI4NDU3MDI=", categoryId: "DIC_kwDODeDxhs4CZ6Q7", body: "The body", title: "The title"}) {
+            addDiscussionComment(input: {body: ${addonVersion}, discussionId: ${discussionId}}) {
               comment
-
             }
           }`;
           github.graphql(mutation)
