@@ -248,7 +248,7 @@ jobs:
           const data = JSON.parse(contents)
           const addonId = "${{ steps.getAddonIdAndVersion.outputs.addonId }}"
           const addonVersion = "${{ steps.getAddonIdAndVersion.outputs.addonVersion }}"
-          const discussionId = data[addonId]
+          const discussionId = data[addonId]["discussionId"]
           const mutation = `mutation {
             addDiscussionComment(input: {body: ${addonVersion}, ${discussionId}}) {
             discussion {
