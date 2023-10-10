@@ -250,7 +250,7 @@ jobs:
           const addonVersion = "${{ steps.getAddonIdAndVersion.outputs.addonVersion }}"
           const discussionId = data[addonId]["discussionId"]
           const mutation = `mutation {
-            addDiscussionComment(input: {body: ${addonVersion}, ${discussionId}}) {
+            addDiscussionComment(input: {body: hello, id ${discussionId}}) {
               clientMutationId
               comment
              }
@@ -266,8 +266,8 @@ jobs:
         REPO_ID: 'MDEwOlJlcG9zaXRvcnkyMzI4NDU3MDI='
         CAT_ID: 'DIC_kwDODeDxhs4CZ6Q6'
       with:
-        repository-id: env.REPO_ID
-        category-id: env.CAT_ID
+        repository-id: $env.REPO_ID
+        category-id: $env.CAT_ID
         title: Reviews for ${{ steps.getAddonIdAndVersion.outputs.addonId }} add-on
         body: |
           Version ${{ steps.getAddonIdAndVersion.outputs.addonVersion }}
