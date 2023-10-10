@@ -240,22 +240,13 @@ jobs:
         exit $? # Exit with the same exit code as jq
 
     - name: Create review comment
-      uses: actions/github-script@v6
-      with:
-        script: |
-          const fs = require('fs')
-          const contents = fs.readFileSync('discussions.json')
-          const data = JSON.parse(contents)
-          const addonId = "${{ steps.getAddonIdAndVersion.outputs.addonId }}"
-          const addonVersion = "${{ steps.getAddonIdAndVersion.outputs.addonVersion }}"
-          const discussionId = data[addonId]["discussionId"]
-          const mutation = `mutation {
-            addDiscussionComment(input: {body: ${addonVersion}, id: ${discussionId}}) {
-              comment
-             }
-            }
-          }`;
-          github.graphql(mutation)
+      - name: Create comment
+        uses: peter-evans/create-or-update-comment@v3
+        with:
+          issue-number: 238
+          body: |
+            This is a multi-line test comment
+            - With GitHub **Markdown** :sparkles:
     - name: Create discussion for add-on id
       id: createDiscussion
       if: failure()
