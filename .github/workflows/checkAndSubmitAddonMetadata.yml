@@ -244,15 +244,16 @@ jobs:
       uses: actions/github-script@v6
       with:
         script: |
-        try {
-          const fs = require('fs')
-          const contents = fs.readFileSync('discussions.json')
-          const data = JSON.parse(contents)
-        } catch(err) {
-          core.error("Error json")
-          core.setFailed(err)
-        }
-                                        const discussionId = data.addonId.discussionId
+          try {
+            const fs = require('fs')
+            const contents = fs.readFileSync('discussions.json')
+            const data = JSON.parse(contents)
+            var addonId = ${{ steps.getAddonIdAndVersion }}.outputs.addonId
+            var discussionId = data.addonId.discussionId
+          } catch(err) {
+            core.error("Error json")
+            core.setFailed(err)
+          }
           const mutation = `mutation {
             addDiscussionComment(input: {body: "Version ${{ steps.getAddonIdAndVersion.outputs.addonVersion }}", discussionId}) {
               clientMutationId
