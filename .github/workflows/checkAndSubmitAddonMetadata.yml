@@ -251,8 +251,8 @@ jobs:
           const discussionId = data[addonId]["discussionId"]
           const mutation = `mutation {
             addDiscussionComment(input: {body: ${addonVersion}, ${discussionId}}) {
-            discussion {
-              id 
+              clientMutationId
+              comment
              }
             }
           }`;
