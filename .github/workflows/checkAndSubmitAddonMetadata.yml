@@ -240,12 +240,17 @@ jobs:
         exit $? # Exit with the same exit code as jq
 
     - name: Create review comment
-      uses: peter-evans/create-or-update-comment@v3
+      uses: actions/github-script@v6
       with:
-        issue-number: 238
-        body: |
-          This is a multi-line test comment
-          - With GitHub **Markdown** :sparkles:
+        script: |
+          const mutation = `mutation {
+            addDiscussionComment(input: {repositoryId: "MDEwOlJlcG9zaXRvcnkyMzI4NDU3MDI=", categoryId: "DIC_kwDODeDxhs4CZ6Q7", body: "The body", title: "The title"}) {
+              discussion {
+                id 
+              }
+            }
+          }`;
+          github.graphql(mutation)
     - name: Create discussion for add-on id
       id: createDiscussion
       if: failure()
