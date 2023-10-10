@@ -240,13 +240,12 @@ jobs:
         exit $? # Exit with the same exit code as jq
 
     - name: Create review comment
-      - name: Create comment
-        uses: peter-evans/create-or-update-comment@v3
-        with:
-          issue-number: 238
-          body: |
-            This is a multi-line test comment
-            - With GitHub **Markdown** :sparkles:
+      uses: peter-evans/create-or-update-comment@v3
+      with:
+        issue-number: 238
+        body: |
+          This is a multi-line test comment
+          - With GitHub **Markdown** :sparkles:
     - name: Create discussion for add-on id
       id: createDiscussion
       if: failure()
