@@ -252,7 +252,9 @@ jobs:
           const mutation = `mutation {
             addDiscussionComment(input: {body: "${addonVersion}", discussionId: "${discussionId}", clientMutationId: "GitHub Script action"}) {
               clientMutationId
-              comment
+              discussion {
+                comment
+              }
             }
           }`;
           github.graphql(mutation)
