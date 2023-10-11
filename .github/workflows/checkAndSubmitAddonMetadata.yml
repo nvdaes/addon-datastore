@@ -250,7 +250,7 @@ jobs:
           const addonVersion = "${{ steps.getAddonIdAndVersion.outputs.addonVersion }}"
           const discussionId = data[addonId]["discussionId"]
           const mutation = `mutation {
-            addDiscussionComment(input: {body: ${addonVersion}, discussionId: ${discussionId}, clientMutationId: "GitHub Script action"}) {
+            addDiscussionComment(input: {body: "${addonVersion}", discussionId: "${discussionId}", clientMutationId: "GitHub Script action"}) {
               clientMutationId
               comment
             }
