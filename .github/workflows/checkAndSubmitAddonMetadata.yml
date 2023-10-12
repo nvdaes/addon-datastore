@@ -281,8 +281,8 @@ jobs:
                 url
               }
             }`;
-          const response = github.graphql(mutation)
-          const url= response.comment.url
+          github.graphql(mutation)
+          const url= https
           core.setOutput('url', url)
     - name: Add discussion URL to metadata
       if: always()
