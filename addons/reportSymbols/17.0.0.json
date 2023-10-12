@@ -22,7 +22,7 @@
 	},
 	"channel": "stable",
 	"publisher": "nvdaes",
-	"sourceURL": "https://github.com/nvdaes",
+	"sourceURL": "https://github.com/nvdaes/reportSymbols",
 	"license": "GPL v2",
 	"homepage": "https://github.com/nvdaes/reportSymbols",
 	"licenseURL": "https://www.gnu.org/licenses/gpl-2.0.html",
