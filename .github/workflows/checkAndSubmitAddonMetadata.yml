@@ -232,7 +232,7 @@ jobs:
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}      
       with:
-        repository-id: ${{ github.repository_id }}
+        repository-id: 'MDEwOlJlcG9zaXRvcnkyMzI4NDU3MDI='
         category-id: 'DIC_kwDODeDxhs4CZ6Q6'
         title: Reviews for ${{ steps.getAddonNameAndVersion.outputs.addonName }} add-on
         body: |
