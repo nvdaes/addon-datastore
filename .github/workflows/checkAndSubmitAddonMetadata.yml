@@ -233,7 +233,7 @@ jobs:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}      
       with:
         repository-id: ${{ github.repository_id }}
-        category-id: 'DIC_kwDODeB9Us4CaB4B'
+        category-id: 'DIC_kwDODeDxhs4CZ6Q6'
         title: Reviews for ${{ steps.getAddonNameAndVersion.outputs.addonName }} add-on
         body: |
           Community add-on reviews for ${{ steps.getAddonNameAndVersion.outputs.addonName }}.
