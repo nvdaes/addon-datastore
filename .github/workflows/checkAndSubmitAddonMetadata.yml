@@ -288,7 +288,7 @@ jobs:
       if: always()
       run: |
         addonFilename=$(
-          echo ${{ steps.getAddonNameAndVersion.outputs.addonVersion }}.json
+          echo ${{ steps.getAddonFilename.outputs.addonFileName }}
         )
         reviewUrl=$(
           echo ${{ steps.createComment.outputs.url }}
