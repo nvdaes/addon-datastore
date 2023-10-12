@@ -225,10 +225,9 @@ jobs:
         # If there is a different error, a different non-zero exit code is used.
         exit $? # Exit with the same exit code as jq
         continue-on-error: true
-
     - name: Create discussion for add-on id
       id: createDiscussion
-      if: ${{ steps.checkDiscussion.outcome }} == 'failure'
+      if: (${{ success() }} || ${{ failure() }}) && (${{ steps.checkDiscussion.outcome }} == 'failure' || 
       uses: abirismyname/create-discussion@v1.1.0
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}      
@@ -261,7 +260,7 @@ jobs:
           }`;
           github.graphql(mutation)
     - name: Add add-on ID and discussion data to json file
-      if: ${{ steps.checkDiscussion.outcome }} == 'failure'
+      if: (${{ success() }} || ${{ failure() }}) && (${{ steps.checkDiscussion.outcome }} == 'failure'
       run: |
         addonId=$(
           echo ${{ needs.getAddonFilename.outputs.addonFileName }} \
