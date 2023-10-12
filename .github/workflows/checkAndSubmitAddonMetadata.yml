@@ -1,4 +1,4 @@
-name: Check submitted NVDA add-on
+    : Check submitted NVDA add-on
 
 on:
   workflow_call:
@@ -194,12 +194,8 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-    - name: Checkout to PR number
-      env:
-        GH_TOKEN: ${{ github.token }}
-      run: |
-        gh pr checkout ${{ inputs.pullRequestNumber }}
-        git pull
+      with:
+        ref: ${{ inputs.headRef }}
     - name: Get add-on name and version
       id: getAddonNameAndVersion
       uses: actions/github-script@v6
