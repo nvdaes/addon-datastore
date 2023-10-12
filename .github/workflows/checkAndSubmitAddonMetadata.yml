@@ -271,7 +271,7 @@ jobs:
           const addonVersion = "${{ steps.getAddonNameAndVersion.outputs.addonVersion }}"
           const contents = fs.readFileSync('discussions.json')
           const data = JSON.parse(contents)
-          const addonName = $ {{ steps.getAddonNameAndVersion.outputs.addonName }}
+          const addonName = "$ {{ steps.getAddonNameAndVersion.outputs.addonName }}"
           const discussionId = data[addonName]["discussionId"]
           const mutation = `mutation {
             addDiscussionComment(input: {body: "Reviews for version ${addonVersion}", discussionId: "${discussionId}", clientMutationId: "GitHub Script action"}) {
