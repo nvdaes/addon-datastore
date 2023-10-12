@@ -146,7 +146,7 @@ jobs:
     - name: Create validation errors file
       run: echo "" > validationErrors.md
     - name: Checkout validate repo
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         repository: nvaccess/addon-datastore-validation
         path: validation
@@ -184,7 +184,7 @@ jobs:
     # jq for windows has issues parsing multiline strings (e.g. CRLF),
     # use linux instead.
     runs-on: ubuntu-latest
-    needs: [checkMetadata]
+    needs: [checkMetadata, getAddonFilename]
     strategy:
       matrix:
         python-version: [ 3.11 ]
