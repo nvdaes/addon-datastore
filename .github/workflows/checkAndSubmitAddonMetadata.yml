@@ -224,6 +224,7 @@ jobs:
         # If no valid result is produced, i.e. no add-on id is found, jq exits with status 4.
         # If there is a different error, a different non-zero exit code is used.
         exit $? # Exit with the same exit code as jq
+        continue-on-error: true
 
     - name: Create discussion for add-on id
       id: createDiscussion
