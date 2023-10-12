@@ -193,6 +193,7 @@ jobs:
       discussions: write
     steps:
     - name: Checkout to PR number
+      GH_TOKEN: ${{ github.token }}
       run: |
         gh pr checkout ${{ inputs.pullRequestNumber }}
         git pull
