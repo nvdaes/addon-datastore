@@ -193,7 +193,7 @@ jobs:
       discussions: write
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
        ref: ${{ inputs.headRef }}
     - name: Get add-on name and version
@@ -249,7 +249,7 @@ jobs:
           const fs = require('fs')
           const contents = fs.readFileSync(${{ needs.getAddonFilename.outputs.addonFileName }})
           const data = JSON.parse(contents)
-          const addonName = "${{ steps.getAddonNameAndVersion.outputs.addonId }}"
+          const addonName = data.addonId
           const addonVersion = "${{ steps.getAddonNameAndVersion.outputs.addonVersion }}"
           const discussionId = data[addonId]["discussionId"]
           const mutation = `mutation {
@@ -263,6 +263,7 @@ jobs:
           }`;
           const response = github.graphql(mutation)
           const url= response.comment.url
+          core.setOutput('url', url)
     - name: Add add-on ID and discussion data to json file
       if: (${{ success() }} || ${{ failure() }}) && (${{ steps.checkDiscussion.outcome }} == 'failure' || 
       run: |
@@ -287,6 +288,7 @@ jobs:
         rm discussions.old.json
         exit $jqExitCode
     - name: Add discussion URL to metadata
+      if: always()
       run: |
         addonFilename=$(
           echo ${{ needs.getAddonFilename.outputs.addonFileName }}
