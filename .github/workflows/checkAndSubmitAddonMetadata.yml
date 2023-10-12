@@ -246,10 +246,6 @@ jobs:
       uses: actions/github-script@v6
       with:
         script: |
-          const fs = require('fs')
-          const contents = fs.readFileSync(${{ needs.getAddonFilename.outputs.addonFileName }})
-          const data = JSON.parse(contents)
-          const addonName = data.addonId
           const addonVersion = "${{ steps.getAddonNameAndVersion.outputs.addonVersion }}"
           const discussionId = data[addonId]["discussionId"]
           const mutation = `mutation {
