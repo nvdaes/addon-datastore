@@ -200,7 +200,7 @@ jobs:
       with:
         script: |
           const fs = require('fs')
-          const addonFilename = ${{ needs.getAddonFilename.outputs.addonFileName }}.split('/')[2]
+          const addonFilename = ${{ needs.getAddonFilename.outputs.addonFileName }}
           const contents = fs.readFileSync(addonFilename)
           const metadata = JSON.parse(contents)
           const addonName = metadata.addonId
