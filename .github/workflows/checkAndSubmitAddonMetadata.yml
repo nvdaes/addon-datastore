@@ -192,6 +192,8 @@ jobs:
       contents: write
       discussions: write
     steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
     - name: Checkout to PR number
       env:
         GH_TOKEN: ${{ github.token }}
