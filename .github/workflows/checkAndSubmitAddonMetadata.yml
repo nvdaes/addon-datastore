@@ -279,12 +279,13 @@ jobs:
               comment {
                 body
                 url
+              }
             }
-            }
-          }`;
-          const response = github.graphql(mutation)
-          const url= response.comment.url
-          core.setOutput('url', url)
+          }
+        }`;
+        const response = github.graphql(mutation)
+        const url= response.comment.url
+        core.setOutput('url', url)
     - name: Add discussion URL to metadata
       if: always()
       run: |
