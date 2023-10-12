@@ -241,12 +241,13 @@ jobs:
           Reviews for specific versions of the add-on can be added in response to automated comments for each version.
           Reviews should abide by the [NVDA code of conduct](https://github.com/nvaccess/nvda/blob/master/CODE_OF_CONDUCT.md).
     - name: Create review comment
+      id: createReviewComment
       if: always()
       uses: actions/github-script@v6
       with:
         script: |
           const fs = require('fs')
-          const contents = fs.readFileSync('discussions.json')
+          const contents = fs.readFileSync(${{ needs.getAddonFilename.outputs.addonFileName }})
           const data = JSON.parse(contents)
           const addonName = "${{ steps.getAddonNameAndVersion.outputs.addonId }}"
           const addonVersion = "${{ steps.getAddonNameAndVersion.outputs.addonVersion }}"
@@ -256,12 +257,14 @@ jobs:
               clientMutationId
               comment {
                 body
+                url
             }
             }
           }`;
-          github.graphql(mutation)
+          const response = github.graphql(mutation)
+          const url= response.comment.url
     - name: Add add-on ID and discussion data to json file
-      if: (${{ success() }} || ${{ failure() }}) && (${{ steps.checkDiscussion.outcome }} == 'failure'
+      if: (${{ success() }} || ${{ failure() }}) && (${{ steps.checkDiscussion.outcome }} == 'failure' || 
       run: |
         addonId=$(
           echo ${{ needs.getAddonFilename.outputs.addonFileName }} \
@@ -288,11 +291,11 @@ jobs:
         addonFilename=$(
           echo ${{ needs.getAddonFilename.outputs.addonFileName }}
         )
-        discussionUrl=$(
-          echo ${{ steps.createDiscussion.outputs.discussion-url }}
+        reviewUrl=$(
+          echo ${{ steps.createComment.outputs.url }}
         )
         jqCode="
-        .[\"discussionUrl\"] = \"$discussionUrl\"
+        .[\"reviewUrl\"] = \"$reviewUrl\"
         "
   
         mv $addonFilename $addonFilename.old.json
@@ -301,6 +304,7 @@ jobs:
         rm $addonFilename.old.json
         exit $jqExitCode
     - name: Commit and push
+      if: always()
       run: |
         git config user.name github-actions
         git config user.email github-actions@github.com
