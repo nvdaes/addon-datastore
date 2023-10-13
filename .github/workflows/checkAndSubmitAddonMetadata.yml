@@ -316,7 +316,7 @@ jobs:
             }
             }`;
           const response = await github.graphql(mutation)
-          const url = response.comment.url
+          const url = response.addDiscussionComment.comment.url
           core.setOutput('url', url)
     - name: Add discussion URL to metadata
       if: always()
