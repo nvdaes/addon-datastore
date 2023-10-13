@@ -246,10 +246,9 @@ jobs:
               name: context.repo.repo
             }
             const result = await github.graphql(query, variables)
-            const data = result.data
-            const repoId = data.repository.id
+            const repoId = result.repository.id
             core.setOutput('repoId', repoId)
-            const catId = data.repository.discussionCategories.nodes[0].id
+            const catId = result.repository.discussionCategories.nodes[0].id
             core.setOutput('catId', catId)
     - name: Create discussion for add-on id
       id: createDiscussion
