@@ -313,6 +313,7 @@ jobs:
               comment {
                 url
               }
+            }
             }`;
           github.graphql(mutation)
           const url = mutation.comment.url
