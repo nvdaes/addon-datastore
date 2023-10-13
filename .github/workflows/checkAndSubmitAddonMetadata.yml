@@ -314,7 +314,7 @@ jobs:
                 url
               }
             }`;
-          const response =github.graphql(mutation)
+          github.graphql(mutation)
           const url = response.comment.url
           core.setOutput('url', url)
     - name: Add discussion URL to metadata
@@ -342,7 +342,7 @@ jobs:
         git config user.email github-actions@github.com
         git add .
         git commit -m "update discussion URL"
-        git push
+        git push origin HEAD:master
 
   mergeToMaster:
     needs: [getAddonFilename, checkMetadata, verifySubmitter]
