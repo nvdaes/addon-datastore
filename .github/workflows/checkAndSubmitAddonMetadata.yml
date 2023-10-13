@@ -241,16 +241,16 @@ jobs:
                 }
               }
             }`;
-            const variables = {
+          const variables = {
               owner: context.repo.owner,
               name: context.repo.repo
             }
             const result = await github.graphql(query, variables)
-            const repoId = result.data.repository.id
+            const data = JSON.parse(result.data)
+            const repoId = data.repository.id
             core.setOutput('repoId', repoId)
-            const catId = result.data.repository.discussionCategories.nodes[0].id
+            const catId = data.repository.discussionCategories.nodes[0].id
             core.setOutput('catId', catId)
-            return catId
     - name: Create discussion for add-on id
       id: createDiscussion
       if: (${{ success() }} || ${{ failure() }}) && (${{ steps.checkDiscussion.outcome }} == 'failure')
