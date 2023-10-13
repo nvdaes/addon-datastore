@@ -344,7 +344,7 @@ jobs:
         git push
 
   mergeToMaster:
-    needs: [getAddonFilename, checkMetadata, verifySubmitter]
+    needs: [getAddonFilename, checkMetadata, verifySubmitter, createReviewComment]
     permissions:
       contents: write
       pull-requests: write
