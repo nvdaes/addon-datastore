@@ -226,14 +226,14 @@ jobs:
         # If there is a different error, a different non-zero exit code is used.
         exit $? # Exit with the same exit code as jq
     - name: Get category id
-      id: getCatId
+      id: getRepoAndCatId
       if: (${{ success() }} || ${{ failure() }}) && (${{ steps.checkDiscussion.outcome }} == 'failure')
       uses: actions/github-script@v6
       with:
-        result-encoding: string
         script: |
           const query = `query($owner:String!, $name:String!) {
             repository(owner:$owner, name:$name){
+                id
               discussionCategories(first: 1) {
                   nodes {
                     id
@@ -246,7 +246,10 @@ jobs:
               name: context.repo.repo
             }
             const result = await github.graphql(query, variables)
-            const catId = result.discussionCategories.nodes[0].id
+            const repoId = result.data.repository.id
+            core.setOutput('repoId', repoId)
+            const catId = result.data.repository.discussionCategories.nodes[0].id
+            core.setOutput('catId', catId)
             return catId
     - name: Create discussion for add-on id
       id: createDiscussion
@@ -255,8 +258,8 @@ jobs:
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}      
       with:
-        repository-id: $GITHUB_REPOSITORY_ID
-        category-id: ${{ steps.getCatId.outputs.result }}
+        repository-id: "${{ steps.getRepoAndCatId.outputs.repoId}}"
+        category-id: "${{ steps.getRepoAndCatId.outputs.catId }}"
         title: Reviews for ${{ steps.getAddonNameAndVersion.outputs.addonName }} add-on
         body: |
           Community add-on reviews for ${{ steps.getAddonNameAndVersion.outputs.addonName }}.
