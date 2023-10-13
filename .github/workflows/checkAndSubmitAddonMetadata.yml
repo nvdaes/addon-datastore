@@ -195,7 +195,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
       with:
-        ref: ${{ inputs.issueAuthorName }}${{ inputs.outputs.issueNumber }}
+        ref: ${{ inputs.issueAuthorName }}${{ inputs.issueNumber }}
     - name: Get add-on name and version
       id: getAddonNameAndVersion
       uses: actions/github-script@v6
