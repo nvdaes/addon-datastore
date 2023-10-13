@@ -279,8 +279,8 @@ jobs:
           echo ${{ steps.createDiscussion.outputs.discussion-url }}
         )
         jqCode="
-        .[\"$addonId\"].discussionId = \"$discussionId\"
-        | .[\"$addonId\"].discussionUrl = \"$discussionUrl\"
+        .[\"$addonId\"].discussionId = [\"$discussionId\"]
+        | .[\"$addonId\"].discussionUrl = [\"$discussionUrl\"]
         "
   
         mv discussions.json discussions.old.json
