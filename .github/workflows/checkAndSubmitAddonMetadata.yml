@@ -33,7 +33,7 @@ jobs:
       addonFileName: ${{ steps.getMetadata.outputs.result }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: ${{ inputs.headRef }}
       - name: Create validation errors file
@@ -69,7 +69,7 @@ jobs:
       issues: write
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Check if submitter is trusted to submit for this add-on or any add-on ID
         id: checkReg
         run: |
@@ -113,7 +113,7 @@ jobs:
       - name: Create submitter approval PR
         if: failure()
         id: addSubmitterPR
-        uses: peter-evans/create-pull-request@v4
+        uses: peter-evans/create-pull-request@v5
         with:
           title: Add ${{ inputs.issueAuthorName }} as an approved submitter
           branch: addSubmitter${{ inputs.issueAuthorName }}
@@ -140,13 +140,13 @@ jobs:
         python-version: [ 3.11 ]
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         ref: ${{ inputs.headRef }}
     - name: Create validation errors file
       run: echo "" > validationErrors.md
     - name: Checkout validate repo
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         repository: nvaccess/addon-datastore-validation
         path: validation
@@ -156,7 +156,7 @@ jobs:
         python -m pip install --upgrade wheel
         pip install -r validation/requirements.txt
     - name: Checkout transformation repo for nvdaAPIVersions.json
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         repository: nvaccess/addon-datastore-transform
         path: transform
@@ -195,7 +195,8 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
       with:
-        ref: ${{ inputs.issueAuthorName }}${{ inputs.issueNumber }}
+            ref: ${{ inputs.headRef }}
+            fetch-depth: 0
     - name: Get add-on name and version
       id: getAddonNameAndVersion
       uses: actions/github-script@v6
@@ -343,6 +344,8 @@ jobs:
         git config user.email github-actions@github.com
         git add .
         git commit -m "update discussion URL"
+        git checkout         ${{ inputs.issueAuthorName }}${{ inputs.issueNumber }}
+        git merge ${{ inputs.headRef }}
         git push
 
   mergeToMaster:
