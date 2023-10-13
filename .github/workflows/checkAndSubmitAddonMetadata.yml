@@ -195,7 +195,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
       with:
-        ref: ${{ inputs.headRef }}
+        ref: ${{ inputs.issueAuthorName }}${{ inputs.outputs.issueNumber }}
     - name: Get add-on name and version
       id: getAddonNameAndVersion
       uses: actions/github-script@v6
@@ -341,7 +341,7 @@ jobs:
         git config user.email github-actions@github.com
         git add .
         git commit -m "update discussion URL"
-        git push origin:HEAD master
+        git push
 
   mergeToMaster:
     needs: [getAddonFilename, checkMetadata, verifySubmitter]
