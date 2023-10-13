@@ -342,7 +342,13 @@ jobs:
         git config user.email github-actions@github.com
         git add .
         git commit -m "update discussion URL"
-        git push origin HEAD:master
+    - name: Checkout to PR
+      run: |
+        gh pr checkout ${{ inputs.pullRequestNumber }}
+        git pull
+        git merge ${{ inputs.headRef }}
+        git push
+
 
   mergeToMaster:
     needs: [getAddonFilename, checkMetadata, verifySubmitter]
