@@ -228,7 +228,7 @@ jobs:
         exit $? # Exit with the same exit code as jq
     - name: Get category id
       id: getRepoAndCatId
-      if: (${{ success() }} || ${{ failure() }}) && (${{ steps.checkDiscussion.outcome }} == 'failure')
+      if: always()
       uses: actions/github-script@v6
       with:
         script: |
@@ -253,7 +253,7 @@ jobs:
             core.setOutput('catId', catId)
     - name: Create discussion for add-on id
       id: createDiscussion
-      if: (${{ success() }} || ${{ failure() }}) && (${{ steps.checkDiscussion.outcome }} == 'failure')
+      if: ${{ steps.checkDiscussion.outcome }} == 'failure'
       uses: abirismyname/create-discussion@v1.1.0
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}      
@@ -267,7 +267,7 @@ jobs:
           Reviews for specific versions of the add-on can be added in response to automated comments for each version.
           Reviews should abide by the [NVDA code of conduct](https://github.com/nvaccess/nvda/blob/master/CODE_OF_CONDUCT.md).
     - name: Add add-on ID and discussion data to json file
-      if: (${{ success() }} || ${{ failure() }}) && (${{ steps.checkDiscussion.outcome }} == 'failure'
+      if: ${{ steps.checkDiscussion.outcome }} == 'failure'
       run: |
         addonId=$(
           echo ${{ needs.getAddonFilename.outputs.addonFileName }} \
