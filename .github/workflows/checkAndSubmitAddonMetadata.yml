@@ -233,7 +233,7 @@ jobs:
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}      
       with:
-        repository-id: $GITHUB_REPOSITORY_ID
+        repository-id: '$GITHUB_REPOSITORY_ID'
         category-id: 'DIC_kwDODeDxhs4CZ6Q6'
         title: Reviews for ${{ steps.getAddonNameAndVersion.outputs.addonName }} add-on
         body: |
