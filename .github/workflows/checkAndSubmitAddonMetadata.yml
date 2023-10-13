@@ -310,12 +310,11 @@ jobs:
             ) {
               clientMutationId
               comment {
-                body
                 url
               }
             }`;
           github.graphql(mutation)
-          const url = response.comment.url
+          const url = mutation.comment.url
           core.setOutput('url', url)
     - name: Add discussion URL to metadata
       if: always()
@@ -342,13 +341,7 @@ jobs:
         git config user.email github-actions@github.com
         git add .
         git commit -m "update discussion URL"
-    - name: Checkout to PR
-      run: |
-        gh pr checkout ${{ inputs.pullRequestNumber }}
-        git pull
-        git merge ${{ inputs.headRef }}
-        git push
-
+        git push origin:HEAD master
 
   mergeToMaster:
     needs: [getAddonFilename, checkMetadata, verifySubmitter]
