@@ -344,9 +344,10 @@ jobs:
         git config user.email github-actions@github.com
         git add .
         git commit -m "update discussion URL"
+        git checkout -b updateDiscussionUrl
         gh pr checkout ${{ inputs.pullRequestNumber }}
         git pull
-        git merge ${{ inputs.headRef }}
+        git merge updateDiscussionUrl
         git push
 
   mergeToMaster:
