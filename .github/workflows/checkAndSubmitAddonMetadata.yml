@@ -363,7 +363,7 @@ jobs:
     - name: Merge branch to master
       uses: everlytic/branch-merge@1.1.2
       with:
-        source_ref: ${{ inputs.headRef }}
+        source_ref: ${{ inputs.issueAuthorName }}${{ inputs.issueNumber }}
         target_branch: master
         commit_message_template: '[Automated] Merged ${{ needs.getAddonFilename.outputs.addonFileName }} (#${{ inputs.pullRequestNumber }}) into master'
   call-workflow:
