@@ -181,6 +181,7 @@ jobs:
         issue-number: ${{ inputs.issueNumber }}
 
   createReviewComment:
+    continue-on-error: true
     # jq for windows has issues parsing multiline strings (e.g. CRLF),
     # use linux instead.
     runs-on: ubuntu-latest
