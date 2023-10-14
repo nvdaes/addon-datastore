@@ -212,7 +212,6 @@ jobs:
           core.setOutput('addonVersion', addonVersion)
     - name: Check if discussion for this add-on exists
       id: checkDiscussion
-      continue-on-error: true
       run: |
         addonId=$(
           echo ${{ steps.getAddonNameAndVersion.outputs.addonName }} \
@@ -227,7 +226,7 @@ jobs:
         exit $? # Exit with the same exit code as jq
     - name: Get repository and category id
       id: getRepoAndCatId
-      if: ${{ steps.checkDiscussion.outcome }} != 'success'
+      if: failure() && steps.checkDiscussion.outcome == 'failure'
       uses: actions/github-script@v6
       with:
         script: |
@@ -252,7 +251,7 @@ jobs:
             core.setOutput('catId', catId)
     - name: Create discussion for add-on id
       id: createDiscussion
-      if: ${{ steps.checkDiscussion.outcome }} != 'success'
+      if: failure() && steps.checkDiscussion.outcome == 'failure'
       uses: abirismyname/create-discussion@v1.1.0
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}      
@@ -266,7 +265,7 @@ jobs:
           Reviews for specific versions of the add-on can be added in response to automated comments for each version.
           Reviews should abide by the [NVDA code of conduct](https://github.com/nvaccess/nvda/blob/master/CODE_OF_CONDUCT.md).
     - name: Add add-on ID and discussion data to json file
-      if: ${{ steps.checkDiscussion.outcome }} != 'success'
+      if: failure() && steps.checkDiscussion.outcome == 'failure'
       run: |
         addonId=$(
           echo ${{ steps.getAddonNameAndVersion.outputs.addonName }} \
