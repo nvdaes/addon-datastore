@@ -219,14 +219,17 @@ jobs:
           | sed -r "s|addons/(.*)/.*\.json|\1|g"
         )
         jqCode="
-        . | .[\"$addonId\"]
+        . | .[\"$addonId\"] | select(
+          ${{steps.getAddonNameAndVersion.outputs.addonName }}
+        )
+
         "
         jq -e "$jqCode" discussions.json
         # -e only sets the exit status of jq to 0 if there is "truthy" output.
         # If no valid result is produced, i.e. no add-on id is found, jq exits with status 4.
         # If there is a different error, a different non-zero exit code is used.
         exit $? # Exit with the same exit code as jq
-    - name: Get category id
+    - name: Get repository and category id
       id: getRepoAndCatId
       if: ${{ steps.checkDiscussion.outcome }} != 'success'
       uses: actions/github-script@v6
