@@ -195,8 +195,8 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
       with:
-            ref: ${{ inputs.headRef }}
-            fetch-depth: 0
+        ref: ${{ inputs.headRef }}
+        fetch-depth: 0
     - name: Get add-on name and version
       id: getAddonNameAndVersion
       uses: actions/github-script@v6
@@ -215,14 +215,10 @@ jobs:
       continue-on-error: true
       run: |
         addonId=$(
-          echo ${{ needs.getAddonFilename.outputs.addonFileName }} \
-          | sed -r "s|addons/(.*)/.*\.json|\1|g"
+          echo ${{ steps.getAddonNameAndVersion.outputs.addonName }} \
         )
         jqCode="
-        . | .[\"$addonId\"] | select(
-          ${{steps.getAddonNameAndVersion.outputs.addonName }}
-        )
-
+        . | .[\"$addonId\"]
         "
         jq -e "$jqCode" discussions.json
         # -e only sets the exit status of jq to 0 if there is "truthy" output.
@@ -273,9 +269,8 @@ jobs:
       if: ${{ steps.checkDiscussion.outcome }} != 'success'
       run: |
         addonId=$(
-          echo ${{ needs.getAddonFilename.outputs.addonFileName }} \
-          | sed -r "s|addons/(.*)/.*\.json|\1|g"
-        )
+          echo ${{ steps.getAddonNameAndVersion.outputs.addonName }} \
+         )
         discussionId=$(
           echo ${{ steps.createDiscussion.outputs.discussion-id }}
         )
@@ -347,7 +342,7 @@ jobs:
         git config user.email github-actions@github.com
         git add .
         git commit -m "update discussion URL"
-        git checkout         ${{ inputs.issueAuthorName }}${{ inputs.issueNumber }}
+        gh pr checkout ${{ inputs.pullRequestNumber }}
         git pull
         git merge ${{ inputs.headRef }}
         git push
