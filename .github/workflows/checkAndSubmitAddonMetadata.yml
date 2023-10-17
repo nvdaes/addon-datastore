@@ -203,7 +203,8 @@ jobs:
       with:
         script: |
           const setAddonNameAndVersion = require('./.github/workflows/getAddonNameAndVersion.js')
-          setAddonNameAndVersion({context, core})
+          const addonFilename = ${{ needs.getAddonFilename.outputs.addonFileName}}
+          setAddonNameAndVersion({core}, addonFilename)
     - name: Check if discussion for this add-on exists
       id: checkDiscussion
       run: |
@@ -270,7 +271,9 @@ jobs:
       with:
         script: |
           const createComment = require('./.github/workflows/createComment.js')
-          createComment({context, github, core})
+          const addonVersion = ${{ steps.getAddonNameAndVersion.outputs.addonVersion }}
+          const addonId = ${{ steps.getAddonNameAndVersion.outputs.addonId }}
+          createComment({context, github, core}, addonVersion, addonId)
     - name: Add discussion URL to metadata
       if: always()
       run: |

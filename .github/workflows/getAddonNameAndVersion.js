@@ -1,7 +1,5 @@
-module.exports = ({context, core}) => {
+module.exports = ({core}, addonFilename) => {
   const fs = require('fs');
-  console.log(context);
-  const addonFilename = context.needs.getAddonFilename.outputs.addonFileName;
   const contents = fs.readFileSync(addonFilename);
   const metadata = JSON.parse(contents);
   const addonId = metadata.addonId;
