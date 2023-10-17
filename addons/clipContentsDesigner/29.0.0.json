@@ -1,0 +1,187 @@
+{
+  "addonId": "clipContentsDesigner",
+  "displayName": "Clip Contents Designer",
+  "URL": "https://github.com/nvdaes/clipContentsDesigner/releases/download/29.0.0/clipContentsDesigner-29.0.0.nvda-addon",
+  "description": "Add-on for managing clipboard text.",
+  "sha256": "2f50c9840089c86ec7eb801845e4a8a50c57201036acd984b61616576427a340",
+  "addonVersionName": "29.0.0",
+  "addonVersionNumber": {
+    "major": 29,
+    "minor": 0,
+    "patch": 0
+  },
+  "minNVDAVersion": {
+    "major": 2023,
+    "minor": 2,
+    "patch": 0
+  },
+  "lastTestedVersion": {
+    "major": 2023,
+    "minor": 2,
+    "patch": 0
+  },
+  "channel": "stable",
+  "publisher": "nvdaes",
+  "sourceURL": "https://github.com/nvdaes/clipContentsDesigner",
+  "license": "GPL v2",
+  "homepage": "https://github.com/nvdaes/clipContentsDesigner",
+  "licenseURL": "https://www.gnu.org/licenses/gpl-2.0.html",
+  "translations": [
+    {
+      "language": "ar",
+      "displayName": "التحكم في محتوى الحافظة",
+      "description": "إضافة لإدارة النص الموجود بالحافظة"
+    },
+    {
+      "language": "bg",
+      "displayName": "Clip Contents Designer (Дизайнер на съдържанието на клипборда)",
+      "description": "Добавка за управление на текста от клипборда."
+    },
+    {
+      "language": "da",
+      "displayName": "Udklipsdesigner",
+      "description": "Tilføjelsesprogram til styring af tekst i udklipsholderen."
+    },
+    {
+      "language": "de",
+      "displayName": "Zwischenablagenverwalter",
+      "description": "Erweiterung zur Textverwaltung in der Windows-Zwischenablage."
+    },
+    {
+      "language": "de_CH",
+      "displayName": "Designer für den  Inhalt der Zwischenablage",
+      "description": "Erweiterung zum Umgang mit der Windows-Zwischenablage."
+    },
+    {
+      "language": "es",
+      "displayName": "Clip Contents Designer",
+      "description": "Complemento para manejar texto en el portapapeles."
+    },
+    {
+      "language": "fa",
+      "displayName": "طراحِ محتوای کلیپ‌برد",
+      "description": "افزونه‌ای برای مدیریتِ متنِ داخلِ کلیپ‌برد"
+    },
+    {
+      "language": "fi",
+      "displayName": "Leikepöydän sisällön käsittelijä",
+      "description": "Lisäosa leikepöydällä olevan tekstin hallintaan."
+    },
+    {
+      "language": "fr",
+      "displayName": "Clip Contents Designer",
+      "description": "Extension pour gérer le texte du presse-papiers."
+    },
+    {
+      "language": "gl",
+      "displayName": "Clip Contents Designer",
+      "description": "Complemento para administrar o texto do portapapeis."
+    },
+    {
+      "language": "he",
+      "displayName": "הגדרות עורך הזכרון הזמני",
+      "description": "תוסף מיועד לעריכת תוכן לוח הגזירים."
+    },
+    {
+      "language": "hr",
+      "displayName": "Upravljanje sadržajem međuspremnika",
+      "description": "Dodatak za upravljanje tekstom iz međuspremnika."
+    },
+    {
+      "language": "hu",
+      "displayName": "Vágólap tartalomtervező",
+      "description": "Kiegészítő a vágólap szöveges tartalmának kezeléséhez."
+    },
+    {
+      "language": "it",
+      "displayName": "Clip Contents Designer",
+      "description": "Componente aggiuntivo per la gestione del testo negli appunti."
+    },
+    {
+      "language": "ja",
+      "displayName": "Clip Contents Designer",
+      "description": "クリップボードのテキストを扱うためのアドオン"
+    },
+    {
+      "language": "ko",
+      "displayName": "Clip Contents Designer",
+      "description": "클립보드 텍스트 관리용 추가기능."
+    },
+    {
+      "language": "ne",
+      "displayName": "क्लीप सामाग्री नमुनाकार",
+      "description": "क्लीपपाटीका पाठहरूलाई व्यबस्थापन गर्ने उप-कर्मी"
+    },
+    {
+      "language": "nl",
+      "displayName": "Samensteller voor klembordinhoud instellingen",
+      "description": "Add-on om klembordtekst te beheren."
+    },
+    {
+      "language": "pl",
+      "displayName": "Clip Contents Designer",
+      "description": "Dodatek do zarządzania tekstem ze schowka."
+    },
+    {
+      "language": "pt_BR",
+      "displayName": "Gestor do Conteúdo de Transferência",
+      "description": "Complemento para gerir o texto da área de transferência."
+    },
+    {
+      "language": "pt_PT",
+      "displayName": "Gestor de conteúdos da área de transferência",
+      "description": "Extra para gerir o texto da área de transferência."
+    },
+    {
+      "language": "ro",
+      "displayName": "Clip Contents Designer (Proiectantul conținutului planșetei)",
+      "description": "Supliment pentru gestionarea textului din planșetă."
+    },
+    {
+      "language": "ru",
+      "displayName": "Clip Contents Designer",
+      "description": "Дополнение для управления текстом буфера обмена."
+    },
+    {
+      "language": "sk",
+      "displayName": "Rozšírená schránka",
+      "description": "Doplnok na prácu so schránkou Windows."
+    },
+    {
+      "language": "sl",
+      "displayName": "Clip Contents Designer",
+      "description": "Dodatek namenjen upravljanju z vsebino odložišča"
+    },
+    {
+      "language": "sr",
+      "displayName": "Dizajner sadržaja privremene memorije",
+      "description": "Dodatak za upravljanje tekstualnog sadržaja privremene memorije"
+    },
+    {
+      "language": "ta",
+      "displayName": "கிளிப் கண்டென்ட்ஸ் டிசைனர்",
+      "description": "பிடிப்புப்பலகையில் இருக்கும் உரையை மேலாள்வதற்கான கூட்டுக்கூறு."
+    },
+    {
+      "language": "tr",
+      "displayName": "Pano İçerik Düzenleyicisi",
+      "description": "Panodaki metnin yönetimi için eklenti."
+    },
+    {
+      "language": "uk",
+      "displayName": "Clip Contents Designer",
+      "description": "Додаток для керування текстом у буфері обміну."
+    },
+    {
+      "language": "vi",
+      "displayName": "Quản lý nội dung tạm",
+      "description": "Add-on dùng để quản lý nội dung trên bộ nhớ tạm."
+    },
+    {
+      "language": "zh_CN",
+      "displayName": "剪贴板内容编辑器",
+      "description": "一款用于管理剪贴板文本的插件。"
+    }
+  ],
+  "reviewUrl": "https://github.com/nvdaes/addon-datastore/discussions/442#discussioncomment-7299526"
+}
