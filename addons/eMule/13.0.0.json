@@ -22,7 +22,7 @@
 	},
 	"channel": "stable",
 	"publisher": "nvdaes",
-	"sourceURL": "https://github.com/nvdaes/emule/releases/tag/13.0.0",
+	"sourceURL": "https://github.com/nvdaes/eMule",
 	"license": "GPL v2",
 	"homepage": "https://github.com/nvdaes/emule",
 	"licenseURL": "https://www.gnu.org/licenses/gpl-2.0.html",
