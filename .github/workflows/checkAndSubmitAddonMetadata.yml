@@ -34,8 +34,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          ref: ${{ inputs.headRef }}
       - name: Determine add-on file name
         uses: actions/github-script@v6
         id: getAddonFileName
