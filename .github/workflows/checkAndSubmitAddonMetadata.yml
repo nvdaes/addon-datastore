@@ -189,7 +189,6 @@ jobs:
         body: "Closes #${{ inputs.issueNumber }}"
         author: github-actions <github-actions@github.com>
         delete-branch: true
-
   mergeToMaster:
     needs: [getAddonId, checkMetadata]
     permissions:
