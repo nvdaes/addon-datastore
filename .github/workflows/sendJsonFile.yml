@@ -82,14 +82,10 @@ jobs:
         cd datastore
         git config user.name github-actions
         git config user.email github-actions@github.com
-        git status
         git add .
-        git status
         git commit -m "Submit add-on"
-        git status
         git checkout -b ${{ github.event.sender.login }}${{ steps.get-data.outputs.issueNumber }}
-        git branch -u origin/${{ github.event.sender.login }}${{ steps.get-data.outputs.issueNumber }}
-        git push
+        git push origin ${{ github.event.sender.login }}${{ steps.get-data.outputs.issueNumber }}
   call-workflow-passing-data:
     needs: check-addon
     uses: ./.github/workflows/checkAndSubmitAddonMetadata.yml
