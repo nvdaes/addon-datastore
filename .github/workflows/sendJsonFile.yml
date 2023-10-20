@@ -9,7 +9,6 @@ jobs:
   check-addon:
     outputs:
       issueNumber: ${{ steps.get-data.outputs.issueNumber }}
-      headRef: ${{ github.event.sender.login }}${{ steps.get-data.outputs.issueNumber }}
     permissions:
       contents: write
       issues: write
@@ -94,4 +93,4 @@ jobs:
       issueAuthorId: ${{ github.event.issue.user.id }}
       issueAuthorName: ${{ github.event.issue.user.login }}
       issueTitle: ${{ github.event.issue.title }}
-      headRef: ${{ needs.checkAddon.outputs.headRef }}
+      headRef: ${{ github.event.sender.login }}${{ steps.get-data.outputs.issueNumber }}
