@@ -46,14 +46,14 @@ jobs:
         with:
           script: |
             const getAddonFilename = require('./.github/workflows/checkFilesChanged.js')
-            const url = "GET /repos/" + process.env.GITHUB_REPOSITORY + "/compare/master..." + process.env.headRef + "/files" 
+            const url = "GET /repos/" + process.env.GITHUB_REPOSITORY + "/compare/master..." + process.env.headRef + "/files"
             const result = await github.request(url)
             return getAddonFilename(result.data)
       - name: Determine add-on ID
         uses: actions/github-script@v6
         id: getAddonId
         env:
-          headRef: ${{ inputs.headRef }}
+          headRef: "${{ inputs.headRef }}"
         with:
           script: |
             const getAddonFilename = require('./.github/workflows/checkFilesChanged.js')
