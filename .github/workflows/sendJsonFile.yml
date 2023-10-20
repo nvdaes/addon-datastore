@@ -84,6 +84,7 @@ jobs:
         git config user.email github-actions@github.com
         git commit -m -a "${{ steps.get-data.outputs.issueTitle }}"
         git checkout -b ${{ github.event.sender.login }}${{ steps.get-data.outputs.issueNumber }}
+        git branch -u origin/${{ github.event.sender.login }}${{ steps.get-data.outputs.issueNumber }}
         git pull
         git push
   call-workflow-passing-data:
