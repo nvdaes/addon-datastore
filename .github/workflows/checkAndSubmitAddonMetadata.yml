@@ -42,7 +42,7 @@ jobs:
         uses: actions/github-script@v6
         id: getAddonFileName
         env:
-          headRef: ${{ inputs.headRef }}
+          headRef: "${{ inputs.headRef }}"
         with:
           script: |
             const getAddonFilename = require('./.github/workflows/checkFilesChanged.js')
