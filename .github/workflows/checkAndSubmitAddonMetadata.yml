@@ -36,13 +36,11 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: ${{ inputs.headRef }}
-      - name: Create validation errors file
-        run: echo "" > validationErrors.md
       - name: Determine add-on file name
         uses: actions/github-script@v6
         id: getAddonFileName
         env:
-          headRef: "${{ inputs.headRef }}"
+          headRef: ${{ inputs.headRef }}
         with:
           script: |
             const getAddonFilename = require('./.github/workflows/checkFilesChanged.js')
@@ -53,7 +51,7 @@ jobs:
         uses: actions/github-script@v6
         id: getAddonId
         env:
-          headRef: "${{ inputs.headRef }}"
+          headRef: ${{ inputs.headRef }}
         with:
           script: |
             const getAddonFilename = require('./.github/workflows/checkFilesChanged.js')
@@ -62,12 +60,7 @@ jobs:
             const addonFileName = getAddonFilename(result.data)
             const addonIdRegex = RegExp("addons/(.*)/.*\.json")
             return addonIdRegex.exec(addonFileName)[1]
-      - name: Post validation errors as comment
-        if: failure()
-        uses: peter-evans/create-or-update-comment@v2
-        with:
-          issue-number: ${{ inputs.issueNumber }}
-          body-file: ./validationErrors.md
+
   verifySubmitter:
     # jq for windows has issues parsing multiline strings (e.g. CRLF),
     # use linux instead.
