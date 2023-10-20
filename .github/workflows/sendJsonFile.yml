@@ -82,8 +82,7 @@ jobs:
         cd datastore
         git config user.name github-actions
         git config user.email github-actions@github.com
-        git add addons
-        git commit -m ${{ steps.get-data.outputs.issueTitle }}
+        git commit -m -a ${{ steps.get-data.outputs.issueTitle }}
         git checkout -b ${{ github.event.sender.login }}${{ steps.get-data.outputs.issueNumber }}
         git pull
         git push
