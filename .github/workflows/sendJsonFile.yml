@@ -84,7 +84,7 @@ jobs:
         $addonFileName = $addonFileName.trim()
         echo $addonFileName
       env:
-        ADDON_FILE_NAME: $addonFileName
+        ADDON_FILE_NAME: "$addonFileName"
     - name: Checkout transformation repo for nvdaAPIVersions.json
       uses: actions/checkout@v4
       with:
