@@ -133,6 +133,7 @@ jobs:
     runs-on: windows-latest
     needs: [verifySubmitter]
     permissions:
+      contents: write
       pull-requests: write
     steps:
       - name: Checkout code
