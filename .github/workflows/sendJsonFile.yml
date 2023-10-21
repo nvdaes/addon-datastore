@@ -75,7 +75,12 @@ jobs:
       with:
         issue-number: ${{ github.event.issue.number }}
         body-file: ./validationErrors.md
-    - name: Get add-on filename
+    - name: Checkout transformation repo for nvdaAPIVersions.json
+      uses: actions/checkout@v4
+      with:
+        repository: nvaccess/addon-datastore-transform
+        path: transform
+    - name: Validate metadata
       id: getAddonFileName
       run: |
         cd datastore
@@ -83,15 +88,7 @@ jobs:
         $addonFileName = git diff --cached --name-only
         $addonFileName = $addonFileName.trim()
         echo $addonFileName
-      env:
-        ADDON_FILE_NAME: "$addonFileName"
-    - name: Checkout transformation repo for nvdaAPIVersions.json
-      uses: actions/checkout@v4
-      with:
-        repository: nvaccess/addon-datastore-transform
-        path: transform
-    - name: Validate metadata
-      run: validation/runvalidate "./datastore/${{ steps.getAddonFileName.env.ADDON_FILE_NAME }} ./transform/nvdaAPIVersions.json" --output ./validationErrors.md
+      run: validation/runvalidate "./datastore/$addonFileName" ./transform/nvdaAPIVersions.json" --output ./validationErrors.md
     - name: Close issue
       if: failure()
       uses: peter-evans/close-issue@v3
