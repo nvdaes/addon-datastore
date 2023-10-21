@@ -141,7 +141,7 @@ jobs:
           ref: ${{ inputs.issueAuthorName }}${{ inputs.issueNumber }}
       - name: Create pull request
         id: cpr
-        uses: peter-evans/create-pull-request@v4
+        uses: peter-evans/create-pull-request@v5
         with:
           title: ${{ inputs.issueTitle }}
           branch: ${{ inputs.issueAuthorName }}${{ inputs.issueNumber }}
