@@ -81,7 +81,7 @@ jobs:
         cd datastore
         git add .
         $addonFileName = git diff --cached --name-only
-        echo "addonFileName=$addonFileName" >> "$GITHUB_OUTPUT"
+        "addonFileName=$addonFileName" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
     - name: Checkout transformation repo for nvdaAPIVersions.json
       uses: actions/checkout@v4
       with:
