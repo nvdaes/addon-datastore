@@ -46,7 +46,7 @@ jobs:
         uses: actions/github-script@v6
         id: getAddonId
         env:
-          issueAuthorName: "${{ inputs.issueAuthorName }}
+          issueAuthorName: ${{ inputs.issueAuthorName }}
           issueNumber: ${{ inputs.issueNumber }}
         with:
           script: |
