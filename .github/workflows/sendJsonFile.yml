@@ -9,7 +9,6 @@ jobs:
   check-addon:
     outputs:
       issueNumber: ${{ steps.get-data.outputs.issueNumber }}
-      addonFileName: ${{ steps.getAddonFileName.outputs.addonFileName }}
     permissions:
       contents: write
       issues: write
@@ -83,7 +82,8 @@ jobs:
         $addonFileName = git diff --cached --name-only
         $addonFileName = $addonFileName.trim()
         echo $addonFileName
-        "addonFileName=$addonFileName" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+      env:
+        ADDON_FILE_NAME: $addonFileName
     - name: Checkout transformation repo for nvdaAPIVersions.json
       uses: actions/checkout@v4
       with:
@@ -114,4 +114,4 @@ jobs:
       issueAuthorId: ${{ github.event.issue.user.id }}
       issueAuthorName: ${{ github.event.issue.user.login }}
       issueTitle: ${{ github.event.issue.title }}
-      addonFileName: ${{ needs.checkAddon.outputs.addonFileName }}
+      addonFileName: ${{ steps.getAddonFileName.env.ADDON_FILE_NAME }}
