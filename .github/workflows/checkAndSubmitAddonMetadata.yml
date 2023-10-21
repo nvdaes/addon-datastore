@@ -35,7 +35,7 @@ jobs:
         id: getAddonFileName
         env:
           issueAuthorName: ${{ inputs.issueAuthorName }}
-          issueNumber: ${{ inputs.issueNumber }}"
+          issueNumber: ${{ inputs.issueNumber }}
         with:
           script: |
             const getAddonFilename = require('./.github/workflows/checkFilesChanged.js')
@@ -47,7 +47,7 @@ jobs:
         id: getAddonId
         env:
           issueAuthorName: "${{ inputs.issueAuthorName }}
-          issueNumber: ${{ inputs.issueNumber }}"
+          issueNumber: ${{ inputs.issueNumber }}
         with:
           script: |
             const getAddonFilename = require('./.github/workflows/checkFilesChanged.js')
