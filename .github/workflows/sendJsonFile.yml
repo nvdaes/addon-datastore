@@ -7,9 +7,6 @@ on:
 
 jobs:
   check-addon:
-    outputs:
-      issueNumber: ${{ steps.get-data.outputs.issueNumber }}
-
     permissions:
       contents: write
       issues: write
@@ -108,7 +105,7 @@ jobs:
     needs: check-addon
     uses: ./.github/workflows/checkAndSubmitAddonMetadata.yml
     with:
-      issueNumber: ${{ needs.checkAddon.outputs.issueNumber }}
+      issueNumber: "${{ github.event.issue.number }}"
       issueAuthorId: ${{ github.event.issue.user.id }}
       issueAuthorName: ${{ github.event.issue.user.login }}
       issueTitle: ${{ github.event.issue.title }}
