@@ -154,9 +154,9 @@ jobs:
           commit-message: ${{ inputs.issueTitle }}
           body: "Closes #${{ inputs.issueNumber }}"
           author: github-actions <github-actions@github.com>
-          # delete-branch: true
+          delete-branch: true
   mergeToMaster:
-    needs: [createPullRequest]
+    needs: [getAddonId, createPullRequest]
     permissions:
       contents: write
       pull-requests: write
@@ -194,7 +194,7 @@ jobs:
       with:
         script: |
           const setAddonNameAndVersion = require('./.github/workflows/getAddonNameAndVersion.js')
-          const addonFilename = ${{ needs.getAddonFileName.outputs.addonFileName }}
+          const addonFilename = ${{ needs.getAddonId.outputs.addonFileName }}
           setAddonNameAndVersion({core}, addonFilename)
     - name: Check if discussion for this add-on exists
       id: checkDiscussion
