@@ -91,7 +91,7 @@ jobs:
         repository: nvaccess/addon-datastore-transform
         path: transform
     - name: Validate metadata
-      run: validation/runvalidate ./datastore/${{ steps.getAddonFileName.env.ADDON_FILE_NAME }} ./transform/nvdaAPIVersions.json --output ./validationErrors.md
+      run: validation/runvalidate "./datastore/${{ steps.getAddonFileName.env.ADDON_FILE_NAME }} ./transform/nvdaAPIVersions.json" --output ./validationErrors.md
     - name: Close issue
       if: failure()
       uses: peter-evans/close-issue@v3
