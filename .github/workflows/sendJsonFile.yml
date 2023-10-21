@@ -89,13 +89,12 @@ jobs:
         $addonFileName = $addonFileName.trim()
         echo $addonFileName
         cd ..
-        validation/runvalidate "./datastore/$addonFileName ./transform/nvdaAPIVersions.json" --output ./validationErrors.md
+        validation/runvalidate ./datastore/$addonFileName ./transform/nvdaAPIVersions.json --output ./validationErrors.md
     - name: Close issue
       if: failure()
       uses: peter-evans/close-issue@v3
       with:
         issue-number: ${{ steps.get-data.outputs.issueNumber }}
-        body-file: ./validationErrors.md
     - name: Create branch
       id: cb
       run: |
