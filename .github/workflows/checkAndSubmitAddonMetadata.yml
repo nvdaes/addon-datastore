@@ -15,9 +15,6 @@ on:
       issueTitle:
         required: true
         type: string
-      headRef:
-        required: true
-        type: string
 
 jobs:
   getAddonId:
@@ -37,7 +34,7 @@ jobs:
         uses: actions/github-script@v6
         id: getAddonFileName
         env:
-          headRef: ${{ inputs.headRef }}
+          headRef: "${{ inputs.issueAuthorName }}${{ inputs.issueNumber }}"
         with:
           script: |
             const getAddonFilename = require('./.github/workflows/checkFilesChanged.js')
@@ -48,7 +45,7 @@ jobs:
         uses: actions/github-script@v6
         id: getAddonId
         env:
-          headRef: ${{ inputs.headRef }}
+          headRef: "${{ inputs.issueAuthorName }}${{ inputs.issueNumber }}"
         with:
           script: |
             const getAddonFilename = require('./.github/workflows/checkFilesChanged.js')
