@@ -144,7 +144,7 @@ jobs:
         run: |
           git fetch origin
           git checkout -b ${{ inputs.issueAuthorName }}${{ inputs.issueNumber }}
-          git branch -u ${{ inputs.issueAuthorName }}${{ inputs.issueNumber }}
+          git branch -u origin/${{ inputs.issueAuthorName }}${{ inputs.issueNumber }}
           git pull
           git checkout master
       - name: Create pull request
