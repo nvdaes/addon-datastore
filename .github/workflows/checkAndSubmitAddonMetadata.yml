@@ -146,7 +146,6 @@ jobs:
           git checkout -b ${{ inputs.issueAuthorName }}${{ inputs.issueNumber }}
           git branch -u origin/${{ inputs.issueAuthorName }}${{ inputs.issueNumber }}
           git pull
-          git checkout master
       - name: Create pull request
         id: cpr
         uses: peter-evans/create-pull-request@v5
@@ -156,7 +155,7 @@ jobs:
           commit-message: ${{ inputs.issueTitle }}
           body: "Closes #${{ inputs.issueNumber }}"
           author: github-actions <github-actions@github.com>
-          delete-branch: true
+          # delete-branch: true
   mergeToMaster:
     needs: [createPullRequest]
     permissions:
