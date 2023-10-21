@@ -15,7 +15,7 @@ on:
       issueTitle:
         required: true
         type: string
-      addonFileName:
+      headRef:
         required: true
         type: string
 
