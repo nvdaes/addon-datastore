@@ -26,6 +26,7 @@ jobs:
       contents: write
       issues: write
     outputs:
+      addonFileName: ${{ steps.getAddonFileName.outputs.result }}
       addonId: ${{ steps.getAddonId.outputs.result }}
     steps:
       - name: Checkout code
@@ -193,7 +194,7 @@ jobs:
       with:
         script: |
           const setAddonNameAndVersion = require('./.github/workflows/getAddonNameAndVersion.js')
-          const addonFilename = ${{ inputs.addonFileName }}
+          const addonFilename = ${{ needs.getAddonFileName.outputs.addonFileName
           setAddonNameAndVersion({core}, addonFilename)
     - name: Check if discussion for this add-on exists
       id: checkDiscussion
