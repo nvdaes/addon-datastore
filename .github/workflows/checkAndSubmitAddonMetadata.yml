@@ -138,7 +138,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          ref: ${{ inputs.issueAuthorName }}${{ inputs.issueNumber }}
+          ref: master
       - name: Create pull request
         id: cpr
         uses: peter-evans/create-pull-request@v5
