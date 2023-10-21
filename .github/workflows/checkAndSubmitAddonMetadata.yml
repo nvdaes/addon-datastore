@@ -269,7 +269,7 @@ jobs:
       if: always()
       run: |
         addonFilename=$(
-          echo ${{ inputs.addonFileName }}
+          echo ${{ needs.getAddonId.outputs.addonFileName }}
         )
         reviewUrl=$(
           echo ${{ steps.createComment.outputs.url }}
