@@ -136,10 +136,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 
-      - name: Merge submission
-        run: |
-          git merge ${{ inputs.issueAuthorName }}${{ inputs.issueNumber }}
+          ref: ${{ inputs.issueAuthorName }}${{ inputs.issueNumber }}
       - name: Create pull request
         id: cpr
         uses: peter-evans/create-pull-request@v4
