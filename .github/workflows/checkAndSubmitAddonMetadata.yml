@@ -34,22 +34,24 @@ jobs:
         uses: actions/github-script@v6
         id: getAddonFileName
         env:
-          headRef: "${{ inputs.issueAuthorName }}${{ inputs.issueNumber }}"
+          issueAuthorName: ${{ inputs.issueAuthorName }}
+          issueNumber: ${{ inputs.issueNumber }}"
         with:
           script: |
             const getAddonFilename = require('./.github/workflows/checkFilesChanged.js')
-            const url = "GET /repos/" + process.env.GITHUB_REPOSITORY + "/compare/master..." + process.env.headRef + "/files" 
+            const url = "GET /repos/" + process.env.GITHUB_REPOSITORY + "/compare/master..." + process.env.issueAuthorName + process.env.issueNumber + "/files" 
             const result = await github.request(url)
             return getAddonFilename(result.data)
       - name: Determine add-on ID
         uses: actions/github-script@v6
         id: getAddonId
         env:
-          headRef: "${{ inputs.issueAuthorName }}${{ inputs.issueNumber }}"
+          issueAuthorName: "${{ inputs.issueAuthorName }}
+          issueNumber: ${{ inputs.issueNumber }}"
         with:
           script: |
             const getAddonFilename = require('./.github/workflows/checkFilesChanged.js')
-            const url = "GET /repos/" + process.env.GITHUB_REPOSITORY + "/compare/master..." + process.env.headRef + "/files" 
+            const url = "GET /repos/" + process.env.GITHUB_REPOSITORY + "/compare/master..." + process.env.issueAuthorName + process.env.issueNumber + "/files" 
             const result = await github.request(url)
             const addonFileName = getAddonFilename(result.data)
             const addonIdRegex = RegExp("addons/(.*)/.*\.json")
