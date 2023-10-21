@@ -140,6 +140,13 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: master
+      - name: Update branch
+        run: |
+          fetch origin
+          git checkout -b ${{ inputs.issueAuthorName }}${{ inputs.issueNumber }}
+          git branch -u ${{ inputs.issueAuthorName }}${{ inputs.issueNumber }}
+          git pull
+          git checkout master
       - name: Create pull request
         id: cpr
         uses: peter-evans/create-pull-request@v5
