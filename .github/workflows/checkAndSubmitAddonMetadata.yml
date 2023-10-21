@@ -142,7 +142,7 @@ jobs:
           ref: master
       - name: Update branch
         run: |
-          fetch origin
+          git fetch origin
           git checkout -b ${{ inputs.issueAuthorName }}${{ inputs.issueNumber }}
           git branch -u ${{ inputs.issueAuthorName }}${{ inputs.issueNumber }}
           git pull
