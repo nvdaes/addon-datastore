@@ -8,7 +8,7 @@ on:
 jobs:
   check-addon:
     outputs:
-      issueNumber: ${{ steps.get-data.outputs.issueNumber }}
+      issueNumber: ${{ needs.checkAddon.get-data.outputs.issueNumber }}
 
     permissions:
       contents: write
