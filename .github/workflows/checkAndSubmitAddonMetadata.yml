@@ -195,7 +195,7 @@ jobs:
         script: |
           const setAddonNameAndVersion = require('./.github/workflows/getAddonNameAndVersion.js')
           const addonFilename = ${{ needs.getAddonId.outputs.addonFileName }}
-          setAddonNameAndVersion({core}, addonFilename)
+          setAddonNameAndVersion({core}, './' + addonFilename)
     - name: Check if discussion for this add-on exists
       id: checkDiscussion
       run: |
