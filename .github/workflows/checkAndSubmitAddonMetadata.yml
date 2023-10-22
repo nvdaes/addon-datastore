@@ -132,10 +132,13 @@ jobs:
             Please wait until #${{ steps.addSubmitterPR.outputs.pull-request-number }} is merged.
   createPullRequest:
     runs-on: windows-latest
-    needs: [verifySubmitter]
+    needs: [getAddonId, verifySubmitter]
     permissions:
       contents: write
       pull-requests: write
+    strategy:
+      matrix:
+        python-version: [ 3.11 ]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -155,30 +158,20 @@ jobs:
           body: "Closes #${{ inputs.issueNumber }}"
           author: github-actions <github-actions@github.com>
           delete-branch: true
-  mergeToMaster:
-    needs: [getAddonId, createPullRequest]
-    permissions:
-      contents: write
-      pull-requests: write
-    runs-on: windows-latest
-    strategy:
-      matrix:
-        python-version: [ 3.11 ]
-    steps:
       - name: Merge branch to master
         uses: everlytic/branch-merge@1.1.2
         with:
           source_ref: ${{ inputs.issueAuthorName }}${{ inputs.issueNumber }}
           target_branch: master
-          commit_message_template: '[Automated] Merged ${{ inputs.addonFileName }} into master'
-        
-  createReviewComment:
+          commit_message_template: '[Automated] Merged ${{ needs.getAddonId.outputs.addonFileName }} into master'
+
+  createReviewComment:          
     continue-on-error: true
 
     # jq for windows has issues parsing multiline strings (e.g. CRLF),
     # use linux instead.
     runs-on: ubuntu-latest
-    needs: [getAddonId, mergeToMaster]
+    needs: [getAddonId, createPullRequest]
     strategy:
       matrix:
         python-version: [ 3.11 ]
