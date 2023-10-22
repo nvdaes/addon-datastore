@@ -156,9 +156,8 @@ jobs:
           author: github-actions <github-actions@github.com>
           delete-branch: true
       - name: Merge to master
-        run: |
-          merge ${{ inputs.issueAuthorName }}${{ inputs.issueNumber }}
-          git pull
+        run: git push
+
 
   createReviewComment:
     continue-on-error: true
