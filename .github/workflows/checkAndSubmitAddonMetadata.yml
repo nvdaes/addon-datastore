@@ -188,6 +188,8 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
+    - name: Pull
+      run: git pull
     - name: Get add-on name and version
       id: getAddonNameAndVersion
       uses: actions/github-script@v6
