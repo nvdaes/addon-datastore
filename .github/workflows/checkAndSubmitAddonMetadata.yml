@@ -172,7 +172,7 @@ jobs:
         with:
           source_ref: ${{ inputs.issueAuthorName }}${{ inputs.issueNumber }}
           target_branch: master
-          commit_message_template: '[Automated] Merged ${{ inputs.addonFileName }} into master (PR #${{ needs.createPullRequest.outputs.pullRequestNumber }})'
+          commit_message_template: '[Automated] Merged ${{ needs.getAddonId.outputs.addonFileName }} into master (PR #${{ needs.createPullRequest.outputs.pullRequestNumber }})'
         
   createReviewComment:
     continue-on-error: true
