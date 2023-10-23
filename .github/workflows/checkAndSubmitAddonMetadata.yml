@@ -51,10 +51,7 @@ jobs:
           issueNumber: ${{ inputs.issueNumber }}
         with:
           script: |
-            const getAddonFilename = require('./.github/workflows/checkFilesChanged.js')
-            const url = "GET /repos/" + process.env.GITHUB_REPOSITORY + "/compare/master..." + process.env.issueAuthorName + process.env.issueNumber
-            const result = await github.request(url)
-            const addonFileName = getAddonFilename(result.data.files)
+            const addonFileName = ${{ steps.getAddonFileName.outputs.result }}
             const addonIdRegex = RegExp("addons/(.*)/.*\.json")
             return addonIdRegex.exec(addonFileName)[1]
       - name: Post validation errors as comment
