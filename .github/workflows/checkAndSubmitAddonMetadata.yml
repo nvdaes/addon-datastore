@@ -149,7 +149,7 @@ jobs:
         author: github-actions <github-actions@github.com>
         delete-branch: true
     - name: Checkout validate repo
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         repository: nvaccess/addon-datastore-validation
         path: validation
@@ -159,7 +159,7 @@ jobs:
         python -m pip install --upgrade wheel
         pip install -r validation/requirements.txt
     - name: Checkout transformation repo for nvdaAPIVersions.json
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         repository: nvaccess/addon-datastore-transform
         path: transform
