@@ -241,7 +241,7 @@ jobs:
         jqCode="
         'has(\"$addonId\")'
         "
-        $jqStatus = jq "$jqCode" discussions.json
+        jqStatus = jq "$jqCode" discussions.json
         echo "jqStatus=$jqStatus" >> "$GITHUB_OUTPUT"
     - name: Get repository and category id
       id: getRepoAndCatId
