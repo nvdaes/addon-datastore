@@ -236,9 +236,9 @@ jobs:
       id: checkDiscussion
       run: |
         addonId=$(
-          echo ${{ needs.getAddonId.outputs.addonId }}
+          ${{ needs.getAddonId.outputs.addonId }}
         )
-        jqStatus=$(jq 'has("$addonId")' discussions.json)
+        jqStatus=$(jq 'has($addonId)' discussions.json)
         echo "jqStatus=$jqStatus" >> "$GITHUB_OUTPUT"
         echo "$jqStatus"
     - name: Get repository and category id
