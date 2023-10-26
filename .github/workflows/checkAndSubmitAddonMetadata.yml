@@ -240,6 +240,7 @@ jobs:
         )
         jqStatus=$(jq 'has("$addonId")' discussions.json)
         echo "jqStatus=$jqStatus" >> "$GITHUB_OUTPUT"
+        echo "$jqStatus"
     - name: Get repository and category id
       id: getRepoAndCatId
       if: ${{ steps.checkDiscussion.outputs.jqStatus }} == 'false'
