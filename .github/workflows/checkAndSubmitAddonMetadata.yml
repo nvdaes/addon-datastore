@@ -232,10 +232,8 @@ jobs:
           setAddonNameAndVersion({core}, addonFilename)
     - name: Check if discussion for this add-on exists
       id: checkDiscussion
-      env:
-        addonId: ${{ needs.getAddonId.outputs.addonId }}
       run: |
-        jqStatus=$(jq 'has($addonId)' discussions.json)
+        jqStatus=$(jq 'has(${{ needs.getAddonId.outputs.addonId }})' discussions.json)
         echo "jqStatus=$jqStatus" >> "$GITHUB_OUTPUT"
         echo "$jqStatus"
     - name: Get repository and category id
