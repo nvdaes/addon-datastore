@@ -207,8 +207,6 @@ jobs:
           commit_message_template: '[Automated] Merged ${{ needs.getAddonId.outputs.addonFileName }} into master (PR #${{ needs.createPullRequest.outputs.pullRequestNumber }})'
         
   createReviewComment:
-    continue-on-error: true
-
     # jq for windows has issues parsing multiline strings (e.g. CRLF),
     # use linux instead.
     runs-on: ubuntu-latest
@@ -234,10 +232,9 @@ jobs:
           setAddonNameAndVersion({core}, addonFilename)
     - name: Check if discussion for this add-on exists
       id: checkDiscussion
+      env:
+        addonId: ${{ needs.getAddonId.outputs.addonId }}
       run: |
-        addonId=$(
-          ${{ needs.getAddonId.outputs.addonId }}
-        )
         jqStatus=$(jq 'has($addonId)' discussions.json)
         echo "jqStatus=$jqStatus" >> "$GITHUB_OUTPUT"
         echo "$jqStatus"
