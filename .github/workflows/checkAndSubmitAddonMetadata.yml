@@ -245,11 +245,11 @@ jobs:
         # -e only sets the exit status of jq to 0 if there is "truthy" output.
         # If no valid result is produced, i.e. no add-on id is found, jq exits with status 4.
         # If there is a different error, a different non-zero exit code is used.
-        echo "jqStatus=$?" >> "$GITHUB_ENV"
+        echo "jqStatus=$?" >> "$GITHUB_OUTPUT"
         # exit $? # Exit with the same exit code as jq
     - name: Get repository and category id
       id: getRepoAndCatId
-      if: jqStatus != '0'
+      if: ${{ steps.checkDiscussion.outputs.jqStatus }} != 0
       uses: actions/github-script@v6
       with:
         script: |
@@ -257,7 +257,7 @@ jobs:
           setRepoCatAndId({context, github, core})
     - name: Create discussion for add-on id
       id: createDiscussion
-      if: jqStatus != '0'
+      if: ${{ steps.checkDiscussion.outputs.jqStatus }} != 0
       uses: abirismyname/create-discussion@v1.1.0
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}      
@@ -271,7 +271,7 @@ jobs:
           Reviews for specific versions of the add-on can be added in response to automated comments for each version.
           Reviews should abide by the [NVDA code of conduct](https://github.com/nvaccess/nvda/blob/master/CODE_OF_CONDUCT.md).
     - name: Add add-on ID and discussion data to json file
-      if: jqStatus != '0'
+      if: ${{ steps.checkDiscussion.outputs.jqStatus }} != 0
       run: |
         addonId=$(
           echo ${{ needs.getAddonId.outputs.addonId }}
