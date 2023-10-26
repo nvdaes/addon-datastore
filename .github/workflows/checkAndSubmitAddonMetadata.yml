@@ -239,7 +239,7 @@ jobs:
           echo ${{ needs.getAddonId.outputs.addonId }}
         )
         jqCode="
-        'has(. | .[\"$addonId\"])
+        'has(\"$addonId\")'
         "
         $jqStatus = jq "$jqCode" discussions.json
         echo "jqStatus=$jqStatus" >> "$GITHUB_OUTPUT"
