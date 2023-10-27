@@ -293,22 +293,16 @@ jobs:
           createComment({context, github, core}, addonVersion, addonId)
     - name: Add discussion URL to metadata
       if: always()
-      run: |
-        addonFilename=$(
-          echo ${{ needs.getAddonId.outputs.addonFileName }}
-        )
-        reviewUrl=$(
-          echo ${{ steps.createComment.outputs.url }}
-        )
-        jqCode="
-        .[\"reviewUrl\"] = '\"$reviewUrl\" @uri'
-        "
-  
-        mv $addonFilename $addonFilename.old.json
-        jq -e -r "$jqCode" $addonFilename.old.json > $addonFilename
-        jqExitCode=$?
-        rm $addonFilename.old.json
-        exit $jqExitCode
+      uses: actions/github-script@v6
+      with:
+        script : |
+          const fs = require('fs')
+          const addonFilename = ${{ needs.getAddonId.outputs.addonFileName }}
+          const reviewUrl = ${{ steps.createComment.outputs.url }}
+          const metadata = JSON.parse(fs.readFileSync(addonFilename))
+          metadata.reviewUrl = reviewUrl
+          fs.writeFileSync(addonFilename, metadata)
+
     - name: Commit and push
       if: always()
       run: |
