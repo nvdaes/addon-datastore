@@ -301,11 +301,11 @@ jobs:
           echo ${{ steps.createComment.outputs.url }}
         )
         jqCode="
-        .[\"reviewUrl\"] = \"$reviewUrl\"
+        .[\"reviewUrl\"] = \"$reviewUrl\" @uri
         "
   
         mv $addonFilename $addonFilename.old.json
-        jq -e -r @uri "$jqCode" $addonFilename.old.json > $addonFilename
+        jq -e -r "$jqCode" $addonFilename.old.json > $addonFilename
         jqExitCode=$?
         rm $addonFilename.old.json
         exit $jqExitCode
