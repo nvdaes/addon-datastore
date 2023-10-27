@@ -298,11 +298,10 @@ jobs:
         script : |
           const fs = require('fs')
           const addonFilename = ${{ needs.getAddonId.outputs.addonFileName }}
-          const reviewUrl = ${{ steps.createComment.outputs.url }}
+          const reviewUrl = "${{ steps.createComment.outputs.url }}"
           const metadata = JSON.parse(fs.readFileSync(addonFilename))
           metadata.reviewUrl = reviewUrl
           fs.writeFileSync(addonFilename, metadata)
-
     - name: Commit and push
       if: always()
       run: |
