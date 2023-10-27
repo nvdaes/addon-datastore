@@ -298,7 +298,7 @@ jobs:
           echo ${{ needs.getAddonId.outputs.addonFileName }}
         )
         reviewUrl=$(
-          echo ${{ steps.createComment.outputs.url }} |jq -r @uri
+          echo ${{ steps.createComment.outputs.url }} | jq -r @uri
         )
         jqCode="
         .[\"reviewUrl\"] = \"$reviewUrl\"
