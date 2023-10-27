@@ -301,7 +301,7 @@ jobs:
           const reviewUrl = "${{ steps.createComment.outputs.url }}"
           const metadata = JSON.parse(fs.readFileSync(addonFilename))
           metadata.reviewUrl = reviewUrl
-          fs.writeFileSync(addonFilename, metadata)
+          fs.writeFileSync(addonFilename, JSON.stringify(metadata))
     - name: Commit and push
       if: always()
       run: |
