@@ -301,7 +301,7 @@ jobs:
           echo ${{ steps.createComment.outputs.url }}
         )
         jqCode="
-        .[\"reviewUrl\"] = \"$reviewUrl\" @uri
+        .[\"reviewUrl\"] = '\"$reviewUrl\" @uri'
         "
   
         mv $addonFilename $addonFilename.old.json
