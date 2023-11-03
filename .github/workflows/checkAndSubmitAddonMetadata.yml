@@ -293,7 +293,7 @@ jobs:
         script: |
           const createComment = require('./.github/workflows/createComment.js')
           const addonVersion = "${{ steps.getAddonNameAndVersion.outputs.addonVersion }}"
-          const addonId = ${{ needs.getAddonId.outputs.addonId }}
+          const addonId = "${{ needs.getAddonId.outputs.addonId }}"
           createComment({context, github, core}, addonVersion, addonId)
     - name: Add discussion URL to metadata
       if: always()
