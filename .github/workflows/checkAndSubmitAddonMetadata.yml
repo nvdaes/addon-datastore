@@ -140,6 +140,8 @@ jobs:
     - name: Update branch
       run: |
         git fetch origin ${{ inputs.issueAuthorName }}${{ inputs.issueNumber }}
+        git config user.name github-actions
+        git config user.email github-actions@github.com
         git cherry-pick origin/${{ inputs.issueAuthorName }}${{ inputs.issueNumber }}
     - name: Create pull request
       id: cpr
