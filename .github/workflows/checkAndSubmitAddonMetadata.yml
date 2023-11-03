@@ -138,7 +138,7 @@ jobs:
       with:
         ref: master
     - name: Update branch
-      run: fetch origin ${{ inputs.issueAuthorName }}${{ inputs.issueNumber }}
+      run: git fetch origin ${{ inputs.issueAuthorName }}${{ inputs.issueNumber }}
     - name: Create pull request
       id: cpr
       uses: peter-evans/create-pull-request@v5
