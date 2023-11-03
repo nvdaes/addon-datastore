@@ -1,1 +1,222 @@
-{}
+{
+  "15809252": {
+    "githubName": "nvdaes",
+    "trustedSubmitter": true
+  },
+  "7867280": {
+    "githubName": "josephsl",
+    "trustedSubmitter": true
+  },
+  "8139760": {
+    "githubName": "XLTechie",
+    "trustedSubmitter": true
+  },
+  "16865203": {
+    "githubName": "CyrilleB79",
+    "trustedSubmitter": true
+  },
+  "75214948": {
+    "githubName": "RPTools-org",
+    "addons": [
+      "controlTypeBeforeLabel",
+      "filezilla",
+      "landropPlus",
+      "thunderbirdPlus",
+      "thunderbirdPlusG5"
+    ]
+  },
+  "4976157": {
+    "addons": [
+      "vismaAdministration"
+    ],
+    "githubName": "towebo"
+  },
+  "5834276": {
+    "addons": [
+      "columnsReview"
+    ],
+    "githubName": "ABuffEr"
+  },
+  "12435927": {
+    "addons": [
+      "searchWith"
+    ],
+    "githubName": "ibrahim-s"
+  },
+  "61361779": {
+    "addons": [
+      "everything",
+      "filezilla"
+    ],
+    "githubName": "Nael-Sayegh"
+  },
+  "15861702": {
+    "addons": [
+      "agenda",
+      "frequentText",
+      "remapApplicationsKey",
+      "tesseractOCR"
+    ],
+    "githubName": "ruifontes",
+    "trustedSubmitter": true
+  },
+  "4093758": {
+    "addons": [
+      "toneMaster"
+    ],
+    "githubName": "hkatic"
+  },
+  "2187893": {
+    "addons": [
+      "MSEdgeDiscardAnnouncements",
+      "instantTranslate",
+      "mouseWheelScrolling"
+    ],
+    "githubName": "beqabeqa473"
+  },
+  "2877348": {
+    "addons": [
+      "BrailleExtender"
+    ],
+    "githubName": "aaclause"
+  },
+  "3049216": {
+    "addons": [
+      "rdAccess"
+    ],
+    "githubName": "leonardder"
+  },
+  "117822726": {
+    "addons": [
+      "whatsAppPlus",
+      "unigramPlus"
+    ],
+    "githubName": "Kostya-Gladkiy"
+  },
+  "80330667": {
+    "addons": [
+      "newfon"
+    ],
+    "githubName": "DraganRatkovich"
+  },
+  "35455415": {
+    "addons": [
+      "phoneticPunctuation",
+      "nvdaChatGPT"
+    ],
+    "githubName": "mo29cg"
+  },
+  "21048245": {
+    "addons": [
+      "objWatcher"
+    ],
+    "githubName": "cary-rowen",
+    "trustedSubmitter": true
+  },
+  "262708": {
+    "addons": [
+      "XPoseImage Captioner"
+    ],
+    "githubName": "cmillsap"
+  },
+  "30302865": {
+    "addons": [
+      "navSounds",
+      "alzaker"
+    ],
+    "githubName": "ahmedthebest31"
+  },
+  "52678193": {
+    "addons": [
+      "killProcess"
+    ],
+    "githubName": "rayo-alcantar"
+  },
+  "18240221": {
+    "addons": [
+      "dual_voice"
+    ],
+    "githubName": "Mahmood-Taghavi"
+  },
+  "48619364": {
+    "addons": [
+      "winWizard"
+    ],
+    "githubName": "jakubl7545"
+  },
+  "9821164": {
+    "addons": [
+      "TeleNVDA",
+      "updateChannel"
+    ],
+    "githubName": "jmdaweb"
+  },
+  "31541911": {
+    "addons": [
+      "Vscode-line-numbers"
+    ],
+    "githubName": "ashleygrobler04"
+  },
+  "135442710": {
+    "addons": [
+      "CurrencyConverter"
+    ],
+    "githubName": "mesteranas"
+  },
+  "16684693": {
+    "addons": [
+      "mp3DirectCut",
+      "dayOfTheWeek",
+      "sayCurrentKeyboardLanguage"
+    ],
+    "githubName": "abdel792"
+  },
+  "20691407": {
+    "addons": [
+      "commandHelper",
+      "calibre",
+      "easyNavigation",
+      "fenReader",
+      "Mozilla",
+      "screenshots",
+      "VLC"
+    ],
+    "githubName": "javidominguez"
+  },
+  "54605382": {
+    "addons": [
+      "num2words"
+    ],
+    "githubName": "rmcpantoja"
+  },
+  "87260972": {
+    "addons": [
+      "typing_settings"
+    ],
+    "githubName": "abdallah-hader"
+  },
+  "84168997": {
+    "addons": [
+      "espeakWitMbrola"
+    ],
+    "githubName": "FelipeZanabria"
+  },
+  "5350077": {
+    "addons": [
+      "crashHero"
+    ],
+    "githubName": "derekriemer"
+  },
+  "40980323": {
+    "addons": [
+      "Autoclip"
+    ],
+    "githubName": "mzanm"
+  },
+  "16416536": {
+    "addons": [
+      "nao"
+    ],
+    "githubName": "dreinn"
+  }
+}
