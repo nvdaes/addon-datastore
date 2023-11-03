@@ -111,7 +111,6 @@ jobs:
           commit-message: Add ${{ inputs.issueAuthorName }} as an approved submitter for ${{ needs.getAddonId.outputs.addonId }}
           body: "Created from #${{ inputs.issueNumber }}"
           author: github-actions <github-actions@github.com>
-          delete-branch: false
       - name: Post submitter registration message
         if: failure()
         uses: peter-evans/create-or-update-comment@v2
@@ -137,24 +136,26 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
       with:
-        ref: ${{ github.ref }}
+        ref: master
+    - name: Checkout submission branch
+      uses: actions/checkout@v4
+      with:
+        ref: ${{ inputs.issueAuthorName }}${{ inputs.issueNumber }}
+        path: submission
     - name: Update branch
       run: |
-        git fetch origin
-        git merge origin/${{ inputs.issueAuthorName }}${{ inputs.issueNumber }}
+        copy submission/addons addons
     - name: Create pull request
       id: cpr
       uses: peter-evans/create-pull-request@v5
       with:
         title: ${{ inputs.issueTitle }}
         branch: ${{ inputs.issueAuthorName }}${{ inputs.issueNumber }}
+        path: addons
         commit-message: ${{ inputs.issueTitle }}
         body: "Closes #${{ inputs.issueNumber }}"
         author: github-actions <github-actions@github.com>
         delete-branch: true
-    - name: Delete submitter branch
-      run: |
-        git push origin :addSubmitter${{ inputs.issueAuthorName }}${{ needs.getAddonId.outputs.addonId }}
     - name: Checkout validate repo
       uses: actions/checkout@v4
       with:
