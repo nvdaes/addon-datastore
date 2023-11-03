@@ -111,6 +111,7 @@ jobs:
           commit-message: Add ${{ inputs.issueAuthorName }} as an approved submitter for ${{ needs.getAddonId.outputs.addonId }}
           body: "Created from #${{ inputs.issueNumber }}"
           author: github-actions <github-actions@github.com>
+          delete-branch: false
       - name: Post submitter registration message
         if: failure()
         uses: peter-evans/create-or-update-comment@v2
