@@ -50,7 +50,7 @@ jobs:
           script: |
             const addonFileName = ${{ steps.getAddonFileName.outputs.result }}
             const addonIdRegex = RegExp("addons/(.*)/.*\.json")
-            return ${{ fromJSON(addonIdRegex.exec(addonFileName)[1]) }}
+            return addonIdRegex.exec(addonFileName)[1]
   verifySubmitter:
     # jq for windows has issues parsing multiline strings (e.g. CRLF),
     # use linux instead.
