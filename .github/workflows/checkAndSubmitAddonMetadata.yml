@@ -137,21 +137,16 @@ jobs:
       uses: actions/checkout@v4
       with:
         ref: master
-    - name: Checkout submission branch
-      uses: actions/checkout@v4
-      with:
-        ref: ${{ inputs.issueAuthorName }}${{ inputs.issueNumber }}
-        path: submission
     - name: Update branch
       run: |
-        copy submission/addons addons
+        fetch origin ${{ inputs.issueAuthorName }}${{ inputs.issueNumber }}
+        git merge ${{ inputs.issueAuthorName }}${{ inputs.issueNumber }}
     - name: Create pull request
       id: cpr
       uses: peter-evans/create-pull-request@v5
       with:
         title: ${{ inputs.issueTitle }}
         branch: ${{ inputs.issueAuthorName }}${{ inputs.issueNumber }}
-        path: addons
         commit-message: ${{ inputs.issueTitle }}
         body: "Closes #${{ inputs.issueNumber }}"
         author: github-actions <github-actions@github.com>
