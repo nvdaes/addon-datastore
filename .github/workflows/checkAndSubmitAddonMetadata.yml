@@ -50,7 +50,7 @@ jobs:
           script: |
             const addonFileName = ${{ steps.getAddonFileName.outputs.result }}
             const addonIdRegex = RegExp("addons/(.*)/.*\.json")
-            return addonIdRegex.exec(addonFileName)[1]
+            return ${{ fromJSON(addonIdRegex.exec(addonFileName)[1]) }}
   verifySubmitter:
     # jq for windows has issues parsing multiline strings (e.g. CRLF),
     # use linux instead.
@@ -233,7 +233,7 @@ jobs:
     - name: Check if discussion for this add-on exists
       id: checkDiscussion
       run: |
-        jqStatus=$(jq 'has(${{ needs.getAddonId.outputs.addonId }})' discussions.json)
+        jqStatus=$(jq 'has("${{ needs.getAddonId.outputs.addonId }}")' discussions.json)
         echo "jqStatus=$jqStatus" >> "$GITHUB_OUTPUT"
         echo "$jqStatus"
     - name: Get repository and category id
@@ -253,7 +253,7 @@ jobs:
       with:
         repository-id: "${{ steps.getRepoAndCatId.outputs.repoId }}"
         category-id: "${{ steps.getRepoAndCatId.outputs.catId }}"
-        title: Reviews for ${{ steps.getAddonNameAndVersion.outputs.addonName }} (${{ fromJSON(needs.getAddonId.outputs.addonId )}})
+        title: Reviews for ${{ steps.getAddonNameAndVersion.outputs.addonName }} (${{ needs.getAddonId.outputs.addonId}})
         body: |
           Community add-on reviews for ${{ steps.getAddonNameAndVersion.outputs.addonName }}.
           Please use threaded replies and avoid email responses.
@@ -263,7 +263,7 @@ jobs:
       if: ${{ ! fromJSON(steps.checkDiscussion.outputs.jqStatus) }}
       run: |
         addonId=$(
-          echo ${{ needs.getAddonId.outputs.addonId }}
+          echo "${{ needs.getAddonId.outputs.addonId }}"
          )
         discussionId=$(
           echo ${{ steps.createDiscussion.outputs.discussion-id }}
@@ -289,7 +289,7 @@ jobs:
         script: |
           const createComment = require('./.github/workflows/createComment.js')
           const addonVersion = "${{ steps.getAddonNameAndVersion.outputs.addonVersion }}"
-          const addonId = ${{ needs.getAddonId.outputs.addonId }}
+          const addonId = "${{ needs.getAddonId.outputs.addonId }}"
           createComment({context, github, core}, addonVersion, addonId)
     - name: Add discussion URL to metadata
       if: always()
