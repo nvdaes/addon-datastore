@@ -136,10 +136,10 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
       with:
-        fetch-depth: 0
-        ref: master
+        ref: ${{ github.ref }}
     - name: Update branch
       run: |
+        git fetch origin
         git merge ${{ inputs.issueAuthorName }}${{ inputs.issueNumber }}
     - name: Create pull request
       id: cpr

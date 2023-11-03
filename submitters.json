@@ -1,11 +1,7 @@
 {
   "15809252": {
     "githubName": "nvdaes",
-    "trustedSubmitter": false,
-    "addons": [
-      "customNotifications"
-    ]
-  },
+    "trustedSubmitter": false
   "7867280": {
     "githubName": "josephsl",
     "trustedSubmitter": true
