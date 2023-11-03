@@ -140,7 +140,7 @@ jobs:
     - name: Update branch
       run: |
         git fetch origin ${{ inputs.issueAuthorName }}${{ inputs.issueNumber }}
-        git merge ${{ inputs.issueAuthorName }}${{ inputs.issueNumber }}
+        git merge origin/${{ inputs.issueAuthorName }}${{ inputs.issueNumber }}
     - name: Create pull request
       id: cpr
       uses: peter-evans/create-pull-request@v5
