@@ -158,6 +158,7 @@ jobs:
       with:
         repository: nvaccess/addon-datastore-validation
         path: validation
+        ref: ${{ github.ref }}
         submodules: true
     - name: Install addon-datastore-validation dependencies
       run: |
@@ -168,6 +169,7 @@ jobs:
       with:
         repository: nvaccess/addon-datastore-transform
         path: transform
+        ref: ${{ github.ref }}
     - name: Get add-on filename
       id: getAddonFileName
       env:
