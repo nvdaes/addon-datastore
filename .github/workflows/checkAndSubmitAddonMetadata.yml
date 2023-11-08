@@ -153,6 +153,8 @@ jobs:
         body: "Closes #${{ inputs.issueNumber }}"
         author: github-actions <github-actions@github.com>
         delete-branch: true
+    - name: Create validation errors file
+      run: echo "" > validationErrors.md
     - name: Checkout validate repo
       uses: actions/checkout@v4
       with:
