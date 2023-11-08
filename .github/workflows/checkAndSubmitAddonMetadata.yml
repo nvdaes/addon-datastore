@@ -180,6 +180,8 @@ jobs:
           const result = await github.request(url)
           const addonFileName = getAddonFilename(result.data)
           core.setOutput('addonFileName', addonFileName)
+    - name: Create validation errors file
+      run: echo "" > validationErrors.md
     - name: Validate metadata
       run: |
         validation/runvalidate ${{ steps.getAddonFilename.outputs.addonFilename }} ./transform/nvdaAPIVersions.json --output ./validationErrors.md
