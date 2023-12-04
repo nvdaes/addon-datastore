@@ -314,7 +314,7 @@ jobs:
           echo ${{ needs.getAddonId.outputs.addonFileName }}
         )
         reviewUrl=$(
-          jq "| .[\"$addonId\"].discussionUrl" discussions.json
+          jq "[\"$addonId\"].discussionUrl" discussions.json
         )
         jqCode="
         .[\"reviewUrl\"] = \"$reviewUrl\"
