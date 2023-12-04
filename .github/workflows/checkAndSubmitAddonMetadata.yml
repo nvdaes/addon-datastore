@@ -313,6 +313,9 @@ jobs:
         addonFilename=$(
           echo ${{ needs.getAddonId.outputs.addonFileName }}
         )
+        addonId=$(
+          echo ${{ needs.getAddonId.outputs.addonId }}
+        )
         reviewUrl=$(
           jq ".\"$addonId\".discussionUrl" discussions.json
         )
