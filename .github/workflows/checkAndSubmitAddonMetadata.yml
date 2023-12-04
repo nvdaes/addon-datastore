@@ -320,7 +320,7 @@ jobs:
           jq ".\"$addonId\".discussionUrl" discussions.json
         )
         jqCode="
-        .[\"reviewUrl\"] = \"$reviewUrl\"
+        .[\"reviewUrl\"] = $reviewUrl
         "
   
         mv $addonFilename $addonFilename.old.json
