@@ -21,7 +21,7 @@ permissions:
 jobs:
   analyze:
     name: Analyze
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     strategy:
       fail-fast: false
@@ -34,6 +34,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+    - name: Download add-on
+      uses: actions/download-artifact@v4
+      with:
+        name: addon
+      - name: Unzip add-on
+        run: |
+          Expand-Archive: addon.nvda-addon
       # Initializes the CodeQL tools for scanning.
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
@@ -63,3 +70,8 @@ jobs:
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
+
+  call-workflow-passing-data:
+    needs: analyze
+    uses: ./github/workflows/checkAndSubmitAddonMetadata.yml
+

@@ -90,9 +90,9 @@ jobs:
       with:
         name: addon
         path: addon.nvda-addon
-  call-workflow-passing-data:
+  codeQL-analysis:
     needs: check-addon
-    uses: ./.github/workflows/checkAndSubmitAddonMetadata.yml
+    uses: ./.github/workflows/codeql-analysis.yml
     with:
       issueNumber: "${{ github.event.issue.number }}"
       issueAuthorId: ${{ github.event.issue.user.id }}
