@@ -70,13 +70,3 @@ jobs:
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
-
-  call-workflow-passing-data:
-    needs: analyze
-    uses: ./.github/workflows/checkAndSubmitAddonMetadata.yml
-    with:
-      issueNumber: "${{ github.event.issue.number }}"
-      issueAuthorId: ${{ github.event.issue.user.id }}
-      issueAuthorName: ${{ github.event.issue.user.login }}
-      issueTitle: ${{ github.event.issue.title }}
-
