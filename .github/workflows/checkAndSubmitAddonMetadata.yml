@@ -157,6 +157,11 @@ jobs:
       uses: actions/download-artifact@v4
       with:
         name: addon
+    - name: Unzip add-on
+      run: |
+        Expand-archive addon.nvda-addon
+    - name: Perform CodeQL analysis
+      uses: .github/workflows/codeql-analysis.yml
     - name: Create pull request
       id: cpr
       uses: peter-evans/create-pull-request@v6
@@ -167,6 +172,7 @@ jobs:
         body: "Closes #${{ inputs.issueNumber }}"
         author: github-actions <github-actions@github.com>
         delete-branch: true
+        add-paths: addons/*/*.json
     - name: Checkout code
       uses: actions/checkout@v4
       with:
