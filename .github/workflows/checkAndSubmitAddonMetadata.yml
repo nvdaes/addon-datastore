@@ -153,6 +153,9 @@ jobs:
         git config user.name github-actions
         git config user.email github-actions@github.com
         git cherry-pick origin/${{ inputs.issueAuthorName }}${{ inputs.issueNumber }}
+    - name: Download add-on
+      uses: actions/download-artifact@v4
+      name: addon
     - name: Create pull request
       id: cpr
       uses: peter-evans/create-pull-request@v6

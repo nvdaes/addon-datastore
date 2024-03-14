@@ -85,6 +85,11 @@ jobs:
         git add .
         git commit -m "Submit add-on"
         git push origin ${{ github.event.sender.login }}${{ steps.get-data.outputs.issueNumber }}
+    - name: Upload add-on
+      with:
+        name: addon
+        path: addon.nvda-addon
+        if-no-files-found: error
   call-workflow-passing-data:
     needs: check-addon
     uses: ./.github/workflows/checkAndSubmitAddonMetadata.yml
