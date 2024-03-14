@@ -40,7 +40,8 @@ jobs:
           name: addon
       - name: Unzip add-on
         run: |
-          Expand-Archive addon.nvda-addon
+          Move addon.nvda-addon addon.zip
+          Expand-Archive addon.zip
       # Initializes the CodeQL tools for scanning.
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
