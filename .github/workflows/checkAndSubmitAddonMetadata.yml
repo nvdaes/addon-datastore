@@ -155,7 +155,8 @@ jobs:
         git cherry-pick origin/${{ inputs.issueAuthorName }}${{ inputs.issueNumber }}
     - name: Download add-on
       uses: actions/download-artifact@v4
-      name: addon
+      with:
+        name: addon
     - name: Create pull request
       id: cpr
       uses: peter-evans/create-pull-request@v6
