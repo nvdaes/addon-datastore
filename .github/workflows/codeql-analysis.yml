@@ -34,10 +34,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-    - name: Download add-on
-      uses: actions/download-artifact@v4
-      with:
-        name: addon
+      - name: Download add-on
+        uses: actions/download-artifact@v4
+        with:
+          name: addon
       - name: Unzip add-on
         run: |
           Expand-Archive: addon.nvda-addon
@@ -79,4 +79,4 @@ jobs:
       issueAuthorId: ${{ github.event.issue.user.id }}
       issueAuthorName: ${{ github.event.issue.user.login }}
       issueTitle: ${{ github.event.issue.title }}
-
+
