@@ -26,7 +26,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: ['cpp', 'csharp', 'go', 'java', 'javascript', 'python', 'ruby' ]
+        language: ['javascript', 'python']
         # CodeQL supports [ 'cpp', 'csharp', 'go', 'java', 'javascript', 'python', 'ruby' ]
         # Learn more about CodeQL language support at https://git.io/codeql-language-support
 
@@ -40,7 +40,7 @@ jobs:
           name: addon
       - name: Unzip add-on
         run: |
-          Expand-Archive: addon.nvda-addon
+          Expand-Archive addon.nvda-addon
       # Initializes the CodeQL tools for scanning.
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
