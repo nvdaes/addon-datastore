@@ -1,7 +1,4 @@
 name: CodeQL Configuration
 
-paths-ignore:
-  - node_modules
-  - dist
 paths:
   - addon
