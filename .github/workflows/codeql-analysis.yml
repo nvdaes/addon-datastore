@@ -62,7 +62,7 @@ jobs:
         with:
           script: |
             const setSecurityAnalysisStatus = require('./.github/workflows/securityAnalysis.js')
-            const path = 'results/results-${{ matrix.language }}.serif'
+            const path = 'results/${{ matrix.language }}.sarif'
             setSecurityAnalysisStatus({core}, path)
   call-workflow-passing-data:
     needs: analyze
