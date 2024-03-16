@@ -49,6 +49,14 @@ jobs:
         uses: github/codeql-action/autobuild@v3
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
+      - name: Warn if analysis fails
+        if: failure()
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          issue-number: ${{ github.event.issue.number }}
+          body: |
+            Security analysis has failed for this add-on.
+            Please, contact NV Access for more details.
 
   call-workflow-passing-data:
     needs: analyze
