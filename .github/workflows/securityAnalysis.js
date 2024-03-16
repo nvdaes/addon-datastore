@@ -5,8 +5,8 @@ module.exports = ({core}, path) => {
   const runs = data.runs[0];
   const results = runs.results;
   if (results.length === 0) {
-    core.setOutput('securityAnalysis', 'success');
+    core.info("Security analysis succeeded");
   } else {
-    core.setOutput('securityAnalysis', 'failure');
+    core.setFailed("Security analysis failed");
   }
 };
