@@ -79,7 +79,7 @@ jobs:
         if: failure()
         uses: peter-evans/close-issue@v3
         with:
-          issue-number: ${{ inputs.issueNumber }}
+          issue-number: ${{ github.event.issue.number }}
   call-workflow-passing-data:
     needs: analyze
     uses: ./.github/workflows/checkAndSubmitAddonMetadata.yml
