@@ -49,11 +49,13 @@ jobs:
         uses: github/codeql-action/autobuild@v3
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
+        with:
+          output: results
       - name: Upload results
         uses: actions/upload-artifact@v4
         with:
           name: results
-          path: $GITHUB_WORKSPACE/**/*.sarif
+          path: results/*.sarif
   call-workflow-passing-data:
     needs: analyze
     uses: ./.github/workflows/checkAndSubmitAddonMetadata.yml
