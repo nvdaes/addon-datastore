@@ -60,10 +60,10 @@ jobs:
         id: setSecurityAnalysisStatus
         uses: actions/github-script@v7
         with:
-        script: |
-          const setSecurityAnalysisStatus = require('./.github/workflows/securityAnalysis.js')
-          const path = 'results/results-${{ matrix.language }}.serif'
-          setSecurityAnalysisStatus({core}, path)
+          script: |
+            const setSecurityAnalysisStatus = require('./.github/workflows/securityAnalysis.js')
+            const path = 'results/results-${{ matrix.language }}.serif'
+            setSecurityAnalysisStatus({core}, path)
   call-workflow-passing-data:
     needs: analyze
     uses: ./.github/workflows/checkAndSubmitAddonMetadata.yml
