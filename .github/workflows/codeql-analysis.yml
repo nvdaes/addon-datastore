@@ -51,11 +51,6 @@ jobs:
         uses: github/codeql-action/analyze@v3
         with:
           output: results
-      - name: Upload results
-        uses: actions/upload-artifact@v4
-        with:
-          name: results-${{ matrix.language }}
-          path: results/*.sarif
       - name: Set security analysis status
         id: setSecurityAnalysisStatus
         uses: actions/github-script@v7
@@ -64,6 +59,13 @@ jobs:
             const setSecurityAnalysisStatus = require('./.github/workflows/securityAnalysis.js')
             const path = 'results/${{ matrix.language }}.sarif'
             setSecurityAnalysisStatus({core}, path)
+      - name: Upload results
+        id: uploadResults
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: results-${{ matrix.language }}
+          path: results/*.sarif
   call-workflow-passing-data:
     needs: analyze
     uses: ./.github/workflows/checkAndSubmitAddonMetadata.yml
