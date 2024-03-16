@@ -52,7 +52,7 @@ jobs:
         uses: github/codeql-action/analyze@v3
       - name: Exit
         if: steps.performAnalysis.outcome != 'success'
-        exit 1
+        run: exit 1
 
   call-workflow-passing-data:
     needs: analyze
