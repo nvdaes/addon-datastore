@@ -1,0 +1,30 @@
+{
+	"addonId": "gestorDePomodoros",
+	"displayName": "Gestor de Pomodoros",
+	"URL": "https://github.com/nvdaes/Gestor-de-Pomodoros/releases/download/v1.8/gestorDePomodoros-1.8.nvda-addon",
+	"description": "Add-on for managing pomodoros, useful for students or people wishing to optimize their productivity.",
+	"sha256": "c17b3e327fd4b211fab42cba330779a74e0f3a15a4b2582b59d1efc358cc488f",
+	"addonVersionName": "1.8",
+	"addonVersionNumber": {
+		"major": 1,
+		"minor": 8,
+		"patch": 0
+	},
+	"minNVDAVersion": {
+		"major": 2024,
+		"minor": 1,
+		"patch": 0
+	},
+	"lastTestedVersion": {
+		"major": 2024,
+		"minor": 1,
+		"patch": 0
+	},
+	"channel": "stable",
+	"publisher": "nvdaes",
+	"sourceURL": "https://github.com/nvdaes",
+	"license": "GPL v2",
+	"homepage": "https://github.com/jpavonabian/Gestor-de-Pomodoros",
+	"licenseURL": "https://www.gnu.org/licenses/gpl-2.0.html",
+	"translations": []
+}
