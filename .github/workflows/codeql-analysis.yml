@@ -42,7 +42,7 @@ jobs:
         with:
           vt_api_key: ${{ secrets.VT_API_KEY }}
           files: |
-            addon.nvda-addon
+            addon/**/*.*
       - name: Unzip add-on
         run: |
           Move addon.nvda-addon addon.zip
