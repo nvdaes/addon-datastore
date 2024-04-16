@@ -36,18 +36,16 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: addon
-      - name: Rename add-on
-        run: |
-          Move addon.nvda-addon addon.zip
       - name: VirusTotal Scan
         if: always()
         uses: crazy-max/ghaction-virustotal@v4
         with:
           vt_api_key: ${{ secrets.VT_API_KEY }}
           files: |
-            addon.zip
-      - name: Expand add-on
+            addon.nvda-addon
+      - name: Unzip add-on
         run: |
+          Move addon.nvda-addon addon.zip
           Expand-Archive addon.zip
       # Initializes the CodeQL tools for scanning.
       - name: Initialize CodeQL
