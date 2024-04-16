@@ -76,13 +76,13 @@ jobs:
             Security analysis has failed for this add-on.
             [See GitHub workflow](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
             Please, contact NV Access for more details.
-      - name: VirusTotal Monitor Scan
+      - name: VirusTotal Scan
         if: always()
         uses: crazy-max/ghaction-virustotal@v4
         with:
           vt_api_key: ${{ secrets.VT_API_KEY }}
           files: |
-            addon.zip
+            addon
       - name: Close issue
         if: failure()
         uses: peter-evans/close-issue@v3
