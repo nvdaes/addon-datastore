@@ -38,7 +38,7 @@ jobs:
           name: addon
       - name: Rename add-on to zip
         run: |
-          Move addon.nvda-addon addon.zip
+          Move addon.nvda-addon addon.exe
       - name: Scan with Virus Total
         uses: crazy-max/ghaction-virustotal@v4
         with:
