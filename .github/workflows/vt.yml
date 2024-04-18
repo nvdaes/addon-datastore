@@ -28,9 +28,9 @@ jobs:
           $id=$splittedScanOutput[1]
           vt analysis $id -k ${{ secrets.VT_API_KEY }} --format json > vt.json
 
-      # - name: Upload results
-        # uses: actions/upload-artifact@v4
-        # with:
-          # name: VirusTotal
-          # path: vt.json
+      - name: Upload results
+        uses: actions/upload-artifact@v4
+        with:
+          name: VirusTotal
+          path: vt.json
 
