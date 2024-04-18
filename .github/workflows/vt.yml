@@ -19,9 +19,7 @@ jobs:
 
       - name: Install VT
         run: choco install vt-cli
-      - name: Set API key
-        run: vt -k ${{ secrets.VT_API_KEY }}
       - name: Download add-on
         run: curl --location --output addon.nvda-addon "https://github.com/nvdaes/clipContentsDesigner/releases/download/31.0.0/clipContentsDesigner-31.0.0.nvda-addon"
       - name: Scan add-on
-        run: vt file addon.nvda-addon
+        run: vt file addon.nvda-addon -k ${{ secrets.VT_API_KEY }}
