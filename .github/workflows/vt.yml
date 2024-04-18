@@ -21,3 +21,5 @@ jobs:
         run: choco install vt-cli
       - name: Set API key
         run: vt -k ${{ secrets.VT_API_KEY }}
+      - name: Download add-on
+        run: curl --location --output addon.nvda-addon "run: curl --location --output addon.nvda-addon"
