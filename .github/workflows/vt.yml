@@ -23,10 +23,10 @@ jobs:
         run: curl --location --output addon.nvda-addon "https://github.com/nvdaes/clipContentsDesigner/releases/download/31.0.0/clipContentsDesigner-31.0.0.nvda-addon"
       - name: Scan add-on
         run: |
-          vt file addon.nvda-addon -k ${{ secrets.VT_API_KEY }} --format json > vt.json
-      - name: Upload results
-        uses: actions/upload-artifact@v4
-        with:
-          name: VirusTotal
-          path: vt.json
+          vt scan file addon.nvda-addon -k ${{ secrets.VT_API_KEY }} -o --format json
+      # - name: Upload results
+        # uses: actions/upload-artifact@v4
+        # with:
+          # name: VirusTotal
+          # path: vt.json
 
