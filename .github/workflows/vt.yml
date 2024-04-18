@@ -20,4 +20,4 @@ jobs:
       - name: Install VT
         run: choco install vt-cli
       - name: Set API key
-        vt -k ${{ secrets.VT_API_KEY }}
+        run: vt -k ${{ secrets.VT_API_KEY }}
