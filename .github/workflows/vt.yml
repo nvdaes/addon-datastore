@@ -27,8 +27,8 @@ jobs:
           $splittedScanOutput=-split $scanOutput
           $id=$splittedScanOutput[1]
           vt analysis $id -k ${{ secrets.VT_API_KEY }} --format json > vt.json
-          $be=vt file C42335e36a209d39905414f0cbc71aa692338e3bf63efce8bc68d6949d2994ccd -k ${{ secrets.VT_API_KEY }}
-          vt analysis $be -k ${{ secrets.VT_API_KEY }} --format json > blindExtra.json
+          vt analysis C42335e36a209d39905414f0cbc71aa692338e3bf63efce8bc68d6949d2994ccd-1546309359 -k ${{ secrets.VT_API_KEY }} --format json > blindExtra.json
+
         
       - name: Upload results
         uses: actions/upload-artifact@v4
