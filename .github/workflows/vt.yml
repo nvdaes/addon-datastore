@@ -27,12 +27,16 @@ jobs:
           $splittedScanOutput=-split $scanOutput
           $id=$splittedScanOutput[1]
           vt analysis $id -k ${{ secrets.VT_API_KEY }} --format json > vt.json
-          vt analysis C42335e36a209d39905414f0cbc71aa692338e3bf63efce8bc68d6949d2994ccd-1546309359 -k ${{ secrets.VT_API_KEY }} --format json > blindExtra.json
 
-        
+      - name: Scan test file
+        run: |
+          $scanOutput=vt scan file testVirusTotal.txt -k ${{ secrets.VT_API_KEY }}
+          $splittedScanOutput=-split $scanOutput
+          $id=$splittedScanOutput[1]
+          vt analysis $id -k ${{ secrets.VT_API_KEY }} --format json > testvt.json
+
       - name: Upload results
         uses: actions/upload-artifact@v4
         with:
           name: VirusTotal
           path: "*.json"
-
