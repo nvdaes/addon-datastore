@@ -24,7 +24,7 @@ jobs:
       - name: Scan add-on
         run: |
           $output=vt scan addon.nvda-addon -k ${{ secrets.VT_API_KEY }}
-          vt file $output --format json -k ${{ secrets.VT_API_KEY }} > vt.json
+          vt analysis $output --format json -k ${{ secrets.VT_API_KEY }} > vt.json
           
       - name: Upload results
         uses: actions/upload-artifact@v4
