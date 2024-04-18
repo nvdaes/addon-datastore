@@ -24,4 +24,4 @@ jobs:
       - name: Download add-on
         run: curl --location --output addon.nvda-addon "https://github.com/nvdaes/clipContentsDesigner/releases/download/31.0.0/clipContentsDesigner-31.0.0.nvda-addon"
       - name: Scan add-on
-        run: vt scan addon.nvda-addon
+        run: vt file addon.nvda-addon
