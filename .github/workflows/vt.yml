@@ -1,0 +1,21 @@
+name: Virus Total
+
+on:
+  workflow_dispatch:
+
+jobs:
+  analyze:
+    name: Analyze add-on
+    runs-on: windows-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+      issues: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install VT
+        run: choco install vt-cli
