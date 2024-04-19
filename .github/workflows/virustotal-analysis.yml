@@ -24,8 +24,8 @@ jobs:
           vt scan file addon.nvda-addon -k ${{ secrets.VT_API_KEY }}
       - name: Report results for add-on
         run: |
-          $sha256=certutil -hashfile <pathToAddonFile.nvda-addon> SHA256
-          vt file $sha256 -k ${{ secrets.VT_API_KEY }} -- format json > virusTotalResults.json
+          $sha256=certutil -hashfile addon.nvda-addon SHA256
+          vt file $sha256 -k ${{ secrets.VT_API_KEY }} --format json > virusTotalResults.json
       - name: Upload results
         uses: actions/upload-artifact@v4
         with:
