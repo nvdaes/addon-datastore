@@ -33,7 +33,7 @@ jobs:
             setAddonNameAndVersion({core}, addonFilename)
       - name: Report results for add-on
         run: |
-          $sha256=${{ setSha256.outputs.addonSha256 }}
+          $sha256=${{ setAddonSha256.outputs.addonSha256 }}
           vt -k ${{ secrets.VT_API_KEY }} file $sha256 --format json > virusTotalResults.json
       - name: Upload results
         uses: actions/upload-artifact@v4
