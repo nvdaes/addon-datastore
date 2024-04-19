@@ -30,7 +30,7 @@ jobs:
           script: |
             const setAddonNameAndVersion = require('./.github/workflows/getAddonNameAndVersion.js')
             const addonFilename = ${{ needs.getAddonId.outputs.addonFileName }}
-          setAddonNameAndVersion({core}, addonFilename)
+            setAddonNameAndVersion({core}, addonFilename)
       - name: Report results for add-on
         run: |
           $sha256=${{ setSha256.outputs.addonSha256 }}
