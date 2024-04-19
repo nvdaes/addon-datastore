@@ -30,10 +30,9 @@ jobs:
 
       - name: Scan test file
         run: |
-          $scanOutput=vt scan file testVirusTotal.txt -k ${{ secrets.VT_API_KEY }}
-          $splittedScanOutput=-split $scanOutput
-          $id=$splittedScanOutput[1]
-          vt analysis $id -k ${{ secrets.VT_API_KEY }} --format json > testvt.json
+          vt file 42335e36a209d39905414f0cbc71aa692338e3bf63efce8bc68d6949d2994ccd > test.json
+
+          
 
       - name: Upload results
         uses: actions/upload-artifact@v4
