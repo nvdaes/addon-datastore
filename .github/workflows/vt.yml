@@ -30,7 +30,7 @@ jobs:
 
       - name: Scan test file
         run: |
-          vt file 42335e36a209d39905414f0cbc71aa692338e3bf63efce8bc68d6949d2994ccd -k ${{ secrets.VT_API_KEY }} > test.json
+          vt file 42335e36a209d39905414f0cbc71aa692338e3bf63efce8bc68d6949d2994ccd -k ${{ secrets.VT_API_KEY }} --format json > test.json
 
           
 
