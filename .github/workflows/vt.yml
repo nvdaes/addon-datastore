@@ -30,12 +30,11 @@ jobs:
 
       - name: Scan test file
         run: |
-          vt file 42335e36a209d39905414f0cbc71aa692338e3bf63efce8bc68d6949d2994ccd -k ${{ secrets.VT_API_KEY }} --format json > test.json
-
-          
+          vt file 42335e36a209d39905414f0cbc71aa692338e3bf63efce8bc68d6949d2994ccd -k ${{ secrets.VT_API_KEY }} -- format json > vtBlindExtra.json
+          vt file df3aed6271b841174056352c77502fb20ef93c43d75990e44d8f0ccd17f82449 -k ${{ secrets.VT_API_KEY }} -- format json > vtDropbox.json
 
       - name: Upload results
         uses: actions/upload-artifact@v4
         with:
           name: VirusTotal
-          path: "*.json"
+          path: "vt*.json"
