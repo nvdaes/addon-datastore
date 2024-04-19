@@ -21,7 +21,7 @@ jobs:
           name: addon
       - name: Scan add-on
         run: |
-          vt scan file addon.nvda-addon -k ${{ secrets.VT_API_KEY }}
+          vt -k ${{ secrets.VT_API_KEY }} scan file addon.nvda-addon
       - name: Report results for add-on
         run: |
           $sha256=certutil -hashfile addon.nvda-addon SHA256
