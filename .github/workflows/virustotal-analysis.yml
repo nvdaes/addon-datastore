@@ -1,0 +1,33 @@
+name: Virus Total analysis
+
+on:
+  workflow_call:
+
+jobs:
+  VirusTotal:
+    name: Scan add-on
+    runs-on: windows-latest
+    permissions:
+      issues: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Install VT
+        run: choco install vt-cli
+      - name: Download add-on
+        uses: actions/download-artifact@v4
+        with:
+          name: addon
+      - name: Scan add-on
+        run: |
+          vt scan file addon.nvda-addon -k ${{ secrets.VT_API_KEY }}
+      - name: Report results for add-on
+        run: |
+          $sha256=certutil -hashfile <pathToAddonFile.nvda-addon> SHA256
+          vt file $sha256 -k ${{ secrets.VT_API_KEY }} -- format json > virusTotalResults.json
+      - name: Upload results
+        uses: actions/upload-artifact@v4
+        with:
+          name: VirusTotal
+          path: virusTotalResults.json

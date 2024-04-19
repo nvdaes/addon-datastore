@@ -29,6 +29,7 @@ jobs:
       addonFileName: ${{ steps.getAddonFileName.outputs.result }}
       addonId: ${{ steps.getAddonId.outputs.result }}
       addonIdParsed: ${{ steps.getAddonIdParsed.outputs.result }}
+      addonSha256: ${{ steps.getAddonSha256.outputs.result }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -218,8 +219,11 @@ jobs:
   codeQL-analysis:
     needs: createPullRequest
     uses: ./.github/workflows/codeql-analysis.yml
+  virusTotal-analysis:
+    needs: createPullRequest
+    uses: ./.github/workflows/virustotal-analysis.yml
   mergeToMaster:
-    needs: [getAddonId, createPullRequest, codeQL-analysis]
+    needs: [getAddonId, createPullRequest, codeQL-analysis, virusTotal-analysis]
     permissions:
       contents: write
       pull-requests: write
