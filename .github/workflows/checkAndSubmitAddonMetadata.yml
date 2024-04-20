@@ -15,6 +15,9 @@ on:
       issueTitle:
         required: true
         type: string
+    secrets:
+      apiKey:
+        required: true
 
 jobs:
   getAddonId:
@@ -223,7 +226,6 @@ jobs:
     runs-on: windows-latest
     permissions:
       contents: read
-      actions: read
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -233,7 +235,7 @@ jobs:
         # run: curl --location --output addon.nvda-addon "https://github.com/nvdaes/clipContentsDesigner/releases/download/31.0.0/clipContentsDesigner-31.0.0.nvda-addon"
       - name: Scan add-on
         env:
-          API_KEY: ${{ secrets.VT_API_KEY }}
+          API_KEY: ${{ secrets.apiKey }}
         run: |
           $scanOutput=vt scan file addon.nvda-addon -k "$env:API_KEY"
           $splittedScanOutput=-split $scanOutput
