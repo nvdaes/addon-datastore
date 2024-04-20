@@ -35,7 +35,7 @@ jobs:
           script: |
             const setVirusTotalAnalysisStatus = require('./.github/workflows/virusTotalAnalysis.js')
             const path = 'vt.json'
-            setVirusTotalAnalysisStatus({core}, path)')
+            setVirusTotalAnalysisStatus({core}, path)
       - name: Upload results
         uses: actions/upload-artifact@v4
         with:
