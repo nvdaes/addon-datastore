@@ -229,6 +229,8 @@ jobs:
         python-version: [ 3.11 ]
     permissions:
       contents: read
+    env:
+      API_KEY: ${{ secrets.apiKey }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -236,8 +238,6 @@ jobs:
         run: choco install vt-cli
       - name: Scan add-on
         id: scanAddon
-        env:
-          API_KEY: ${{ secrets.apiKey }}
         run: |
           $scanOutput=vt scan file addon.nvda-addon -k "$env:API_KEY"
           $splittedScanOutput=-split $scanOutput
