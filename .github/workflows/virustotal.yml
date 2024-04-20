@@ -2,6 +2,7 @@ name: Virus Total
 
 on:
   workflow_dispatch:
+  workflow_call:
 
 jobs:
   analyze:
