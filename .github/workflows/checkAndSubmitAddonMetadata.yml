@@ -222,7 +222,7 @@ jobs:
     needs: createPullRequest
     uses: ./.github/workflows/codeql-analysis.yml
   virusTotal-analysis:
-    needs: getAddonId, createPullRequest
+    needs: [getAddonId, createPullRequest]
     runs-on: windows-latest
     strategy:
       matrix:
