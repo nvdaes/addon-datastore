@@ -242,11 +242,10 @@ jobs:
           $scanOutput=vt scan file addon.nvda-addon -k "$env:API_KEY"
           $splittedScanOutput=-split $scanOutput
           $id=$splittedScanOutput[1]
-          echo "vtId=$id" >> "$GITHUB_OUTPUT"
       - name: Analyze scanned add-on
         id: analyzeScannedAddon
         run: |
-          vt analysis ${{ steps.scanAddon.outputs.vtId }} -k "$env:API_KEY" --format json > vt.json
+          vt analysis $id -k "$env:API_KEY" --format json > vt.json
       - name: Set Virus Total analysis status
         id: setVirusTotalAnalysisStatus
         uses: actions/github-script@v7
