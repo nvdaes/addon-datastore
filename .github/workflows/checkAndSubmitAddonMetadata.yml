@@ -219,8 +219,10 @@ jobs:
     needs: createPullRequest
     uses: ./.github/workflows/codeql-analysis.yml
   virusTotal-analysis:
-    name: Analyze add-on withh Virus Total
+    needs: createPullRequest
     runs-on: windows-latest
+    permissions:
+      contents: read
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
