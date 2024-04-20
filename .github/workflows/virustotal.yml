@@ -33,7 +33,7 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const setSecurityAnalysisStatus = require('./.github/workflows/virusTotalAnalysis.js')
+            const setVirusTotalAnalysisStatus = require('./.github/workflows/virusTotalAnalysis.js')
             const path = 'vt.json'
             setVirusTotalAnalysisStatus({core}, path)')
       - name: Upload results
