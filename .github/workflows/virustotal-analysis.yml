@@ -25,8 +25,8 @@ jobs:
           vt -k ${{ secrets.VT_API_KEY }} scan file addon.nvda-addon
       - name: Report results for add-on
         run: |
-          $certutilCommand=certutil-hashfile addon.nvda-addon sha256
-          ⠀$splittedResult=$certutilCommand -split "\r"
+          $certutilCommand=certutil -hashfile addon.nvda-addon sha256
+          $splittedResult=$certutilCommand -split "\r"
           $sha256=$splittedResult[1]
           vt -k ${{ secrets.VT_API_KEY }} file $sha256 --format json > virusTotalResults.json
       - name: Upload results
