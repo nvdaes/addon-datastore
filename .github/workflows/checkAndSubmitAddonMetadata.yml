@@ -220,6 +220,8 @@ jobs:
     uses: ./.github/workflows/codeql-analysis.yml
   virusTotal-analysis:
     needs: createPullRequest
+    permissions:
+      contents: read
     uses: ./.github/workflows/virustotal.yml
     secrets:
       apiKey: ${{ secrets.VT_API_KEY }}
