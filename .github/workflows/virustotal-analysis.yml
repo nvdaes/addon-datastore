@@ -22,8 +22,10 @@ jobs:
         with:
           name: addon
       - name: Scan add-on
+        env:
+          API_KEY: ${{ secrets.VT_API_KEY }}
         run: |
-          $scanOutput=vt scan file addon.nvda-addon -k ${{ secrets.VT_API_KEY }}
+          $scanOutput=vt scan file addon.nvda-addon -k ${{ env.API_KEY }}
           $splittedScanOutput=-split $scanOutput
           $id=$splittedScanOutput[1]
           vt analysis $id -k ${{ secrets.VT_API_KEY }} --format json > vt.json
