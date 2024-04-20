@@ -23,13 +23,10 @@ jobs:
           name: addon
       - name: Scan add-on
         run: |
-          vt -k ${{ secrets.VT_API_KEY }} scan file addon.nvda-addon
-      - name: Report results for add-on
-        run: |
-          $certutilCommand=certutil -hashfile addon.nvda-addon sha256
-          $splittedResult=$certutilCommand -split "\r"
-          $sha256=$splittedResult[1]
-          vt -k ${{ secrets.VT_API_KEY }} file $sha256 --format json > virusTotalResults.json
+          $scanOutput=vt scan file addon.nvda-addon -k ${{ secrets.VT_API_KEY }}
+          $splittedScanOutput=-split $scanOutput
+          $id=$splittedScanOutput[1]
+          vt analysis $id -k ${{ secrets.VT_API_KEY }} --format json > vt.json
       - name: Upload results
         uses: actions/upload-artifact@v4
         with:
