@@ -260,7 +260,7 @@ jobs:
           name: VirusTotal
           path: vt.json
   mergeToMaster:
-    needs: [getAddonId, createPullRequest, codeQL-analysis]
+    needs: [getAddonId, createPullRequest, codeQL-analysis, virusTotal-analysis]
     permissions:
       contents: write
       pull-requests: write
