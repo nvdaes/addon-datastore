@@ -90,6 +90,13 @@ jobs:
       with:
         name: addon
         path: addon.nvda-addon
+    - name: Install VT
+      run: choco install vt-cli
+    - name: Scan add-on
+      env:
+        API_KEY: ${{ secrets.VT_API_KEY }}
+      run: |
+        vt scan file addon.nvda-addon -k "$env:API_KEY"
   call-workflow-passing-data:
     needs: check-addon
     uses: ./.github/workflows/checkAndSubmitAddonMetadata.yml

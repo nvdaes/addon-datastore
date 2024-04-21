@@ -239,12 +239,6 @@ jobs:
           ref: ${{ needs.createPullRequest.outputs.pullRequestHeadSha }}
       - name: Install VT
         run: choco install vt-cli
-      - name: Scan add-on
-        id: scanAddon
-        run: |
-          $scanOutput=vt scan file addon.nvda-addon -k "$env:API_KEY"
-          $splittedScanOutput=-split $scanOutput
-          $id=$splittedScanOutput[1]
       - name: Get add-on sha256
         id: getAddonSha256
         uses: actions/github-script@v7
