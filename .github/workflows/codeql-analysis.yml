@@ -31,11 +31,18 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
+    - name: Checkoud validation repo
+        uses: actions/checkout@v4
+        with:
+          repository: nvaccess/addon-datastore-validation
+          path: validation
       - name: Download add-on
         uses: actions/download-artifact@v4
         with:
           name: addon
+      - name: Get sha256
+        run: |
+          echo runsha addon.nvda-addon
       - name: Unzip add-on
         run: |
           Move addon.nvda-addon addon.zip
