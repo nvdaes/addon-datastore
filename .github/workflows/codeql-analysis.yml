@@ -41,8 +41,12 @@ jobs:
         with:
           name: addon
       - name: Get sha256
+        id: getSha256
         run: |
-          echo runsha addon.nvda-addon
+          $EOF = -join (1..15 | ForEach {[char]((48..57)+(65..90)+(97..122) | Get-Random)})
+          "sha<<$EOF" | Out-File -FilePath $env:GITHUB_ENV -Append
+          runsha addon.nvda-addon | Out-File -FilePath $env:GITHUB_ENV -Append
+          "$EOF" | Out-File -FilePath $env:GITHUB_ENV -Append
       - name: Unzip add-on
         run: |
           Move addon.nvda-addon addon.zip
