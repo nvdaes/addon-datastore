@@ -45,7 +45,8 @@ jobs:
         run: |
           $EOF = -join (1..15 | ForEach {[char]((48..57)+(65..90)+(97..122) | Get-Random)})
           "sha<<$EOF" | Out-File -FilePath $env:GITHUB_ENV -Append
-          validate/runsha addon.nvda-addon | Out-File -FilePath $env:GITHUB_ENV -Append
+          cd validate
+          runsha addon.nvda-addon | Out-File -FilePath $env:GITHUB_ENV -Append
           "$EOF" | Out-File -FilePath $env:GITHUB_ENV -Append
       - name: Unzip add-on
         run: |
