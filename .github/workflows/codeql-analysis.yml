@@ -99,3 +99,14 @@ jobs:
             Security analysis has failed for this add-on.
             [See GitHub workflow](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
             Please, contact NV Access for more details.
+      - name: Create pull request
+        id: cpr
+        uses: peter-evans/create-pull-request@v6
+        with:
+          title: ${{ github.event.issue.title }}
+          branch: trustedAddon${{ github.event.issue.number }}
+          commit-message: ${{ github.event.issue.title }}
+          body: "Please, wait for NV Access review of this add-on"
+          author: github-actions <github-actions@github.com>
+          delete-branch: true
+          
