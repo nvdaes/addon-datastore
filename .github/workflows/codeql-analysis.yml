@@ -45,7 +45,7 @@ jobs:
             const path = 'addon.nvda-addon'
             getSha256({core}, path)
       - name: Determine if analysis should be performed
-        id: shouldBeAnalyzed
+        id: shouldAnalyze
         uses: actions/github-script@v7
         with:
           script: |
