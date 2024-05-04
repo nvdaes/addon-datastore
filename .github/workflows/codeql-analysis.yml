@@ -79,12 +79,13 @@ jobs:
           output: results
       - name: Set security analysis status
         id: setSecurityAnalysisStatus
+        if: ${{ steps.shouldAnalyze.outputs.result == true }}
         uses: actions/github-script@v7
         with:
           script: |
             const setSecurityAnalysisStatus = require('./.github/workflows/securityAnalysis.js')
             const path = 'results/${{ matrix.language }}.sarif'
-            setSecurityAnalysisStatus({core}, path, ${{ steps.shouldAnalyze.outputs.result }})
+            setSecurityAnalysisStatus({core}, path)
       - name: Upload results
         id: uploadResults
         if: failure()
