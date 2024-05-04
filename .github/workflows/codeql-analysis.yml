@@ -99,14 +99,25 @@ jobs:
             Security analysis has failed for this add-on.
             [See GitHub workflow](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
             Please, contact NV Access for more details.
+      - name: Add trusted add-on
+        id: addTrustedAddOn
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const addTrustedAddOn = require('./.github/workflows/addTrustedAddOn.js')
+            const path = 'trustedAddons.json'
+            const sha256 = ${{ steps.getSha256.outputs.result }}
+            addTrustedAddOn(path, sha256)
       - name: Create pull request
         id: cpr
         uses: peter-evans/create-pull-request@v6
         with:
+          base: master
+          addPaths: trustedAddons.json
           title: ${{ github.event.issue.title }}
           branch: trustedAddon${{ github.event.issue.number }}
           commit-message: ${{ github.event.issue.title }}
-          body: "Please, wait for NV Access review of this add-on"
+          body: "This add-on needs to view reviewed by NV Access due to security analysis failure"
           author: github-actions <github-actions@github.com>
           delete-branch: true
           
