@@ -52,7 +52,7 @@ jobs:
         with:
           script: |
             const shouldAnalyze = require('./.github/workflows/shouldPerformCodeqlAnalysis.js')
-            const sha256 = ${{ steps.getSha256.outputs.result }}
+            const sha256 = "${{ steps.getSha256.outputs.result }}"
             const result = shouldAnalyze({core}, sha256)
             return result
       - name: Unzip add-on
