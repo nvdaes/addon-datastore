@@ -99,6 +99,10 @@ jobs:
             Security analysis has failed for this add-on.
             [See GitHub workflow](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
             Please, contact NV Access for more details.
+      -     name: Checkout master branch
+        run: |
+          git checkout master
+          git pull
       - name: Add trusted add-on
         id: addTrustedAddOn
         uses: actions/github-script@v7
