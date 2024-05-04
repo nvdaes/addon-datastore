@@ -40,6 +40,7 @@ jobs:
         id: getSha256
         uses: actions/github-script@v7
         with:
+          result-encoding: string
           script: |
             const getSha256 = require('./.github/workflows/getSha256.js')
             const path = 'addon.nvda-addon'
@@ -51,7 +52,7 @@ jobs:
         with:
           script: |
             const shouldAnalyze = require('./.github/workflows/shouldPerformCodeqlAnalysis.js')
-            const sha256 = ${{ steps.outputs.getSha256.result }}
+            const sha256 = ${{ steps.getSha256.outputs.result }}
             const result = shouldAnalyze({core}, sha256)
             return result
       - name: Unzip add-on
