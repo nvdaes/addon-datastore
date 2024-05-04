@@ -53,17 +53,18 @@ jobs:
         with:
           script: |
             const shouldAnalyze = require('./.github/workflows/shouldPerformCodeqlAnalysis.js')
+            const path = 'trustedAddons.json'
             const sha256 = "${{ steps.getSha256.outputs.result }}"
-            const result = shouldAnalyze(sha256)
+            const result = shouldAnalyze(path, sha256)
             return result
       - name: Unzip add-on
-        if: ${{ steps.shouldAnalyze.outputs.result }}
+        if: ${{ steps.shouldAnalyze.outputs.result == true }}
         run: |
           Move addon.nvda-addon addon.zip
           Expand-Archive addon.zip
       # Initializes the CodeQL tools for scanning.
       - name: Initialize CodeQL
-        if: ${{ steps.shouldAnalyze.outputs.result }}
+        if: ${{ steps.shouldAnalyze.outputs.result == true }}
         uses: github/codeql-action/init@v3
         with:
           languages: ${{ matrix.language }}
@@ -71,12 +72,12 @@ jobs:
       - name: Autobuild
         uses: github/codeql-action/autobuild@v3
       - name: Perform CodeQL Analysis
-        if: ${{ steps.shouldAnalyze.outputs.result }}
+        if: ${{ steps.shouldAnalyze.outputs.result == true }}
         uses: github/codeql-action/analyze@v3
         with:
           output: results
       - name: Set security analysis status
-        if: ${{ steps.shouldAnalyze.outputs.result }}
+        if: ${{ steps.shouldAnalyze.outputs.result == true }}
         id: setSecurityAnalysisStatus
         uses: actions/github-script@v7
         with:
