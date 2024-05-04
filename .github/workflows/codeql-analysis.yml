@@ -100,10 +100,12 @@ jobs:
             [See GitHub workflow](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
             Please, contact NV Access for more details.
       - name: Checkout master branch
+        if: failure()
         run: |
           git checkout master
           git pull
       - name: Add trusted add-on
+        if: failure()
         id: addTrustedAddOn
         uses: actions/github-script@v7
         with:
@@ -114,6 +116,7 @@ jobs:
             addTrustedAddOn(path, sha256)
       - name: Create pull request
         id: cpr
+          if: failure()
         uses: peter-evans/create-pull-request@v6
         with:
           base: master
