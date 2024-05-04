@@ -31,23 +31,19 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Checkoud validation repo
-        uses: actions/checkout@v4
-        with:
-          repository: nvaccess/addon-datastore-validation
-          path: validation
+
       - name: Download add-on
         uses: actions/download-artifact@v4
         with:
           name: addon
       - name: Get sha256
         id: getSha256
-        run: |
-          $EOF = -join (1..15 | ForEach {[char]((48..57)+(65..90)+(97..122) | Get-Random)})
-          "sha<<$EOF" | Out-File -FilePath $env:GITHUB_ENV -Append
-          cd validation
-          runsha addon.nvda-addon | Out-File -FilePath $env:GITHUB_ENV -Append
-          "$EOF" | Out-File -FilePath $env:GITHUB_ENV -Append
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const getSha256 = require('./.github/workflows/getSha256.js')
+            const path = 'addon.nvda-addon'
+            getSha256({core}, path)
       - name: Unzip add-on
         run: |
           Move addon.nvda-addon addon.zip
