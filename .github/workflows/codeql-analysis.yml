@@ -116,7 +116,7 @@ jobs:
             addTrustedAddOn(path, sha256)
       - name: Create pull request
         id: cpr
-          if: failure()
+        if: failure()
         uses: peter-evans/create-pull-request@v6
         with:
           base: master
