@@ -1,4 +1,4 @@
-module.exports = ({core}, sha256) => {
+module.exports = (sha256) => {
   const fs = require('fs');
   const path = 'trustedAddons.json';
   const contents = fs.readFileSync(path);
