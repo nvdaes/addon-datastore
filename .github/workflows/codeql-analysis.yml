@@ -112,7 +112,7 @@ jobs:
           script: |
             const addTrustedAddOn = require('./.github/workflows/addTrustedAddOn.js')
             const path = 'trustedAddons.json'
-            const sha256 = ${{ steps.getSha256.outputs.result }}
+            const sha256 = "${{ steps.getSha256.outputs.result }}"
             addTrustedAddOn(path, sha256)
       - name: Create pull request
         id: cpr
