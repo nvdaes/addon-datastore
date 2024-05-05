@@ -119,9 +119,9 @@ jobs:
         with:
           base: master
           add-paths: trustedAddons.json
-          title: ${{ github.event.issue.title }}
+          title: Add trusted add-on (${{ github.event.issue.title }})
           branch: trustedAddon${{ matrix.language }}${{ github.event.issue.number }}
-          commit-message: Add trusted add-on: ${{ github.event.issue.title }}
+          commit-message: Add trusted add-on (${{ github.event.issue.title }})
           body: "This add-on needs to be reviewed by NV Access due to security analysis failure"
           author: github-actions <github-actions@github.com>
           delete-branch: true
