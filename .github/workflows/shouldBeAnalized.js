@@ -3,6 +3,9 @@ module.exports = ({core}, path, sha256) => {
   const contents = fs.readFileSync(path);
   const data = JSON.parse(contents);
   if (data.trustedAddons.includes(sha256)) {
-    core.setFailed('SHA-256 included in trusted add-ons');
+    core.setInfo('SHA-256 included in trusted add-ons');
+    core.setOutput('sha256', 'included');
+  } else {
+    core.setOutput('sha256', 'excluded');
   }
 };
