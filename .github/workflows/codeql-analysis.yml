@@ -55,7 +55,7 @@ jobs:
             const shouldAnalyze = require('./.github/workflows/shouldAnalyze.js')
             const path = 'trustedAddons.json'
             const sha256 = "${{ steps.getSha256.outputs.result }}"
-            const result = shouldAnalyze(path, sha256)
+            const result = contains(shouldAnalyze(path), sha256)
             return result
       - name: Unzip add-on
         if: ${{ steps.shouldAnalyze.outputs.result }} == $ {{ true }}
