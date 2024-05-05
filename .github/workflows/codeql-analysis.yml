@@ -17,6 +17,7 @@ on:
 jobs:
   shouldAnalize:
     name: Check if this add-on should be analized with CodeQL
+    continue-on-error: true
     runs-on: windows-latest
     strategy:
       matrix:
