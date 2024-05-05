@@ -19,7 +19,6 @@ jobs:
       security-events: write
       issues: write
       pull-requests: write
-
     strategy:
       fail-fast: false
       matrix:
@@ -27,7 +26,6 @@ jobs:
         language: ['javascript', 'python']
         # CodeQL supports [ 'cpp', 'csharp', 'go', 'java', 'javascript', 'python', 'ruby' ]
         # Learn more about CodeQL language support at https://git.io/codeql-language-support
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -35,6 +33,42 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: addon
+            shouldAnalize:
+    name: Check if this add-on should be analized with CodeQL
+    needs: [getAddonId, createPullRequest]
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        python-version: [ 3.11 ]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4    
+      - name: Download add-on
+        uses: actions/download-artifact@v4
+        with:
+          name: addon
+      - name: Get sha256
+        id: getSha256
+        uses: actions/github-script@v7
+        with:
+          result-encoding: string
+          script: |
+            const getSha256 = require('./.github/workflows/getSha256.js')
+            const path = 'addon.nvda-addon'
+            const sha256 = getSha256(path)
+            return sha256
+      - name: Determine if analysis should be performed
+        id: shouldBeAnalized
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const shouldBeAnalized = require('./.github/workflows/shouldBeAnalized.js')
+            const path = 'trustedAddons.json'
+            const sha256 = "${{ steps.getSha256.outputs.result }}"
+            shouldBeAnalized(path, sha256)
+      - name: Exit
+        if: failure()
+        run: exit 0
       - name: Unzip add-on
         if: contains(${{ steps.getTrustedAddons.outputs.result }}, ${{ steps.getSha256.outputs.result }})
         run: |
