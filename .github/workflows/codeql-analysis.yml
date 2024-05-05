@@ -93,7 +93,7 @@ jobs:
             [See GitHub workflow](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
             Please, contact NV Access for more details.
       - name: Add trusted add-on
-        if: failure() && steps.shouldAnalize.outcome == 'success'
+        if: failure() && steps.shouldAnalize.outcome != 'success'
         id: addTrustedAddOn
         uses: actions/github-script@v7
         with:
@@ -104,7 +104,7 @@ jobs:
             addTrustedAddOn(path, sha256)
       - name: Create pull request
         id: cpr
-        if: failure() && steps.shouldAnalize.outcome == 'success'
+        if: failure() && steps.shouldAnalize.outcome != 'success'
         uses: peter-evans/create-pull-request@v6
         with:
           base: master
@@ -116,6 +116,6 @@ jobs:
           author: github-actions <github-actions@github.com>
           delete-branch: true
       - name: Success if shouldAnalize fails
-        if: steps.shouldAnalize.outcome != 'success'
+        if: failure () && steps.shouldAnalize.outcome != 'success'
         continue-on-error: true
         run: echo "Analysis skipped"
