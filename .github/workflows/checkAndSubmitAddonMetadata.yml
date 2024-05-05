@@ -216,7 +216,7 @@ jobs:
       with:
         issue-number: ${{ inputs.issueNumber }}
   codeQL-analysis:
-    needs: createPullRequest, shouldAnalize
+    needs: createPullRequest
     uses: ./.github/workflows/codeql-analysis.yml
   mergeToMaster:
     needs: [getAddonId, createPullRequest, codeQL-analysis]
