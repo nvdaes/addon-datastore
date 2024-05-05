@@ -12,8 +12,6 @@ on:
 jobs:
   analyze:
     name: Analyze add-on
-    continue-on-error: steps.shouldAnalize.outcome == 'success'
-    runs-on: windows-latest
     permissions:
       actions: read
       contents: write
@@ -116,3 +114,7 @@ jobs:
           body: "This add-on needs to be reviewed by NV Access due to security analysis failure"
           author: github-actions <github-actions@github.com>
           delete-branch: true
+      - name: Success if shouldAnalize fails
+        if: steps.shouldAnalize.outcome != 'success'
+        continue-on-error: true
+        run: echo "Analysis skipped"
