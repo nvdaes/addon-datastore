@@ -56,7 +56,7 @@ jobs:
             const path = 'trustedAddons.json'
             const sha256 = "${{ steps.getSha256.outputs.result }}"
             const trustedAddons = shouldAnalyze(path)
-            return trustedAddons.includes(sha256)
+            return ! trustedAddons.includes(sha256)
       - name: Unzip add-on
         if: ${{ steps.shouldAnalyze.outputs.result }} == $ {{ true }}
         run: |
