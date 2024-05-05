@@ -44,7 +44,7 @@ jobs:
             shouldBeAnalized(path, sha256)
   analyze:
     name: Analyze add-on
-    continue-on-error: ${{ needs.shouldAnalize.result }} == 'failure'
+    continue-on-error: ${{ needs.shouldAnalize.status }} == 'failure'
     runs-on: windows-latest
     needs: shouldAnalize
     permissions:
