@@ -16,9 +16,10 @@ jobs:
     runs-on: windows-latest
     permissions:
       actions: read
-      contents: read
+      contents: write
       security-events: write
       issues: write
+      pull-requests: write
 
     strategy:
       fail-fast: false
@@ -36,24 +37,49 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: addon
+      - name: Get sha256
+        id: getSha256
+        uses: actions/github-script@v7
+        with:
+          result-encoding: string
+          script: |
+            const getSha256 = require('./.github/workflows/getSha256.js')
+            const path = 'addon.nvda-addon'
+            const sha256 = getSha256(path)
+            return sha256
+      - name: Determine if analysis should be performed
+        id: shouldAnalyze
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const shouldAnalyze = require('./.github/workflows/shouldAnalyze.js')
+            const path = 'trustedAddons.json'
+            const sha256 = "${{ steps.getSha256.outputs.result }}"
+            const result = shouldAnalyze(path, sha256)
+            return result
       - name: Unzip add-on
+        if: ${{ steps.shouldAnalyze.outputs.result == true }}
         run: |
           Move addon.nvda-addon addon.zip
           Expand-Archive addon.zip
       # Initializes the CodeQL tools for scanning.
       - name: Initialize CodeQL
+        if: ${{ steps.shouldAnalyze.outputs.result == true }}
         uses: github/codeql-action/init@v3
         with:
           languages: ${{ matrix.language }}
           config-file: ./.github/codeql/codeql-config.yml
       - name: Autobuild
+        if: ${{ steps.shouldAnalyze.outputs.result == true }}
         uses: github/codeql-action/autobuild@v3
       - name: Perform CodeQL Analysis
+        if: ${{ steps.shouldAnalyze.outputs.result == true }}
         uses: github/codeql-action/analyze@v3
         with:
           output: results
       - name: Set security analysis status
         id: setSecurityAnalysisStatus
+        if: ${{ steps.shouldAnalyze.outputs.result == true }}
         uses: actions/github-script@v7
         with:
           script: |
@@ -76,3 +102,27 @@ jobs:
             Security analysis has failed for this add-on.
             [See GitHub workflow](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
             Please, contact NV Access for more details.
+      - name: Add trusted add-on
+        if: failure()
+        id: addTrustedAddOn
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const addTrustedAddOn = require('./.github/workflows/addTrustedAddOn.js')
+            const path = 'trustedAddons.json'
+            const sha256 = "${{ steps.getSha256.outputs.result }}"
+            addTrustedAddOn(path, sha256)
+      - name: Create pull request
+        id: cpr
+        if: failure()
+        uses: peter-evans/create-pull-request@v6
+        with:
+          base: master
+          add-paths: trustedAddons.json
+          title: ${{ github.event.issue.title }}
+          branch: trustedAddon${{ matrix.language }}${{ github.event.issue.number }}
+          commit-message: Add trusted add-on: ${{ github.event.issue.title }}
+          body: "This add-on needs to be reviewed by NV Access due to security analysis failure"
+          author: github-actions <github-actions@github.com>
+          delete-branch: true
+          
