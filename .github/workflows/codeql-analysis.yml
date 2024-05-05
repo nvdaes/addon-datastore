@@ -9,15 +9,9 @@ name: CodeQL security analysis
 
 on:
   workflow_call:
-    outputs:
-      shouldMerge:
-        description: 'Indicates if a PR should be merged'
-        value: ${{ jobs.shouldAnalize.result }} == 'failure' || ${{ jobs.analize.result }} == 'success'
-    
 jobs:
   shouldAnalize:
     name: Check if this add-on should be analized with CodeQL
-    continue-on-error: true
     runs-on: windows-latest
     strategy:
       matrix:
@@ -50,6 +44,7 @@ jobs:
             shouldBeAnalized(path, sha256)
   analyze:
     name: Analyze add-on
+    continue-on-error: ${{ needs.shouldAnalize.result }} == 'failure'
     runs-on: windows-latest
     needs: shouldAnalize
     permissions:
