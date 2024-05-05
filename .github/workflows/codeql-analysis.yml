@@ -12,6 +12,7 @@ on:
 jobs:
   analyze:
     name: Analyze add-on
+    continue-on-error: ${{ steps.shouldAnalize.outcome }} != 'success'
     runs-on: windows-latest
     permissions:
       actions: read
@@ -51,7 +52,7 @@ jobs:
             const shouldBeAnalized = require('./.github/workflows/shouldBeAnalized.js')
             const path = 'trustedAddons.json'
             const sha256 = "${{ steps.getSha256.outputs.result }}"
-            shouldBeAnalized(path, sha256)
+            shouldBeAnalized({core}, path, sha256)
       - name: Unzip add-on
         run: |
           Move addon.nvda-addon addon.zip
@@ -115,4 +116,3 @@ jobs:
           body: "This add-on needs to be reviewed by NV Access due to security analysis failure"
           author: github-actions <github-actions@github.com>
           delete-branch: true
-          
