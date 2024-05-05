@@ -13,7 +13,6 @@ jobs:
   analyze:
     name: Analyze add-on
     runs-on: windows-latest
-    needs: shouldAnalize
     permissions:
       actions: read
       contents: write
