@@ -56,8 +56,11 @@ jobs:
             const path = 'trustedAddons.json'
             const trustedAddons = getTrustedAddons(path)
             return trustedAddons
+      - name: Exit
+        if:               contains(${{ steps.getTrustedAddons.outputs.result }}, ${{ steps.getSha256.outputs.result }}) == ${{ false }}
+        run: exit 0
       - name: Unzip add-on
-        if: ! contains(${{ steps.getTrustedAddons.outputs.result }}, ${{ steps.getSha256.outputs.result }})
+        if: contains(${{ steps.getTrustedAddons.outputs.result }}, ${{ steps.getSha256.outputs.result }})
         run: |
           Move addon.nvda-addon addon.zip
           Expand-Archive addon.zip
