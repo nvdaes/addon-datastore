@@ -12,7 +12,7 @@ on:
     outputs:
       shouldMerge:
         description: 'Indicates if a PR should be merged'
-        value: ${{ jobs.analize.result }} == 'skipped' || ${{ jobs.analize.result }} == 'success'
+        value: ${{ jobs.shouldAnalize.result }} == 'failure' || ${{ jobs.analize.result }} == 'success'
     
 jobs:
   shouldAnalize:
