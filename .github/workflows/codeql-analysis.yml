@@ -77,22 +77,18 @@ jobs:
           Expand-Archive addon.zip
       # Initializes the CodeQL tools for scanning.
       - name: Initialize CodeQL
-        if: ! contains(${{ steps.getTrustedAddons.outputs.result }}, ${{ steps.getSha256.outputs.result }})
         uses: github/codeql-action/init@v3
         with:
           languages: ${{ matrix.language }}
           config-file: ./.github/codeql/codeql-config.yml
       - name: Autobuild
-        if: ! contains(${{ steps.getTrustedAddons.outputs.result }}, ${{ steps.getSha256.outputs.result }})
         uses: github/codeql-action/autobuild@v3
       - name: Perform CodeQL Analysis
-        if: ! contains(${{ steps.getTrustedAddons.outputs.result }}, ${{ steps.getSha256.outputs.result }})
         uses: github/codeql-action/analyze@v3
         with:
           output: results
       - name: Set security analysis status
         id: setSecurityAnalysisStatus
-        if: ! contains(${{ steps.getTrustedAddons.outputs.result }}, ${{ steps.getSha256.outputs.result }})
         uses: actions/github-script@v7
         with:
           script: |
