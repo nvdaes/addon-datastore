@@ -220,6 +220,7 @@ jobs:
     uses: ./.github/workflows/codeql-analysis.yml
   mergeToMaster:
     needs: [getAddonId, createPullRequest, codeQL-analysis]
+    if: ${{needs.codeQL-analysis.outputs.shouldMerge }}
     permissions:
       contents: write
       pull-requests: write

@@ -9,12 +9,15 @@ name: CodeQL security analysis
 
 on:
   workflow_call:
-
+    outputs:
+      shouldMerge:
+        description: 'Indicates if a PR should be merged'
+        value: ${{ jobs.analize.result {{ == skipped || ${{ jobs.analize.result }} == success
+    
 jobs:
   shouldAnalize:
     name: Check if this add-on should be analized with CodeQL
     runs-on: windows-latest
-    continue-on-error: true
     strategy:
       matrix:
         python-version: [ 3.11 ]
