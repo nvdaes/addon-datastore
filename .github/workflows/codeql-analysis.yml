@@ -9,8 +9,9 @@ name: CodeQL security analysis
 
 on:
   workflow_call:
-env:
-  continue: true
+  outputs:
+      shouldMerge: jobs.analize.steps.shouldAnalize.conclusion == 'success' }}
+
 jobs:
   analyze:
     name: Analyze add-on
@@ -116,7 +117,3 @@ jobs:
           body: "This add-on needs to be reviewed by NV Access due to security analysis failure"
           author: github-actions <github-actions@github.com>
           delete-branch: true
-      - name: Set continue on error
-        if: ${{ failure() && steps.shouldAnalize.conclusion == 'failure' }}
-        ${{ env.continue }}: true
-        run: exit 0
