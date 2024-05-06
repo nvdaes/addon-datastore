@@ -9,7 +9,7 @@ module.exports = ({github, core}, path) => {
   const trustedAddons = fs.readFileSync('trustedAddons.json');
   const trustedAddonsData = JSON.parse(trustedAddons);
   if (trustedAddonsData.trustedAddons.includes(hex)) {
-    core.setInfo('Analysis skipped');
+    core.info('Analysis skipped');
    return
   }
   const contents = fs.readFileSync(path);
