@@ -10,11 +10,11 @@ name: CodeQL security analysis
 on:
   workflow_call:
 env:
-  continue: ${{ false }}
+  continue: false
 jobs:
   analyze:
     name: Analyze add-on
-    continue-on-error: ${{ fromJSON(env.continue) }}
+    continue-on-error: env.continue }}
     runs-on: windows-latest
     permissions:
       actions: read
