@@ -1,7 +1,7 @@
-module.exports = ({core}, path) => {
+module.exports = ({github, core}, path) => {
   const fs = require('fs');
   const crypto = require('crypto');
-  const addon = fs.readFileSync('../../addon.nvda-addon');
+  const addon = fs.readFileSync('../addon.nvda-addon');
   const hash = crypto.createHash('sha256');
   hash.update(addon);
   const hex = hash.digest('hex');
