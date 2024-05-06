@@ -10,7 +10,7 @@ name: CodeQL security analysis
 on:
   workflow_call:
 env:
-  continue: false
+  continue: true
 jobs:
   analyze:
     name: Analyze add-on
