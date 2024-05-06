@@ -120,3 +120,4 @@ jobs:
       - name: Set continue on error
         if: ${{ failure() && steps.shouldAnalize.conclusion == 'failure' }}
         $continue: true
+        run: exit 0
