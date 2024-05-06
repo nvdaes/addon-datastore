@@ -53,28 +53,23 @@ jobs:
             const sha256 = "${{ steps.getSha256.outputs.result }}"
             shouldBeAnalized({core}, path, sha256)
       - name: Unzip add-on
-        if: steps.shouldAnalize.outputs.sha256 == 'excluded'
         run: |
           Move addon.nvda-addon addon.zip
           Expand-Archive addon.zip
       # Initializes the CodeQL tools for scanning.
       - name: Initialize CodeQL
-        if: steps.shouldAnalize.outputs.sha256 == 'excluded'
         uses: github/codeql-action/init@v3
         with:
           languages: ${{ matrix.language }}
           config-file: ./.github/codeql/codeql-config.yml
       - name: Autobuild
-        if: steps.shouldAnalize.outputs.sha256 == 'excluded'
         uses: github/codeql-action/autobuild@v3
       - name: Perform CodeQL Analysis
-        if: steps.shouldAnalize.outputs.sha256 == 'excluded'
         uses: github/codeql-action/analyze@v3
         with:
           output: results
       - name: Set security analysis status
         id: setSecurityAnalysisStatus
-        if: steps.shouldAnalize.outputs.sha256 == 'excluded'
         uses: actions/github-script@v7
         with:
           script: |
@@ -83,13 +78,13 @@ jobs:
             setSecurityAnalysisStatus({core}, path)
       - name: Upload results
         id: uploadResults
-        if: failure()
+        if: ${{ failure() && steps.shouldAnalize.conclusion == 'success' }}
         uses: actions/upload-artifact@v4
         with:
           name: results-${{ matrix.language }}
           path: results/*.sarif
       - name: Warn if analysis fails
-        if: failure()
+        if: ${{ failure() && steps.shouldAnalize.conclusion == 'success' }}
         uses: peter-evans/create-or-update-comment@v4
         with:
           issue-number: ${{ github.event.issue.number }}
@@ -98,7 +93,7 @@ jobs:
             [See GitHub workflow](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
             Please, contact NV Access for more details.
       - name: Add trusted add-on
-        if: always()
+        if: ${{ failure() && steps.shouldAnalize.conclusion == 'success' }}
         id: addTrustedAddOn
         uses: actions/github-script@v7
         with:
@@ -107,16 +102,9 @@ jobs:
             const path = 'trustedAddons.json'
             const sha256 = "${{ steps.getSha256.outputs.result }}"
             addTrustedAddOn(path, sha256)
-      - name: Upload trusted add-ons
-        id: uploadTrustedAddons
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: trustedAddons
-          path: trustedAddons.json
       - name: Create pull request
         id: cpr
-        if: failure()
+        if: ${{ failure() && steps.shouldAnalize.conclusion == 'success' }}
         uses: peter-evans/create-pull-request@v6
         with:
           add-paths: trustedAddons.json
