@@ -59,13 +59,13 @@ jobs:
             setSecurityAnalysisStatus({core}, path)
       - name: Upload results
         id: uploadResults
-        if: ${{ failure() && steps.shouldAnalize.conclusion == 'success' }}
+        if: failure()
         uses: actions/upload-artifact@v4
         with:
           name: results-${{ matrix.language }}
           path: results/*.sarif
       - name: Warn if analysis fails
-        if: ${{ failure()
+        if: failure()
         uses: peter-evans/create-or-update-comment@v4
         with:
           issue-number: ${{ github.event.issue.number }}
@@ -75,7 +75,7 @@ jobs:
             Please, contact NV Access for more details.
       - name: Create pull request
         id: cpr
-        if: ${{ failure() && steps.shouldAnalize.conclusion == 'success' }}
+        if: failure()
         uses: peter-evans/create-pull-request@v6
         with:
           add-paths: trustedAddons.json
