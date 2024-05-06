@@ -21,7 +21,7 @@ module.exports = ({github, core}, path) => {
   } else {
     trustedAddonsData.trustedAddons.push(hex);
     const stringified = JSON.stringify(trustedAddonsData, null, 2);
-    fs.writeFileSync('trustedAddons.json', trustedAddonsData);
+    fs.writeFileSync('trustedAddons.json', stringified);
     core.setFailed("Security analysis failed");
   }
 };
