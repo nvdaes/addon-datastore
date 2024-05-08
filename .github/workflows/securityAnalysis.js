@@ -4,7 +4,8 @@ module.exports = ({github, core}, path) => {
   const childProcess = require('node:child_process');
   let addonMetadata;
   const diff = childProcess.execSync('git diff --name-only', (err, stdout, stderr) => {
-    stdoutContents = fs.readFileSync(stdout);
+    console.log(stdout);
+    const stdoutContents = fs.readFileSync(stdout);
     addonMetadata = JSON.parse(stdoutContents);
   });
   const addon = fs.readFileSync('addon.nvda-addon');
