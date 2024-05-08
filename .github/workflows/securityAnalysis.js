@@ -8,7 +8,8 @@ module.exports = ({github, core}, path) => {
   console.log(hex);
   const reviewedAddons = fs.readFileSync('reviewedAddons.json');
   const reviewedAddonsData = JSON.parse(reviewedAddons);
-  if (reviewedAddonsData.reviewedAddons.includes(hex)) {
+  const addonId = core.getInput('addonId');
+  if (reviewedAddonsData.includes(hex)) {
     core.info('Analysis skipped');
    return
   }
