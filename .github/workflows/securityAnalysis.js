@@ -2,7 +2,7 @@ module.exports = ({github, core}, path) => {
   const fs = require('fs');
   const crypto = require('crypto');
   const childProcess = require('node:child_process');
-  const diff = childProcess.execSync('git diff --name-only ${{ github.event.issue.user.id }}${{ github.event.issue.number }}');
+  const diff = childProcess.execSync(`git diff --name-only ${github.event.issue.user.id}${github.event.issue.number}`);
 console.log(diff);
   const addon = fs.readFileSync('addon.nvda-addon');
   const hash = crypto.createHash('sha256');
