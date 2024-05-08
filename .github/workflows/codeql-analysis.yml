@@ -13,8 +13,7 @@ on:
       addonId:
         description: 'add-on id'
         type: string
-        required: true
-        default: ''
+        required: false
 jobs:
   analyze:
     name: Analyze add-on
