@@ -6,9 +6,9 @@ module.exports = ({github, core}, path) => {
   hash.update(addon);
   const hex = hash.digest('hex');
   console.log(hex);
-  const trustedAddons = fs.readFileSync('trustedAddons.json');
-  const trustedAddonsData = JSON.parse(trustedAddons);
-  if (trustedAddonsData.trustedAddons.includes(hex)) {
+  const reviewedAddons = fs.readFileSync('reviewedAddons.json');
+  const reviewedAddonsData = JSON.parse(reviewedAddons);
+  if (reviewedAddonsData.reviewedAddons.includes(hex)) {
     core.info('Analysis skipped');
    return
   }
@@ -19,9 +19,9 @@ module.exports = ({github, core}, path) => {
   if (results.length === 0) {
     core.info("Security analysis succeeded");
   } else {
-    trustedAddonsData.trustedAddons.push(hex);
-    const stringified = JSON.stringify(trustedAddonsData, null, 2);
-    fs.writeFileSync('trustedAddons.json', stringified);
+    reviewedAddonsData.reviewedAddons.push(hex);
+    const stringified = JSON.stringify(reviewedAddonsData, null, 2);
+    fs.writeFileSync('reviewedAddons.json', stringified);
     core.setFailed("Security analysis failed");
   }
 };

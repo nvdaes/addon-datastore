@@ -9,6 +9,11 @@ name: CodeQL security analysis
 
 on:
   workflow_call:
+    inputs:
+      addonId:
+        description: 'add-on id'
+        type: string
+        required: true
 jobs:
   analyze:
     name: Analyze add-on
