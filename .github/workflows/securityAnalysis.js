@@ -2,15 +2,16 @@ module.exports = ({github, core}, path) => {
   const fs = require('fs');
   const crypto = require('crypto');
   const childProcess = require('node:child_process');
-  const diff = childProcess.execSync('git diff --name-only');
-  const diffData = fs.readFileSync(diff);
+  let addonMetadata;
+  const diff = childProcess.execSync('git diff --name-only', (err, stdout, stderr) => {
+    stdoutContents = fs.readFileSync(stdout);
+    addonMetadata = JSON.parse(stdoutContents);
+  });
   const addon = fs.readFileSync('addon.nvda-addon');
   const hash = crypto.createHash('sha256');
   hash.update(addon);
   const hex = hash.digest('hex');
   console.log(hex);
-  const changed = exec('git diff --name-only');
-  console.log(changed);
   const trustedAddons = fs.readFileSync('trustedAddons.json');
   const trustedAddonsData = JSON.parse(trustedAddons);
   if (trustedAddonsData.trustedAddons.includes(hex)) {
