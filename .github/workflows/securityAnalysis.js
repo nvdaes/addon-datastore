@@ -1,4 +1,4 @@
-module.exports = ({github, core}, path) => {
+module.exports = ({context, core}, path) => {
   const fs = require('fs');
   const crypto = require('crypto');
   const addon = fs.readFileSync('addon.nvda-addon');
@@ -8,8 +8,8 @@ module.exports = ({github, core}, path) => {
   console.log(hex);
   const reviewedAddons = fs.readFileSync('reviewedAddons.json');
   const reviewedAddonsData = JSON.parse(reviewedAddons);
-  const addonId = core.getInput('addonId');
-  donsole.log(addonId);
+  const addonId = context.needs.getAddonId.addonId;
+  console.log(addonId);
   if (reviewedAddonsData.addonId.includes(hex)) {
     core.info('Analysis skipped');
    return
