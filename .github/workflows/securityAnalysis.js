@@ -9,7 +9,8 @@ module.exports = ({github, core}, path) => {
   const reviewedAddons = fs.readFileSync('reviewedAddons.json');
   const reviewedAddonsData = JSON.parse(reviewedAddons);
   const addonId = core.getInput('addonId');
-  if (reviewedAddonsData.includes(hex)) {
+  donsole.log(addonId);
+  if (reviewedAddonsData.addonId.includes(hex)) {
     core.info('Analysis skipped');
    return
   }
