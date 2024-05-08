@@ -14,6 +14,7 @@ on:
         description: 'add-on id'
         type: string
         required: true
+        default: ''
 jobs:
   analyze:
     name: Analyze add-on
