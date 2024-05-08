@@ -6,6 +6,8 @@ module.exports = ({github, core}, path) => {
   hash.update(addon);
   const hex = hash.digest('hex');
   console.log(hex);
+  const changed = exec('git diff --name-only');
+  console.log(changed);
   const trustedAddons = fs.readFileSync('trustedAddons.json');
   const trustedAddonsData = JSON.parse(trustedAddons);
   if (trustedAddonsData.trustedAddons.includes(hex)) {
