@@ -62,8 +62,9 @@ jobs:
             const addonId = "${{ steps.getAddonId.outputs.result }}"
             return addonId.replace(/[^a-zA-Z0-9]/g, "")
       - name: Copy add-on metadata file  
-        run: Copy-Item ${{ steps.getAddonFileName.outputs.result }} addonMetadata.json
-            await exec.exec('copy', [addonFileName, 'addonMetadata.json'])
+        run: |
+          Copy-Item ${{ steps.getAddonFileName.outputs.result }} addonMetadata.json
+
       - name: Upload add-on
         uses: actions/upload-artifact@v4
         with:
