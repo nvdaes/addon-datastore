@@ -20,9 +20,9 @@ module.exports = ({core}, path) => {
     core.info("Security analysis succeeded");
   } else {
     if (addon === undefined) {
-      reviewedAddonsData.addonId = [];
+      reviewedAddons.addonId = [];
     }
-    reviewedAddonsData.addonId.push(sha256);
+    reviewedAddons.addonId.push(sha256);
     const stringified = JSON.stringify(reviewedAddonsData, null, 2);
     fs.writeFileSync('reviewedAddons.json', stringified);
     core.setFailed("Security analysis failed");
