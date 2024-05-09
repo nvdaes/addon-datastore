@@ -74,7 +74,7 @@ jobs:
         if: failure()
         uses: peter-evans/create-pull-request@v6
         with:
-          add-paths: trustedAddons.json
+          add-paths: reviewedAddons.json
           title: Add reviewed add-on (${{ github.event.issue.title }})
           branch: reviewedAddon${{ github.event.issue.number }}
           commit-message: Add reviewed add-on (${{ github.event.issue.title }})
