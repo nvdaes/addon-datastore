@@ -6,8 +6,7 @@ module.exports = ({core}, path) => {
   const sha256 = addonMetadata.sha256;
   const reviewedAddonsContents = fs.readFileSync('reviewedAddons.json');
   const reviewedAddonsData = JSON.parse(reviewedAddonsContents);
-  const reviewwedAddons = reviewedAddonsData.securityAnalysis;
-  const addon = reviewedAddons.addonId;
+  const addon = reviewedAddonsData.securityAnalysis.addonId;
   if (addon !== undefined && addon.includes(sha256)) {
     core.info('Analysis skipped');
     return;
@@ -20,9 +19,9 @@ module.exports = ({core}, path) => {
     core.info("Security analysis succeeded");
   } else {
     if (addon === undefined) {
-      reviewedAddons.addonId = [];
+      reviewedAddonsData.securityAnalysis.addonId = [];
     }
-    reviewedAddons.addonId.push(sha256);
+    reviewedAddonsData.addonId.push(sha256);
     const stringified = JSON.stringify(reviewedAddonsData, null, 2);
     fs.writeFileSync('reviewedAddons.json', stringified);
     core.setFailed("Security analysis failed");
