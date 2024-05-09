@@ -1,14 +1,14 @@
 module.exports = ({core}, path) => {
   const fs = require('fs');
   const addonMetadataContents = fs.readFileSync('addonMetadata.json');
-  const addonMetadata = JSON.parse(addonMetadataContents);
+  const addonMetadata = JSON.parse(addonMetadataContents');
   const addonId = addonMetadata.addonId;
   const sha256 = addonMetadata.sha256;
   const reviewedAddonsContents = fs.readFileSync('reviewedAddons.json');
   const reviewedAddonsData = JSON.parse(reviewedAddonsContents);
   if (reviewedAddonsData[addonId] !== undefined && reviewedAddonsData[addonId].includes(sha256)) {
     core.info('Analysis skipped');
-    return
+    return;
   }
   const contents = fs.readFileSync(path);
   const data = JSON.parse(contents);
@@ -19,7 +19,7 @@ module.exports = ({core}, path) => {
     return;
   }
   if (reviewedAddonsData[addonId] === undefined) {
-    reviewedAddonsData[addonId = [];
+    reviewedAddonsData[addonId] = [];
   }
   reviewedAddonsData[addonId].push(sha256);
   const stringified = JSON.stringify(reviewedAddonsData, null, 2);
