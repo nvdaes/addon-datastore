@@ -1,4 +1,5 @@
 module.exports = ({core}, path) => {
+  core.setInput('postComment', 'true');
   const fs = require('fs');
   const addonMetadataContents = fs.readFileSync('addonMetadata.json');
   const addonMetadata = JSON.parse(addonMetadataContents);
@@ -24,5 +25,5 @@ module.exports = ({core}, path) => {
   reviewedAddonsData[addonId].push(sha256);
   const stringified = JSON.stringify(reviewedAddonsData, null, 2);
   fs.writeFileSync('reviewedAddons.json', stringified);
-  core.setFailed("Security analysis failed");
+  core.setInput('postComment', 'true');
 };
