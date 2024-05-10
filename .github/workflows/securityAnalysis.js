@@ -25,5 +25,5 @@ module.exports = ({core}, path) => {
   reviewedAddonsData[addonId].push(sha256);
   const stringified = JSON.stringify(reviewedAddonsData, null, 2);
   fs.writeFileSync('reviewedAddons.json', stringified);
-  core.setInput('postComment', 'true');
+  core.setOutput('postComment', 'true');
 };
