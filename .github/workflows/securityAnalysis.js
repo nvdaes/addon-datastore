@@ -1,4 +1,4 @@
-module.exports = ({core}, path) => {
+module.exports = ({core}, path}) => {
   const fs = require('fs');
   const addonMetadataContents = fs.readFileSync('addonMetadata.json');
   const addonMetadata = JSON.parse(addonMetadataContents);
