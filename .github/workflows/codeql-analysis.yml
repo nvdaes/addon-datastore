@@ -82,7 +82,7 @@ jobs:
           author: github-actions <github-actions@github.com>
           delete-branch: true
       - name: Warn if analysis fails
-        if: failure()
+        if: failure() && steps.uploadResults.outcome == 'success'
         uses: peter-evans/create-or-update-comment@v4
         with:
           issue-number: ${{ github.event.issue.number }}
