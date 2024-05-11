@@ -11,7 +11,7 @@ on:
   workflow_call:
 jobs:
   analyzeExcludingWarnings:
-    name: Analyze add-on
+    name: Analyze add-on excluding warnings
     runs-on: windows-latest
     permissions:
       actions: read
@@ -95,6 +95,7 @@ jobs:
   analyze:
     name: Analyze add-on
     needs: analyzeExcludingWarnings
+    continue-on-error: true
     runs-on: windows-latest
     permissions:
       actions: read

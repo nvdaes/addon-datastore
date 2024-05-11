@@ -5,5 +5,5 @@ paths:
 query-filters:
 - exclude:
     problems.severity:
-    	- warning
-    	- recommendation
+    - warning
+    - recommendation
