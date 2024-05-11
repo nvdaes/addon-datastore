@@ -1,9 +1,9 @@
 name: CodeQL Configuration excluding warnings
-disable-default-queries: true
+
 paths:
     - addon
 query-filters:
 - exclude:
-  problems.severity:
-  - warning
-  - recommendation
+    problem.severity:
+      - warning
+      - recommendation
