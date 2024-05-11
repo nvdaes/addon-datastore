@@ -4,6 +4,6 @@ paths:
     - addon
 query-filters:
 - exclude:
-    problems.severity:
-    - warning
-    - recommendation
+  problems.severity:
+  - warning
+  - recommendation
