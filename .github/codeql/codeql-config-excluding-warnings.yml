@@ -1,5 +1,5 @@
 name: CodeQL Configuration excluding warnings
-
+disable-default-queries: true
 paths:
     - addon
 query-filters:

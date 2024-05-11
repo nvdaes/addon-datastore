@@ -12,7 +12,8 @@ For most projects, this workflow file will not need changing; you simply need
 name: "CodeQL"
 
 on:
-
+  push:
+    branches: master
   pull_request:
     branches: [ "master" ]
   schedule:
