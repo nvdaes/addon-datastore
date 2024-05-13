@@ -646,5 +646,9 @@
   "Rutas_fav": {
     "discussionId": "D_kwDODeB9Us4AZZwo",
     "discussionUrl": "https://github.com/nvaccess/addon-datastore/discussions/3512"
+  },
+  "testNvdaStore": {
+    "discussionId": "D_kwDODeDxhs4AZagR",
+    "discussionUrl": "https://github.com/nvdaes/addon-datastore/discussions/1255"
   }
 }
