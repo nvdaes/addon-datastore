@@ -3,5 +3,5 @@ name: CodeQL Configuration excluding warnings
 paths:
     - addon
 query-filters:
-- include:
-    security-severity: /(0|1)\.(\d)+/
+- exclude:
+    security-severity: /(0|9)\.(\d)+/
