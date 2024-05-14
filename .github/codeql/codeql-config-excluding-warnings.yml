@@ -4,7 +4,7 @@ paths:
     - addon
 query-filters:
 - exclude:
-    security.severity:
+    security-severity:
       - low
       - medium
       - high
