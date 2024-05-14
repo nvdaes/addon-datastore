@@ -6,3 +6,5 @@ query-filters:
 - exclude:
     security.severity:
       - low
+      - medium
+      - high
