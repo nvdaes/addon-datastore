@@ -4,4 +4,4 @@ paths:
     - addon
 query-filters:
 - include:
-    security-severity: /(9|10)\.(\d)+/
+    security-severity: /(0|1)\.(\d)+/
