@@ -12,9 +12,7 @@ module.exports = ({core, exec}) => {
     core.info('VirusTotal false positive');
     return;
   }
-  const contents = fs.readFileSync('falsePositiveAddons.json');
-  const data = JSON.parse(contents);
-  const stats = data.find((element) => element === "last_analysis_stats");
+  const stats = falsePositiveAddonsData.find((element) => element === "last_analysis_stats");
   const malicious = stats.malicious;
   if (malicious === 0) {
     core.info("Virus Total analysis succeeded");
