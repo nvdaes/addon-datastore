@@ -1,11 +1,11 @@
-module.exports = ({core, context, exec}) => {
+module.exports = ({core, exec}) => {
   const fs = require('fs');
   const addonMetadataContents = fs.readFileSync('addonMetadata.json');
   const addonMetadata = JSON.parse(addonMetadataContents);
   const addonId = addonMetadata.addonId;
   core.setOutput('addonId', addonId);
   const sha256 = addonMetadata.sha256;
-  exec.exec(`vt file ${sha256} -k ${context.secrets.virusTotalApiKey} --format json > vt.json`);
+  exec.exec(`vt file ${sha256} -k ${process.env.API_KEY} --format json > vt.json`);
   const falsePositiveAddonsContents = fs.readFileSync('falsePositiveAddons.json');
   const falsePositiveAddonsData = JSON.parse(falsePositiveAddonsContents);
   if (falsePositiveAddonsData[addonId] !== undefined && falsePositiveAddonsData[addonId].includes(sha256)) {

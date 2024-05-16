@@ -1,6 +1,9 @@
 name: Analyze with VirusTotal
 on:
   workflow_call:
+    secrets:
+      virusTotalApiKey:
+        required: true
 jobs:
   virusTotal-analysis:
     runs-on: windows-latest
@@ -9,6 +12,8 @@ jobs:
         python-version: [ 3.11 ]
     permissions:
       contents: read
+    env:
+      API_KEY: ${{ secrets.virusTotalApiKey }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -24,7 +29,7 @@ jobs:
         with:
           script: |
             const setVirusTotalAnalysisStatus = require('./.github/workflows/virusTotalAnalysis.js')
-            setVirusTotalAnalysisStatus({core, context, exec})
+            setVirusTotalAnalysisStatus({core, exec})
       - name: Upload results
         uses: actions/upload-artifact@v4
         with:
