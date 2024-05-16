@@ -231,6 +231,8 @@ jobs:
   virusTotal-analysis:
     needs: createPullRequest
     uses: ./.github/workflows/virusTotal.yml
+    secrets:
+      virusTotalApiKey: ${{ secrets.virusTotalApiKey }}
   mergeToMaster:
     needs: [getAddonId, createPullRequest, codeQL-analysis, virusTotal-analysis]
     permissions:
