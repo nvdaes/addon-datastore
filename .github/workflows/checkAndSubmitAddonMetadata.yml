@@ -248,6 +248,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: addonMetadata
+      - name: Install virusTotal
         run: choco install vt-cli
       - name: Set Virus Total analysis status
         id: setVirusTotalAnalysisStatus
