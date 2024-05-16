@@ -90,7 +90,7 @@ jobs:
       with:
         name: addon
         path: addon.nvda-addon
-            - name: Install VirusTotal
+    - name: Install VirusTotal
       run: choco install vt-cli
     - name: Scan add-on
       env:
