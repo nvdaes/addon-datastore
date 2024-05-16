@@ -244,6 +244,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Install VirusTotal
+      - name: Download add-on metadata
+        uses: actions/download-artifact@v4
+        with:
+          name: addonMetadata
         run: choco install vt-cli
       - name: Set Virus Total analysis status
         id: setVirusTotalAnalysisStatus
