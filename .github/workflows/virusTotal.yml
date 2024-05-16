@@ -1,5 +1,6 @@
 name: Analyze with VirusTotal
-
+on:
+  workflow_call:
 jobs:
   virusTotal-analysis:
     runs-on: windows-latest
