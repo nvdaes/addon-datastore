@@ -232,7 +232,7 @@ jobs:
     needs: createPullRequest
     uses: ./.github/workflows/virusTotal.yml
   mergeToMaster:
-    needs: [getAddonId, createPullRequest, codeQL-analysis, virusTotalAnalysis]
+    needs: [getAddonId, createPullRequest, codeQL-analysis, virusTotal-analysis]
     permissions:
       contents: write
       pull-requests: write
