@@ -1,0 +1,31 @@
+name: Analyze with VirusTotal
+
+jobs:
+  virusTotal-analysis:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        python-version: [ 3.11 ]
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Install VirusTotal
+        run: choco install vt-cli
+      - name: Download add-on metadata
+        uses: actions/download-artifact@v4
+        with:
+          name: addonMetadata
+      - name: Set Virus Total analysis status
+        id: setVirusTotalAnalysisStatus
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const setVirusTotalAnalysisStatus = require('./.github/workflows/virusTotalAnalysis.js')
+            setVirusTotalAnalysisStatus({core, context, exec})
+      - name: Upload results
+        uses: actions/upload-artifact@v4
+        with:
+          name: VirusTotal
+          path: vt.json

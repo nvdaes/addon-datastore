@@ -228,8 +228,11 @@ jobs:
   codeQL-analysis:
     needs: createPullRequest
     uses: ./.github/workflows/codeql-analysis.yml
+  virusTotal-analysis:
+    needs: createPullRequest
+    uses: ./.github/workflows/virusTotal.yml
   mergeToMaster:
-    needs: [getAddonId, createPullRequest, codeQL-analysis]
+    needs: [getAddonId, createPullRequest, codeQL-analysis, virusTotalAnalysis]
     permissions:
       contents: write
       pull-requests: write
