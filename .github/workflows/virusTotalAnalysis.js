@@ -13,12 +13,6 @@ module.exports = ({core, exec}) => {
     }
   };
   exec.exec(`vt file ${sha256} -k ${process.env.API_KEY} --format json`, options);
-  const falsePositiveAddonsContents = fs.readFileSync('falsePositiveAddons.json');
-  const falsePositiveAddonsData = JSON.parse(falsePositiveAddonsContents);
-  if (falsePositiveAddonsData[addonId] !== undefined && falsePositiveAddonsData[addonId].includes(sha256)) {
-    core.info('VirusTotal false positive');
-    return;
-  }
   const vtData = JSON.parse(options.listeners.vtOutput);
   const stats = vtData.find((element) => element === "last_analysis_stats");
   const malicious = stats.malicious;
