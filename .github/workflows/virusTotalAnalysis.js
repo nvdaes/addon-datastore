@@ -8,13 +8,14 @@ module.exports = ({core}) => {
   const sha256 = addonMetadata.sha256;
   exec(`vt file ${sha256} -k ${process.env.API_KEY} --format json`, (err, stdout, stderr) => {
     console.log(stdout);
+    const vtData = JSON.parse(stdout);
+    const stats = vtData.find((element) => element === "last_analysis_stats");
+    const malicious = stats.malicious;
+    if (malicious === 0) {
+      core.info("Virus Total analysis succeeded");
+    } else {
+      fs.writeFileSync('vt.json', stdout);
+      core.setFailed("Virus Total analysis failed");
+    }
   });
-  const vtData = JSON.parse(stdout);
-  const stats = vtData.find((element) => element === "last_analysis_stats");
-  const malicious = stats.malicious;
-  if (malicious === 0) {
-    core.info("Virus Total analysis succeeded");
-  } else {
-    core.setFailed("Virus Total analysis failed");
-  }
 };
