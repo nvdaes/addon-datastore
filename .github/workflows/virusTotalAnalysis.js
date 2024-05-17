@@ -1,19 +1,15 @@
-module.exports = ({core, exec}) => {
+module.exports = ({core}) => {
   const fs = require('fs');
+  const { exec } = require('child_process');
   const addonMetadataContents = fs.readFileSync('addonMetadata.json');
   const addonMetadata = JSON.parse(addonMetadataContents);
   const addonId = addonMetadata.addonId;
   core.setOutput('addonId', addonId);
   const sha256 = addonMetadata.sha256;
-  let vtOutput = '';
-  const options = {};
-  options.listeners = {
-    stdout: (data) => {
-      vtOutput += data.toString();
-    }
-  };
-  exec.exec(`vt file ${sha256} -k ${process.env.API_KEY} --format json`, options);
-  const vtData = JSON.parse(options.listeners.vtOutput);
+  exec(`vt file ${sha256} -k ${process.env.API_KEY} --format json`, (err, stdout, stderr) => {
+    console.log(stdout);
+  });
+  const vtData = JSON.parse(stdout);
   const stats = vtData.find((element) => element === "last_analysis_stats");
   const malicious = stats.malicious;
   if (malicious === 0) {
