@@ -8,7 +8,7 @@ module.exports = ({core, exec}) => {
   let vtOutput = '';
   const options = {};
   options.listeners = {
-    stdout: (data: Buffer) => {
+    stdout: (data) => {
       vtOutput += data.toString();
     }
   };
