@@ -258,11 +258,12 @@ jobs:
             setVirusTotalAnalysisStatus({core})
       - name: Upload results
         id: uploadResults
-        if: always()
+        if: failure()
         uses: actions/upload-artifact@v4
         with:
           name: VirusTotal
           path: vt.json
+          overwrite: true
       - name: Create pull request
         id: cpr
         if: failure()
