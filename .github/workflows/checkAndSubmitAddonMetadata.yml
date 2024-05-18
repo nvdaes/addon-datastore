@@ -257,10 +257,24 @@ jobs:
             const setVirusTotalAnalysisStatus = require('./.github/workflows/virusTotalAnalysis.js')
             setVirusTotalAnalysisStatus({core})
       - name: Upload results
+        id: uploadResults
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: VirusTotal
           path: vt.json
+      - name: Create pull request
+        id: cpr
+        if: failure()
+        uses: peter-evans/create-pull-request@v6
+        with:
+          add-paths: falsePositiveAddons.json
+          title: Add false positive add-on (${{ steps.setVirusTotalAnalysisStatus.outputs.addonId }})
+          branch: falsePositiveAddon${{ inputs.issueNumber }}
+          commit-message: Add false positive add-on (${{ steps.setVirusTotalAnalysisStatus.outputs.addonId }})
+          body: "This add-on needs to be reviewed by NV Access due to VirusTotal analysis failure"
+          author: github-actions <github-actions@github.com>
+          delete-branch: true
       - name: Warn if analysis fails
         if: failure()
         uses: peter-evans/create-or-update-comment@v4
@@ -268,7 +282,7 @@ jobs:
           issue-number: ${{ inputs.issueNumber }}
           body: |
             VirusTotal has flagged this add-on as malicious.
-            [See GitHub workflow](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+            [Download results of VirusTotal analysis](${{ steps.uploadResults.outputs.artifact-url }})
             If you think this is a false positive or want more details, contact NV Access.
   mergeToMaster:
     needs: [getAddonId, createPullRequest, codeQL-analysis, virusTotal-analysis]
