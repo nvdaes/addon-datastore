@@ -245,6 +245,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.createPullRequest.outputs.pullRequestHeadSha }}
       - name: Download add-on metadata
         uses: actions/download-artifact@v4
         with:
