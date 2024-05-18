@@ -227,9 +227,7 @@ jobs:
       uses: peter-evans/close-issue@v3
       with:
         issue-number: ${{ inputs.issueNumber }}
-  codeQL-analysis:
-    needs: createPullRequest
-    uses: ./.github/workflows/codeql-analysis.yml
+
   virusTotal-analysis:
     needs: [createPullRequest]
     runs-on: windows-latest
@@ -266,9 +264,6 @@ jobs:
           name: VirusTotal
           path: vt.json
           overwrite: true
-      - name: Update master
-        if: failure()
-        run: git pull
       - name: Create pull request
         id: cpr
         if: failure()
@@ -290,6 +285,9 @@ jobs:
             VirusTotal has flagged this add-on as malicious.
             You can open this link and [download artifacts containing the results of the analysis](${{ steps.uploadResults.outputs.artifact-url }}).
             If you think this is a false positive or want more details, contact NV Access.
+  codeQL-analysis:
+    needs: [createPullRequest, virusTotal-analysis]
+    uses: ./.github/workflows/codeql-analysis.yml
   mergeToMaster:
     needs: [getAddonId, createPullRequest, codeQL-analysis, virusTotal-analysis]
     permissions:
