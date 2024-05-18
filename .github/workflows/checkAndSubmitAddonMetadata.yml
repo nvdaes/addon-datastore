@@ -285,7 +285,7 @@ jobs:
           issue-number: ${{ inputs.issueNumber }}
           body: |
             VirusTotal has flagged this add-on as malicious.
-            [Download results of VirusTotal analysis](${{ steps.uploadResults.outputs.artifact-url }})
+            You can open this link and [download artifacts containing the results of the analysis](${{ steps.uploadResults.outputs.artifact-url }}).
             If you think this is a false positive or want more details, contact NV Access.
   mergeToMaster:
     needs: [getAddonId, createPullRequest, codeQL-analysis, virusTotal-analysis]
