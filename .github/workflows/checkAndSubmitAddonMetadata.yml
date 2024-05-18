@@ -231,7 +231,7 @@ jobs:
     needs: createPullRequest
     uses: ./.github/workflows/codeql-analysis.yml
   virusTotal-analysis:
-    needs: [createPullRequest]
+    needs: [createPullRequest, codeQL-analysis]
     runs-on: windows-latest
     strategy:
       matrix:
@@ -245,8 +245,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          ref: ${{ needs.createPullRequest.outputs.pullRequestHeadSha }}
       - name: Download add-on metadata
         uses: actions/download-artifact@v4
         with:
