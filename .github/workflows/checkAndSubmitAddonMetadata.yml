@@ -229,7 +229,7 @@ jobs:
         issue-number: ${{ inputs.issueNumber }}
 
   virusTotal-analysis:
-    needs: [createPullRequest]
+    needs: createPullRequest
     runs-on: windows-latest
     strategy:
       matrix:

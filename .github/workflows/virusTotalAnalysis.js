@@ -7,8 +7,8 @@ module.exports = ({core}) => {
   core.setOutput('addonId', addonId);
   // const sha256 = addonMetadata.sha256;
   const sha256 = '42335e36a209d39905414f0cbc71aa692338e3bf63efce8bc68d6949d2994ccd';
-  falsePositiveAddonsContents = fs.readFileSync('falsePositiveAddons.json');
-  falsePositiveAddonsData = JSON.parse(falsePositiveAddonsContents);
+  const falsePositiveAddonsContents = fs.readFileSync('falsePositiveAddons.json');
+  const falsePositiveAddonsData = JSON.parse(falsePositiveAddonsContents);
   if (falsePositiveAddonsData[addonId] !== undefined && falsePositiveAddonsData[addonId].includes(sha256)) {
     core.info('VirusTotal analysis skipped');
     return;
@@ -23,6 +23,12 @@ module.exports = ({core}) => {
       core.info('VirusTotal analysis succeeded');
       return;
     }
+    if (falsePositiveAddonsData.addonId === undefined) {
+      falsePositiveAddonsData.addonId == [];
+    }
+    falsePositiveAddonsData.addonId.push(sha256);
+    stringified = JSON.stringify(falsePositiveAddonsData, null, 2);
+    fs.writeFileSync('falsePositiveAddons.json', stringified);
     core.setFailed('VirusTotal analysis failed');
   });
 };
