@@ -273,7 +273,7 @@ jobs:
         with:
           add-paths: falsePositiveAddons.json
           title: Add false positive add-on (${{ steps.setVirusTotalAnalysisStatus.outputs.addonId }})
-          branch: falsePositiveAddon${{ inputs.issueNumber }}
+          branch: falsePositiveAddon${{ github.event.issue.number }}
           commit-message: Add false positive add-on (${{ steps.setVirusTotalAnalysisStatus.outputs.addonId }})
           body: "This add-on needs to be reviewed by NV Access due to VirusTotal analysis failure"
           author: github-actions <github-actions@github.com>
