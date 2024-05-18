@@ -267,6 +267,7 @@ jobs:
           path: vt.json
           overwrite: true
       - name: Update master
+        if: failure()
         run: git pull
       - name: Create pull request
         id: cpr
