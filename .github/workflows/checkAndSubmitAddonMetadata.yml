@@ -231,7 +231,7 @@ jobs:
     needs: createPullRequest
     uses: ./.github/workflows/codeql-analysis.yml
   virusTotal-analysis:
-    needs: [createPullRequest, codeQL-analysis]
+    needs: [createPullRequest]
     runs-on: windows-latest
     strategy:
       matrix:
@@ -266,6 +266,8 @@ jobs:
           name: VirusTotal
           path: vt.json
           overwrite: true
+      - name: Update master
+        run: git pull
       - name: Create pull request
         id: cpr
         if: failure()
