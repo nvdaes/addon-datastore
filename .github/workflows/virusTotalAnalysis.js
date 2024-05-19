@@ -23,10 +23,10 @@ module.exports = ({core}) => {
       core.info('VirusTotal analysis succeeded');
       return;
     }
-    if (falsePositiveAddonsData.addonId === undefined) {
-      falsePositiveAddonsData.addonId == [];
+    if (falsePositiveAddonsData[addonId] === undefined) {
+      falsePositiveAddonsData[addonId] = [];
     }
-    falsePositiveAddonsData.addonId.push(sha256);
+    falsePositiveAddonsData[addonId].push(sha256);
     stringified = JSON.stringify(falsePositiveAddonsData, null, 2);
     fs.writeFileSync('falsePositiveAddons.json', stringified);
     core.setFailed('VirusTotal analysis failed');
