@@ -69,6 +69,13 @@ jobs:
           name: results-${{ matrix.language }}
           path: results/*.sarif
           overwrite: true
+      - name: Upload manual approval
+        id: uploadManualApproval
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: CodeQLManualApproval
+          path: reviewedAddons.json
       - name: Create pull request
         id: cpr
         if: failure()

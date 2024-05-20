@@ -264,6 +264,14 @@ jobs:
           name: VirusTotal
           path: vt.json
           overwrite: true
+      - name: Upload manual approval
+        id: uploadManualApproval
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: virusTotalManualApproval
+          path: falsePositiveAddons.json
+          overwrite: true
       - name: Create pull request
         id: cpr
         if: failure()
@@ -289,6 +297,26 @@ jobs:
   codeQL-analysis:
     needs: [createPullRequest]
     uses: ./.github/workflows/codeql-analysis.yml
+  createManualApproval:
+    needs: [virusTotal-analysis, codeQL-analysis]
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        python-version: [ 3.11 ]
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Download falsePositiveAddons
+        uses: actions/download-artifact@v4
+        with:
+          name: virusTotalManualApproval
+      - name: Download reviewedAddons
+        uses: actions/download-artifact@v4
+        with:
+          name: CodeQLManualApproval
   mergeToMaster:
     needs: [getAddonId, createPullRequest, codeQL-analysis, virusTotal-analysis]
     permissions:
