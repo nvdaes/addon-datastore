@@ -287,7 +287,7 @@ jobs:
     uses: ./.github/workflows/codeql-analysis.yml
   createManualApproval:
     needs: [getAddonId, virusTotal-analysis, codeQL-analysis]
-    if: always()
+    if: ${{ always() && contains(join(needs.*.result, ','), 'failure') }}
     runs-on: windows-latest
     strategy:
       matrix:
