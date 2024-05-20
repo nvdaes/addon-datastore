@@ -313,6 +313,13 @@ jobs:
           body: "This add-on needs to be reviewed by NV Access due to analysis failure"
           author: github-actions <github-actions@github.com>
           delete-branch: true
+      - name: Request to keep issue opened
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          issue-number: ${{ inputs.issueNumber }}
+          body: |
+            Please, don't close this issue.
+            Wait until #${{ steps.cpr.outputs.pull-request-number }} is merged.
   mergeToMaster:
     needs: [getAddonId, createPullRequest, codeQL-analysis, virusTotal-analysis]
     permissions:
