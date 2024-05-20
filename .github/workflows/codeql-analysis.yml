@@ -15,10 +15,9 @@ jobs:
     runs-on: windows-latest
     permissions:
       actions: read
-      contents: write
+      contents: read
       security-events: write
       issues: write
-      pull-requests: write
     strategy:
       fail-fast: false
       matrix:
@@ -76,18 +75,6 @@ jobs:
         with:
           name: CodeQLManualApproval
           path: reviewedAddons.json
-      - name: Create pull request
-        id: cpr
-        if: failure()
-        uses: peter-evans/create-pull-request@v6
-        with:
-          add-paths: reviewedAddons.json
-          title: Add reviewed add-on (${{ steps.setSecurityAnalysisStatus.outputs.addonId }})
-          branch: reviewedAddon${{ github.event.issue.number }}
-          commit-message: Add reviewed add-on (${{ steps.setSecurityAnalysisStatus.outputs.addonId }})
-          body: "This add-on needs to be reviewed by NV Access due to security analysis failure"
-          author: github-actions <github-actions@github.com>
-          delete-branch: true
       - name: Warn if analysis fails
         if: failure()
         uses: peter-evans/create-or-update-comment@v4

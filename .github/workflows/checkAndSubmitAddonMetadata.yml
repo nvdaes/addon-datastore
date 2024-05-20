@@ -272,18 +272,6 @@ jobs:
           name: virusTotalManualApproval
           path: falsePositiveAddons.json
           overwrite: true
-      - name: Create pull request
-        id: cpr
-        if: failure()
-        uses: peter-evans/create-pull-request@v6
-        with:
-          add-paths: falsePositiveAddons.json
-          title: Add reviewed add-on (${{ steps.setVirusTotalAnalysisStatus.outputs.addonId }})
-          branch: reviewedAddon${{ github.event.issue.number }}
-          commit-message: Add false positive add-on (${{ steps.setVirusTotalAnalysisStatus.outputs.addonId }})
-          body: "This add-on needs to be reviewed by NV Access due to VirusTotal analysis failure"
-          author: github-actions <github-actions@github.com>
-          delete-branch: true
       - name: Warn if analysis fails
         if: failure()
         uses: peter-evans/create-or-update-comment@v4
@@ -298,7 +286,8 @@ jobs:
     needs: [createPullRequest]
     uses: ./.github/workflows/codeql-analysis.yml
   createManualApproval:
-    needs: [virusTotal-analysis, codeQL-analysis]
+    needs: [getAddonId, virusTotal-analysis, codeQL-analysis]
+    if: always()
     runs-on: windows-latest
     strategy:
       matrix:
@@ -309,14 +298,21 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Download falsePositiveAddons
+      - name: Download artifacts
         uses: actions/download-artifact@v4
         with:
-          name: virusTotalManualApproval
-      - name: Download reviewedAddons
-        uses: actions/download-artifact@v4
+          merge-multiple: true
+      - name: Create pull request
+        id: cpr
+        uses: peter-evans/create-pull-request@v6
         with:
-          name: CodeQLManualApproval
+          add-paths: "*Addons.json"
+          title: Add reviewed add-on (${{ needs.getAddonId.outputs.addonId }})
+          branch: reviewedAddon${{ github.event.issue.number }}
+          commit-message: Add reviewed add-on (${{ needs.getAddonId.outputs.addonId }})
+          body: "This add-on needs to be reviewed by NV Access due to analysis failure"
+          author: github-actions <github-actions@github.com>
+          delete-branch: true
   mergeToMaster:
     needs: [getAddonId, createPullRequest, codeQL-analysis, virusTotal-analysis]
     permissions:
