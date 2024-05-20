@@ -270,8 +270,8 @@ jobs:
         uses: peter-evans/create-pull-request@v6
         with:
           add-paths: falsePositiveAddons.json
-          title: Add false positive add-on (${{ steps.setVirusTotalAnalysisStatus.outputs.addonId }})
-          branch: falsePositiveAddon${{ github.event.issue.number }}
+          title: Add reviewed add-on (${{ steps.setVirusTotalAnalysisStatus.outputs.addonId }})
+          branch: reviewedAddon${{ github.event.issue.number }}
           commit-message: Add false positive add-on (${{ steps.setVirusTotalAnalysisStatus.outputs.addonId }})
           body: "This add-on needs to be reviewed by NV Access due to VirusTotal analysis failure"
           author: github-actions <github-actions@github.com>
@@ -287,7 +287,7 @@ jobs:
             Please contact the flagged security vendors to get them to review and unflag the false positive.
             Please ask here or email info@nvaccess.org if you need assistance with this process.
   codeQL-analysis:
-    needs: [createPullRequest, virusTotal-analysis]
+    needs: [createPullRequest]
     uses: ./.github/workflows/codeql-analysis.yml
   mergeToMaster:
     needs: [getAddonId, createPullRequest, codeQL-analysis, virusTotal-analysis]
