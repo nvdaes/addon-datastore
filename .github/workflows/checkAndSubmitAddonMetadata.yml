@@ -283,7 +283,7 @@ jobs:
           issue-number: ${{ inputs.issueNumber }}
           body: |
             VirusTotal has flagged this add-on as malicious.
-            You can open this link and [download artifacts containing the results of the analysis](${{ steps.uploadResults.outputs.artifact-url }}).
+            You can open this link and [see the results of the analysis](${{ steps.setVirusTotalAnalysisStatus.outputs.analysisUrl }}).
             Please contact the flagged security vendors to get them to review and unflag the false positive.
             Please ask here or email info@nvaccess.org if you need assistance with this process.
   codeQL-analysis:
