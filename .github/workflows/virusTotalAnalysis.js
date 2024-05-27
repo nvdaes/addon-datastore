@@ -15,8 +15,14 @@ module.exports = ({core}) => {
     return;
   }
   exec(`vt file ${sha256} -k ${process.env.API_KEY} --format json`, (err, stdout, stderr) => {
-    console.log(stdout);
-    const vtData = JSON.parse(stdout);
+    console.log(`err: ${err}`);
+    console.log(`stdout: ${stdout}`);
+    console.log(`stderr: ${stderr}`);
+    try {
+      const vtData = JSON.parse(stdout);
+    } catch(err) {
+      console.log(`Error: ${err}`);
+    }
     fs.writeFileSync('vt.json', stdout);
     const stats = vtData[0]["last_analysis_stats"];
     const malicious = stats.malicious;
