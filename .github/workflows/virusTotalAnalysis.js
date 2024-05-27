@@ -3,9 +3,9 @@ module.exports = ({core}) => {
   const { exec } = require('child_process');
   const addonMetadataContents = fs.readFileSync('addonMetadata.json');
   const addonMetadata = JSON.parse(addonMetadataContents);
-  const addonId = addonMetadata.addonId;
+  const addonId = addonMetadata[addonId];
   core.setOutput('addonId', addonId);
-  const sha256 = addonMetadata.sha256;
+  const sha256 = addonMetadata[sha256];
   const analysisUrl = `https://www.virustotal.com/gui/file/${sha256}`;
   core.setOutput('analysisUrl', analysisUrl);
   const reviewedAddonsContents = fs.readFileSync('reviewedAddons.json');
