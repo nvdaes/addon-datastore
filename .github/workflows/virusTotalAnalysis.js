@@ -3,10 +3,11 @@ module.exports = ({core}) => {
   const { exec } = require('child_process');
   const addonMetadataContents = fs.readFileSync('addonMetadata.json');
   const addonMetadata = JSON.parse(addonMetadataContents);
-  const addonId = addonMetadata[addonId];
+  const addonId = addonMetadata.addonId;
   core.setOutput('addonId', addonId);
-  const sha256 = addonMetadata[sha256];
+  const sha256 = addonMetadata.sha256;
   const analysisUrl = `https://www.virustotal.com/gui/file/${sha256}`;
+  console.log(analysisUrl);
   core.setOutput('analysisUrl', analysisUrl);
   const reviewedAddonsContents = fs.readFileSync('reviewedAddons.json');
   const reviewedAddonsData = JSON.parse(reviewedAddonsContents);
@@ -14,7 +15,7 @@ module.exports = ({core}) => {
     core.info('VirusTotal analysis skipped');
     return;
   }
-  exec(`vt file ${sha256} -k ${process.env.API_KEY} --format json`, (err, stdout, stderr) => {
+  exec(`vt file ${sha256.replace(/"/g, '')} -k ${process.env.API_KEY} --format json`, (err, stdout, stderr) => {
     console.log(`err: ${err}`);
     console.log(`stdout: ${stdout}`);
     console.log(`stderr: ${stderr}`);
