@@ -19,11 +19,7 @@ module.exports = ({core}) => {
     console.log(`err: ${err}`);
     console.log(`stdout: ${stdout}`);
     console.log(`stderr: ${stderr}`);
-    try {
-      const vtData = JSON.parse(stdout);
-    } catch(err) {
-      console.log(`Error: ${err}`);
-    }
+    const vtData = JSON.parse(stdout);
     fs.writeFileSync('vt.json', stdout);
     const stats = vtData[0]["last_analysis_stats"];
     const malicious = stats.malicious;
