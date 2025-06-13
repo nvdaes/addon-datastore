@@ -35,6 +35,12 @@ jobs:
       uses: actions/setup-python@v5
       with:
         python-version: 3.11
+    - name: Create virtual environment
+      run: python -m venv .venv
+
+    - name: Activate virtual environment
+      shell: powershell
+      run: .\.venv\Scripts\Activate.ps1
     - name: Create validation errors file
       run: echo "" > validationErrors.md
     - name: Download add-on
