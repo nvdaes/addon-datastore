@@ -36,11 +36,7 @@ jobs:
       with:
         python-version: 3.11
     - name: Create virtual environment
-      run: python -m venv .venv
-
-    - name: Activate virtual environment
-      shell: powershell
-      run: "$PSScriptRoot\venvUtils\ensureAndActivate.ps1"
+      uses: syphar/restore-virtualenv@v1
     - name: Create validation errors file
       run: echo "" > validationErrors.md
     - name: Download add-on
