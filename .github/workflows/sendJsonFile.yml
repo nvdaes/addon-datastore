@@ -40,7 +40,7 @@ jobs:
 
     - name: Activate virtual environment
       shell: powershell
-      run: VALIDATION/venvUtils/ensureAndActivate.ps1
+      run: "$PSScriptRoot\venvUtils\ensureAndActivate.ps1"
     - name: Create validation errors file
       run: echo "" > validationErrors.md
     - name: Download add-on
