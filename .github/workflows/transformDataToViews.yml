@@ -35,7 +35,7 @@ jobs:
     - name: Checkout transformation repo
       uses: actions/checkout@v4
       with:
-        repository: nvaccess/addon-datastore-transform
+        repository: nvdaes/addon-datastore-transform
         path: transform
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v5
