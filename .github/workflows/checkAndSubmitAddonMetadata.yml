@@ -188,7 +188,7 @@ jobs:
     - name: Checkout validate repo
       uses: actions/checkout@v5
       with:
-        repository: nvaccess/addon-datastore-validation
+        repository: nvdaes/addon-datastore-validation
         path: validation
         submodules: true
     - name: Install addon-datastore-validation dependencies
