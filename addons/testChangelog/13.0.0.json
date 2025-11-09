@@ -1,0 +1,31 @@
+{
+	"addonId": "testChangelog",
+	"displayName": "Test Changelog",
+	"URL": "https://github.com/nvdaes/testing/releases/download/v0.0.0/noChangelog.nvda-addon",
+	"description": "The description for the addon",
+	"sha256": "8975277bea17c8fababb498ada3ab1f5369ee6928120bffb209c344751317e9a",
+	"addonVersionName": "13.0",
+	"addonVersionNumber": {
+		"major": 13,
+		"minor": 0,
+		"patch": 0
+	},
+	"minNVDAVersion": {
+		"major": 2022,
+		"minor": 1,
+		"patch": 0
+	},
+	"lastTestedVersion": {
+		"major": 2026,
+		"minor": 1,
+		"patch": 0
+	},
+	"channel": "dev",
+	"publisher": "nvdaes",
+	"sourceURL": "https://github.com/nvdaes/",
+	"license": "GPL v2",
+	"homepage": "https://github.com/nvdaes",
+	"licenseURL": "https://www.gnu.org/licenses/gpl-2.0.html",
+	"submissionTime": 1762681282000,
+	"translations": []
+}
