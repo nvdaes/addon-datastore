@@ -1,0 +1,21 @@
+{
+	"name": "Clip Contents Designer",
+	"description": "Add-on for managing clipboard text.",
+	"homepage": "https://addons.nvda-project.org/addons/clipContentsDesigner",
+	"minNVDAVersion": {
+		"major": 2019,
+		"minor": 3,
+		"patch": 0
+	},
+	"lastTestedVersion": {
+		"major": 2020,
+		"minor": 4,
+		"patch": 0
+	},
+	"channel": "stable",
+	"URL": "https://github.com/nvdaes/clipContentsDesigner/releases/download/13.0/clipContentsDesigner-13.0.nvda-addon",
+	"sha256": "051ba91eaafb3d516d08848c4282f08dce90ee21e0ffac14dd439aebffef66cb",
+	"sourceURL": "https://github.com/nvdaes/clipContentsDesigner/",
+	"license": "GPL v2",
+	"licenseURL": "https://www.gnu.org/licenses/gpl-2.0.html"
+}
