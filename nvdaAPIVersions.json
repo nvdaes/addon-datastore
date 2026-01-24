@@ -530,8 +530,33 @@
 			"major": 2024,
 			"minor": 1,
 			"patch": 0
+		}
+	},
+	{
+		"description": "NVDA 2024.4.1",
+		"apiVer": {
+			"major": 2024,
+			"minor": 4,
+			"patch": 1
 		},
-		"experimental": true
+		"backCompatTo": {
+			"major": 2024,
+			"minor": 1,
+			"patch": 0
+		}
+	},
+	{
+		"description": "NVDA 2024.4.2",
+		"apiVer": {
+			"major": 2024,
+			"minor": 4,
+			"patch": 2
+		},
+		"backCompatTo": {
+			"major": 2024,
+			"minor": 1,
+			"patch": 0
+		}
 	},
 	{
 		"description": "NVDA 2025.1",
@@ -542,6 +567,111 @@
 		},
 		"backCompatTo": {
 			"major": 2025,
+			"minor": 1,
+			"patch": 0
+		}
+	},
+	{
+		"description": "NVDA 2025.1.1",
+		"apiVer": {
+			"major": 2025,
+			"minor": 1,
+			"patch": 1
+		},
+		"backCompatTo": {
+			"major": 2025,
+			"minor": 1,
+			"patch": 0
+		}
+	},
+	{
+		"description": "NVDA 2025.1.2",
+		"apiVer": {
+			"major": 2025,
+			"minor": 1,
+			"patch": 2
+		},
+		"backCompatTo": {
+			"major": 2025,
+			"minor": 1,
+			"patch": 0
+		}
+	},
+	{
+		"description": "NVDA 2025.2",
+		"apiVer": {
+			"major": 2025,
+			"minor": 2,
+			"patch": 0
+		},
+		"backCompatTo": {
+			"major": 2025,
+			"minor": 1,
+			"patch": 0
+		}
+	},
+	{
+		"description": "NVDA 2025.3",
+		"apiVer": {
+			"major": 2025,
+			"minor": 3,
+			"patch": 0
+		},
+		"backCompatTo": {
+			"major": 2025,
+			"minor": 1,
+			"patch": 0
+		}
+	},
+	{
+		"description": "NVDA 2025.3.1",
+		"apiVer": {
+			"major": 2025,
+			"minor": 3,
+			"patch": 1
+		},
+		"backCompatTo": {
+			"major": 2025,
+			"minor": 1,
+			"patch": 0
+		}
+	},
+	{
+		"description": "NVDA 2025.3.2",
+		"apiVer": {
+			"major": 2025,
+			"minor": 3,
+			"patch": 2
+		},
+		"backCompatTo": {
+			"major": 2025,
+			"minor": 1,
+			"patch": 0
+		}
+	},
+	{
+		"description": "NVDA 2026.1",
+		"apiVer": {
+			"major": 2026,
+			"minor": 1,
+			"patch": 0
+		},
+		"backCompatTo": {
+			"major": 2026,
+			"minor": 1,
+			"patch": 0
+		},
+		"experimental": true
+	},
+	{
+		"description": "NVDA 2026.2",
+		"apiVer": {
+			"major": 2026,
+			"minor": 2,
+			"patch": 0
+		},
+		"backCompatTo": {
+			"major": 2026,
 			"minor": 1,
 			"patch": 0
 		},
