@@ -23,17 +23,16 @@ jobs:
         python-version: [ 3.13 ]
     steps:
     - name: Checkout addon data
-      uses: actions/checkout@v5
+      uses: actions/checkout@v6
       with:
         path: data
         ref: master
     - name: Checkout views branch into separate folder
-      uses: actions/checkout@v5
+      uses: actions/checkout@v6
       with:
         path: views
-        ref: views
     - name: Checkout transformation repo
-      uses: actions/checkout@v5
+      uses: actions/checkout@v6
       with:
         repository: nvaccess/addon-datastore-transform
         path: transform
@@ -47,9 +46,14 @@ jobs:
         python -m pip install --upgrade pip
         cd transform
         pip install -r requirements.txt
-        # empty the views git folder directory 
-        Try { Remove-Item ../views/views/ -Recurse -ErrorAction stop }
-        Catch [System.Management.Automation.ItemNotFoundException] { $null }
+        # empty the views git folder directory
+        Write-Host "Current directory: $(Get-Location)"
+        if (Test-Path ../views/views/) {
+            Remove-Item ../views/views/ -Recurse -Force -Verbose
+            Write-Host "Removed ../views/views/"
+        } else {
+            Write-Host "Directory ../views/views/ does not exist."
+        }
         python -m src.transform --loglevel DEBUG nvdaAPIVersions.json ../data/addons ../views/views
     - name: Copy files
       run: |
@@ -66,3 +70,4 @@ jobs:
         git add .
         git commit -F ../commitMsg.txt
         git push
+
