@@ -21,9 +21,10 @@ jobs:
     - name: Checkout validate repo
       uses: actions/checkout@v6
       with:
-        repository: nvaccess/addon-datastore-validation
+        repository: nvdaes/addon-datastore-validation
         path: validation
         submodules: true
+        ref: newLineInJson
     - name: Install the latest version of uv
       uses: astral-sh/setup-uv@v7
     - name: Regenerate json
