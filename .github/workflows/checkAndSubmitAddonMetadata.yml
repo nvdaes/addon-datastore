@@ -317,7 +317,7 @@ jobs:
     # use linux instead.
     runs-on: ubuntu-latest
     if: ${{ always() && (needs.requireManualApproval.result == 'success' || needs.requireManualApproval.result == 'skipped') }}
-    needs: [getAddonId, requireManualApproval
+    needs: [getAddonId, requireManualApproval]
     strategy:
       matrix:
         python-version: [ 3.13 ]
