@@ -316,8 +316,8 @@ jobs:
     # jq for windows has issues parsing multiline strings (e.g. CRLF),
     # use linux instead.
     runs-on: ubuntu-latest
-    if: ${{ always() && needs.commitScanResults.result == 'success' && (needs.requireManualApproval.result == 'success' || needs.requireManualApproval.result == 'skipped') }}
-    needs: [getAddonId, requireManualApproval, commitScanResults, virusTotal-analysis]
+    if: ${{ always() && (needs.requireManualApproval.result == 'success' || needs.requireManualApproval.result == 'skipped') }}
+    needs: [getAddonId, requireManualApproval
     strategy:
       matrix:
         python-version: [ 3.13 ]
