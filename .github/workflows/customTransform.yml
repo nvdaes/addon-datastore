@@ -1,4 +1,4 @@
-name: Transform NVDA addons to views
+name: Custom Transform NVDA addons to views
 
 on:
   workflow_dispatch:
