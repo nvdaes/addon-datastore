@@ -122,6 +122,16 @@ def writeAddons(addonDir: str, addons: WriteableAddons, supportedLanguages: set[
 		symlink.parent.mkdir(parents=True, exist_ok=True)
 		symlink.symlink_to(relativeTarget)
 
+	def _getTargetLanguage(lang: str, addonTranslations: dict[str, dict[str, str]]) -> str | None:
+		if lang == "en":
+			return "en"
+		if lang in addonTranslations:
+			return lang
+		langWithoutLocale = lang.split("_")[0]
+		if langWithoutLocale in addonTranslations:
+			return langWithoutLocale
+		return None
+
 	writtenLatestAddonForChannel: set[str] = set()
 	writtenTranslatedAddonPath: set[str] = set()
 	viewLanguages = {"en", *supportedLanguages}
@@ -156,12 +166,8 @@ def writeAddons(addonDir: str, addons: WriteableAddons, supportedLanguages: set[
 
 				addonTranslations: dict[str, dict[str, str]] = {t["language"]: t for t in addon.translations}
 				for lang in viewLanguages:
-					langWithoutLocale = lang.split("_")[0]
-					if lang in addonTranslations:
-						targetLanguage = lang
-					elif langWithoutLocale in addonTranslations:
-						targetLanguage = langWithoutLocale
-					else:
+					targetLanguage = _getTargetLanguage(lang, addonTranslations)
+					if targetLanguage is None:
 						continue
 
 					translatedAddonPath = os.path.join(translatedAddonDirPath, f"{targetLanguage}.json")
@@ -173,7 +179,7 @@ def writeAddons(addonDir: str, addons: WriteableAddons, supportedLanguages: set[
 						addonName,
 						f"{channel}.json",
 					)
-				_createRelativeFileSymlink(targetPath=translatedAddonPath, symlinkPath=versionedViewPath)
+					_createRelativeFileSymlink(targetPath=translatedAddonPath, symlinkPath=versionedViewPath)
 
 				# paths are case insensitive
 				# Identical add-on IDs may have different casing
@@ -185,12 +191,8 @@ def writeAddons(addonDir: str, addons: WriteableAddons, supportedLanguages: set[
 					log.error(f"Latest version: {addonName} {channel} {nvdaAPIVersion}")
 					writtenLatestAddonForChannel.add(caseInsensitiveLatestAddonForChannel)
 					for lang in viewLanguages:
-						langWithoutLocale = lang.split("_")[0]
-						if lang in addonTranslations:
-							targetLanguage = lang
-						elif langWithoutLocale in addonTranslations:
-							targetLanguage = langWithoutLocale
-						else:
+						targetLanguage = _getTargetLanguage(lang, addonTranslations)
+						if targetLanguage is None:
 							continue
 
 						translatedAddonPath = os.path.join(translatedAddonDirPath, f"{targetLanguage}.json")

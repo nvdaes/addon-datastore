@@ -370,3 +370,49 @@ class TestTransformation(unittest.TestCase):
 				targetPath="addons/UIANotificationSwitch/2026.1.0/en.json",
 			),
 		)
+
+	def test_transform_mixed_translated_and_untranslated_addons(self):
+		"""Confirms transform succeeds when translated and untranslated addons are processed together."""
+		write_addons(
+			InputAddonVersion(
+				"BMI/2026.2.0.json",
+				"""
+{
+	"addonId": "BMI",
+	"displayName": "BMI",
+	"description": "English description",
+	"channel": "beta",
+	"addonVersionNumber": {"major": 2026, "minor": 2, "patch": 0},
+	"minNVDAVersion": {"major": 2026, "minor": 3, "patch": 0},
+	"lastTestedVersion": {"major": 2026, "minor": 3, "patch": 0},
+	"translations": [{"language": "tr", "displayName": "BMI tr", "description": "Açıklama"}]
+}
+""",
+			),
+			addonJson("plainAddon/1.0.0.json", "stable", required="2026.3.0", tested="2026.3.0"),
+		)
+		self.runTransformation()
+		enBetaViewPath = os.path.join(DATA_DIR.OUTPUT.value, "views/en/2026.3.0/BMI/beta.json")
+		trBetaViewPath = os.path.join(DATA_DIR.OUTPUT.value, "views/tr/2026.3.0/BMI/beta.json")
+		plainStableViewPath = os.path.join(DATA_DIR.OUTPUT.value, "views/en/2026.3.0/plainAddon/stable.json")
+		self.assertTrue(os.path.islink(enBetaViewPath))
+		self.assertTrue(os.path.islink(trBetaViewPath))
+		self.assertTrue(os.path.islink(plainStableViewPath))
+		self.assertEqual(
+			os.path.normpath(os.path.realpath(enBetaViewPath)),
+			os.path.normpath(
+				os.path.realpath(os.path.join(DATA_DIR.OUTPUT.value, "addons/BMI/2026.2.0/en.json"))
+			),
+		)
+		self.assertEqual(
+			os.path.normpath(os.path.realpath(trBetaViewPath)),
+			os.path.normpath(
+				os.path.realpath(os.path.join(DATA_DIR.OUTPUT.value, "addons/BMI/2026.2.0/tr.json"))
+			),
+		)
+		self.assertEqual(
+			os.path.normpath(os.path.realpath(plainStableViewPath)),
+			os.path.normpath(
+				os.path.realpath(os.path.join(DATA_DIR.OUTPUT.value, "addons/plainAddon/1.0.0/en.json"))
+			),
+		)
