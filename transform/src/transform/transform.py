@@ -157,7 +157,9 @@ def writeAddons(addonDir: str, addons: WriteableAddons, supportedLanguages: set[
 				addonTranslations: dict[str, dict[str, str]] = {t["language"]: t for t in addon.translations}
 				for lang in viewLanguages:
 					langWithoutLocale = lang.split("_")[0]
-					if lang in addonTranslations:
+					if lang == "en":
+						targetLanguage = "en"
+					elif lang in addonTranslations:
 						targetLanguage = lang
 					elif langWithoutLocale in addonTranslations:
 						targetLanguage = langWithoutLocale
@@ -173,7 +175,7 @@ def writeAddons(addonDir: str, addons: WriteableAddons, supportedLanguages: set[
 						addonName,
 						f"{channel}.json",
 					)
-				_createRelativeFileSymlink(targetPath=translatedAddonPath, symlinkPath=versionedViewPath)
+					_createRelativeFileSymlink(targetPath=translatedAddonPath, symlinkPath=versionedViewPath)
 
 				# paths are case insensitive
 				# Identical add-on IDs may have different casing
@@ -186,7 +188,9 @@ def writeAddons(addonDir: str, addons: WriteableAddons, supportedLanguages: set[
 					writtenLatestAddonForChannel.add(caseInsensitiveLatestAddonForChannel)
 					for lang in viewLanguages:
 						langWithoutLocale = lang.split("_")[0]
-						if lang in addonTranslations:
+						if lang == "en":
+							targetLanguage = "en"
+						elif lang in addonTranslations:
 							targetLanguage = lang
 						elif langWithoutLocale in addonTranslations:
 							targetLanguage = langWithoutLocale
