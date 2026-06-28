@@ -24,7 +24,6 @@ jobs:
         shell: bash
     permissions:
       contents: write
-      pull-requests: write
     env:
       # this is a git '--pretty=format' string
       # %h is SHA, %n is newline,
@@ -76,9 +75,7 @@ jobs:
         cp ./transform/nvdaAPIVersions.json ./views/nvdaAPIVersions.json
         cp ./transform/docs/output.md ./views/output.md
         cp ./README.md ./views/README.md
-    - name: Create PR and enable auto-merge
-      env:
-        GH_TOKEN: ${{ secrets.VIEWS_PUSH_TOKEN }}
+    - name: Push changes to addonstore-views
       run: |
         set -euo pipefail
         git log HEAD --pretty=format:"${{ env.COMMIT_FORMAT }}" -1 > commitMsg.txt
@@ -87,22 +84,10 @@ jobs:
         git config user.email github-actions@github.com
         git add .
         if git diff --staged --quiet; then
-          echo "No generated changes; skipping PR creation."
+          echo "No generated changes; skipping push."
           exit 0
         fi
-
-        branchName="transformViews${{ github.run_id }}-${{ github.run_attempt }}"
-        git checkout -b "$branchName"
         # TODO: Temporarily suppress output during first commit as testing logs are too big.
         # Remove quiet and gpg sign flags later.
         git commit --quiet --no-gpg-sign -F ../commitMsg.txt
-        git push --set-upstream origin "$branchName"
-
-        prUrl=$(gh pr create \
-          --repo nvdaes/addonstore-views \
-          --base main \
-          --head "$branchName" \
-          --title "[Automated] Transform add-on data to views" \
-          --body-file ../commitMsg.txt)
-
-        gh pr merge --admin --squash --delete-branch "$prUrl"
+        git push origin main
