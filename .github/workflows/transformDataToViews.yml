@@ -4,7 +4,7 @@ on:
   workflow_call:
     secrets:
       VIEWS_PUSH_TOKEN:
-        description: Token with access to nvaccess/addonstore-views
+        description: Token with access to nvdaes/addonstore-views
         required: true
   workflow_dispatch:
   schedule:
@@ -39,7 +39,7 @@ jobs:
     - name: Checkout addonstore-views repository
       uses: actions/checkout@v6
       with:
-        repository: nvaccess/addonstore-views
+        repository: nvdaes/addonstore-views
         path: views
         ref: main
         token: ${{ secrets.VIEWS_PUSH_TOKEN }}
@@ -99,7 +99,7 @@ jobs:
         git push --set-upstream origin "$branchName"
 
         prUrl=$(gh pr create \
-          --repo nvaccess/addonstore-views \
+          --repo nvdaes/addonstore-views \
           --base main \
           --head "$branchName" \
           --title "[Automated] Transform add-on data to views" \
