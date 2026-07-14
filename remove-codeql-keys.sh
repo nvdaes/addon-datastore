@@ -26,7 +26,7 @@ while IFS= read -r -d '' file; do
 	# Remove legacy keys that are no longer used, regardless of where they appear.
 	jq 'del(
 		.. | .["codeQL-warnings"]?,
-		.. | .["codeQL-errors"]?,
+		.. | .["codeQL-errors"]?
 	)' "$file" > "$tmp_file"
 
 	if ! cmp -s "$file" "$tmp_file"; then
