@@ -91,3 +91,4 @@ jobs:
             --body "This PR removes codeQl keys from add-ons metadata." \
             --base master \
             --head "$BRANCH"
+            
