@@ -31,7 +31,6 @@
 	"vtScanUrl": "https://www.virustotal.com/gui/file/15aec35db9d921e2b3b46f67bc3ff7c15d0bc50ad7685332aea54926230b1386",
 	"scanResults": {
 		"codeQL-warnings": [],
-		"codeQL-errors": [],
 		"virusTotal": [
 			{
 				"_id": "15aec35db9d921e2b3b46f67bc3ff7c15d0bc50ad7685332aea54926230b1386",
