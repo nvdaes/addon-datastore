@@ -11,7 +11,8 @@
 		"githubName": "nvdaes",
 		"addons": [
 			"placeMarkers",
-			"readonlyProfiles"
+			"readonlyProfiles",
+			"audioScreen"
 		]
 	},
 	"7867280": {
