@@ -143,6 +143,7 @@ jobs:
       issues: write
     outputs:
       pullRequestNumber: ${{ steps.cpr.outputs.pullRequestNumber }}
+      pullRequestUrl: ${{ steps.cpr.outputs.pullRequestUrl }}
     steps:
     - name: Checkout code
       uses: actions/checkout@v6
@@ -156,7 +157,9 @@ jobs:
         prUrl=$(gh pr create --base master --head "${{ env.branchName }}" --title "Publish ${{ needs.getAddonId.outputs.addonFileName }}" --body "Closes #${{ inputs.issueNumber }}")
         prNumber="${prUrl%/}"
         prNumber="${prNumber##*/}"
+        echo "pullRequestUrl=$prUrl" >> "$GITHUB_OUTPUT"
         echo "pullRequestNumber=$prNumber" >> "$GITHUB_OUTPUT"
+        echo "Created pull request #$prNumber: $prUrl"
     - name: Create validation errors file
       run: echo "" > validationErrors.md
     - name: Install the latest version of uv
@@ -516,13 +519,16 @@ jobs:
         else
           git commit -m "update discussion URL"
         fi
-    - name: Merge branch to master
+    - name: Enable auto-merge for created pull request
       env:
         GH_TOKEN: ${{ github.token }}
       run: |
         git config user.name "github-actions"
         git config user.email "github-actions@github.com"
-        gh pr merge --auto --squash ${{ env.branchName }} -b '[Automated] Merged ${{ needs.getAddonId.outputs.addonFileName }} into master (PR #${{ needs.createPullRequest.outputs.pullRequestNumber }})'
+        prUrl="${{ needs.createPullRequest.outputs.pullRequestUrl }}"
+        echo "Enabling squash auto-merge for $prUrl"
+        gh pr merge --auto --squash "$prUrl" -b '[Automated] Merged ${{ needs.getAddonId.outputs.addonFileName }} into master (PR #${{ needs.createPullRequest.outputs.pullRequestNumber }})'
+        echo "Squash auto-merge enabled for $prUrl"
     - name: Comment on issue confirming successful submission
       env:
         GH_TOKEN: ${{ github.token }}
