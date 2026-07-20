@@ -515,8 +515,6 @@ jobs:
           echo "No staged changes; skipping commit and push."
         else
           git commit -m "update discussion URL"
-          git pull --rebase origin ${{ env.branchName }}
-          git push --set-upstream origin ${{ env.branchName }}
         fi
     - name: Merge branch to master
       env:
@@ -524,9 +522,7 @@ jobs:
       run: |
         git config user.name "github-actions"
         git config user.email "github-actions@github.com"
-        git fetch origin master
-        git merge origin/master --no-edit
-        gh pr merge --admin --squash ${{ env.branchName }} -b '[Automated] Merged ${{ needs.getAddonId.outputs.addonFileName }} into master (PR #${{ needs.createPullRequest.outputs.pullRequestNumber }})'
+        gh pr merge --auto --admin --squash ${{ env.branchName }} -b '[Automated] Merged ${{ needs.getAddonId.outputs.addonFileName }} into master (PR #${{ needs.createPullRequest.outputs.pullRequestNumber }})'
     - name: Comment on issue confirming successful submission
       env:
         GH_TOKEN: ${{ github.token }}
