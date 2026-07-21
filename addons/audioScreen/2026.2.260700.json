@@ -28,5 +28,6 @@
 	"changelog": "* NVDA 2026.1.1 or later is required.",
 	"licenseURL": "https://www.gnu.org/licenses/gpl-2.0.html",
 	"submissionTime": 1784646342000,
-	"translations": []
+	"translations": [],
+	"reviewUrl": "https://github.com/nvaccess/addon-datastore/discussions/6623"
 }
