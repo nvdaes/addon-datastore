@@ -190,7 +190,7 @@ jobs:
       env:
         GH_TOKEN: ${{ github.token }}
         body: |
-          To provide non blocking feedback, please use the [discussion URL associated with this issue](${{ steps.addDiscussionUrl.outputs.discussionUrl }}).
+          To provide non blocking feedback, please use the [discussion URL associated with this issue](${{ steps.addDiscussionUrl.outputs.reviewUrl }}).
           ${{ env.jobFooter }}
       run: |
         gh issue comment "${{ inputs.issueNumber }}" --body "${{ env.body }}"
