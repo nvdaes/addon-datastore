@@ -186,6 +186,15 @@ jobs:
         GH_TOKEN: ${{ github.token }}
       run: |
         gh issue close "${{ inputs.issueNumber }}" --reason "not planned"
+    - name: Comment on issue providing discussion URL
+      env:
+        GH_TOKEN: ${{ github.token }}
+        body: |
+          To provide non blocking feedback, please use the [discussion URL associated with this issue](${{ steps.addDiscussionUrl.outputs.discussionUrl }}).
+          ${{ env.jobFooter }}
+      run: |
+        gh issue comment "${{ inputs.issueNumber }}" --body "${{ env.body }}"
+
 
   virusTotal-analysis:
     needs: [getAddonId, createPullRequest]
@@ -508,7 +517,8 @@ jobs:
         jqExitCode=$?
         rm discussions.old.json
         exit $jqExitCode
-    - name: Add discussion URL to metadata
+    - name: Add discussion URL to metadata and to GitHub output
+      id: addDiscussionUrl
       run: |
         addonFilename=$(
           echo "${{ needs.getAddonId.outputs.addonFileName }}"
@@ -519,6 +529,7 @@ jobs:
         reviewUrl=$(
           jq --tab ".\"$addonId\".discussionUrl" discussions.json
         )
+        echo "reviewUrl=$reviewUrl" >> "$GITHUB_OUTPUT"
         jqReviewCode="
         .[\"reviewUrl\"] = $reviewUrl
         "
