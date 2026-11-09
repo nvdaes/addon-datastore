@@ -132,7 +132,7 @@ jobs:
             If you are not the owner of the main repository for this add-on, please provide evidence that you have permission to submit this add-on.
             Please wait until the review team can review the submission.
             It may take up to 2 weeks for a team member to respond, depending on their availability.
-            To provide non-blocking feedback, reviewers will use the [discussion URL associated with this issue](${{ steps.addDiscussionUrl.outputs.reviewUrl }}).
+            To provide non-blocking feedback, reviewers will use the [discussion URL associated with this issue](${{ createPullRequest.steps.addDiscussionUrl.outputs.reviewUrl }}).
             ${{ env.jobFooter }}
 
   createPullRequest:
