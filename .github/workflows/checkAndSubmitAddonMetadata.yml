@@ -132,6 +132,7 @@ jobs:
             If you are not the owner of the main repository for this add-on, please provide evidence that you have permission to submit this add-on.
             Please wait until the review team can review the submission.
             It may take up to 2 weeks for a team member to respond, depending on their availability.
+            To provide non-blocking feedback, reviewers will use the [discussion URL associated with this issue](${{ steps.addDiscussionUrl.outputs.reviewUrl }}).
             ${{ env.jobFooter }}
 
   createPullRequest:
@@ -186,15 +187,6 @@ jobs:
         GH_TOKEN: ${{ github.token }}
       run: |
         gh issue close "${{ inputs.issueNumber }}" --reason "not planned"
-    - name: Comment on issue providing discussion URL
-      env:
-        GH_TOKEN: ${{ github.token }}
-        body: |
-          To provide non-blocking feedback, please use the [discussion URL associated with this issue](${{ steps.addDiscussionUrl.outputs.reviewUrl }}).
-          ${{ env.jobFooter }}
-      run: |
-        gh issue comment "${{ inputs.issueNumber }}" --body "${{ env.body }}"
-
 
   virusTotal-analysis:
     needs: [getAddonId, createPullRequest]
