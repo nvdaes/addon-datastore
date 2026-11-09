@@ -190,7 +190,7 @@ jobs:
       env:
         GH_TOKEN: ${{ github.token }}
         body: |
-          To provide non blocking feedback, please use the [discussion URL associated with this issue](${{ steps.addDiscussionUrl.outputs.reviewUrl }}).
+          To provide non-blocking feedback, please use the [discussion URL associated with this issue](${{ steps.addDiscussionUrl.outputs.reviewUrl }}).
           ${{ env.jobFooter }}
       run: |
         gh issue comment "${{ inputs.issueNumber }}" --body "${{ env.body }}"
@@ -527,7 +527,7 @@ jobs:
           echo ${{ needs.getAddonId.outputs.addonId }}
         )
         reviewUrl=$(
-          jq --tab ".\"$addonId\".discussionUrl" discussions.json
+          jq --tab -r ".\"$addonId\".discussionUrl" discussions.json
         )
         echo "reviewUrl=$reviewUrl" >> "$GITHUB_OUTPUT"
         jqReviewCode="
