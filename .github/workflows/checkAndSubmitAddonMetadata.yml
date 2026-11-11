@@ -87,6 +87,51 @@ jobs:
           name: addonMetadata
           path: ${{ steps.getAddonFileName.outputs.result }}
 
+  ensureDiscussionExists:
+    runs-on: ubuntu-latest
+    needs: [getAddonId]
+    permissions:
+      contents: write
+      discussions: write
+    outputs:
+      reviewUrl: ${{ steps.getReviewUrl.outputs.reviewUrl }}
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v7
+      with:
+        ref: ${{ github.ref }}
+    - name: Check if discussion for this add-on exists
+      id: checkDiscussion
+      run: |
+        jqStatus=$(jq 'has("${{ needs.getAddonId.outputs.addonId }}")' discussions.json)
+        echo "jqStatus=$jqStatus" >> "$GITHUB_OUTPUT"
+        echo "$jqStatus"
+    - name: Create discussion for add-on id
+      id: createDiscussion
+      if: ${{ ! fromJSON(steps.checkDiscussion.outputs.jqStatus) }}
+      uses: nvdaes/build-discussion@v2
+      with:
+        category-position: 1
+        title: Reviews for ${{ steps.getAddonNameAndVersion.outputs.addonName }} (${{ needs.getAddonId.outputs.addonId }})
+        body: |
+          Community add-on reviews for ${{ steps.getAddonNameAndVersion.outputs.addonName }}.
+          Please use threaded replies and avoid email responses.
+          You can specify the add-on version and other info that you consider relevant in your comment.
+          Reviews should abide by the [NVDA code of conduct](https://github.com/nvaccess/nvda/blob/master/CODE_OF_CONDUCT.md).
+    - name: Get review URL and add it to job footer
+      id: getReviewUrl
+      run: |
+        if [ "${{ fromJSON(steps.checkDiscussion.outputs.jqStatus) }}" = "true" ]; then
+          reviewUrl=$(
+            jq --tab ".\"${{ needs.getAddonId.outputs.addonId }}\".discussionUrl" discussions.json
+          )
+        else
+          reviewUrl=${{ steps.createDiscussion.outputs.discussion-url }}
+        fi
+        echo "reviewUrl=$reviewUrl" >> "$GITHUB_OUTPUT"
+        echo "$reviewUrl"
+        echo "\n\n[provide feedback about bugs or user experience]($reviewUrl)" >> env.jobFooter
+
   verifySubmitter:
     # jq for windows has issues parsing multiline strings (e.g. CRLF),
     # use linux instead.
