@@ -141,7 +141,6 @@ jobs:
         fi
         echo "reviewUrl=$reviewUrl" >> "$GITHUB_OUTPUT"
         echo "$reviewUrl"
-        echo "\n\n[provide feedback about bugs or user experience]($reviewUrl)" >> env.jobFooter
 
   verifySubmitter:
     # jq for windows has issues parsing multiline strings (e.g. CRLF),
@@ -188,6 +187,9 @@ jobs:
             If you are not the owner of the main repository for this add-on, please provide evidence that you have permission to submit this add-on.
             Please wait until the review team can review the submission.
             It may take up to 2 weeks for a team member to respond, depending on their availability.
+
+            This issue will be used to discuss metadata related to the add-on submission. Feedback about user experience should be provided through the discussion link below.
+            [provide feedback about bugs or user experience](${{ needs.ensureDiscussionExists.outputs.reviewUrl }})
             ${{ env.jobFooter }}
 
   createPullRequest:
