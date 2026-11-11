@@ -94,18 +94,29 @@ jobs:
       contents: write
       discussions: write
     outputs:
+      discussionExists: ${{ steps.checkDiscussion.outputs.jqStatus }}
+      discussionId: ${{ steps.createDiscussion.outputs.discussion-id }}
       reviewUrl: ${{ steps.getReviewUrl.outputs.reviewUrl }}
     steps:
     - name: Checkout code
       uses: actions/checkout@v7
       with:
-        ref: ${{ github.ref }}
+        ref: ${{ env.branchName }}
     - name: Check if discussion for this add-on exists
       id: checkDiscussion
       run: |
         jqStatus=$(jq 'has("${{ needs.getAddonId.outputs.addonId }}")' discussions.json)
         echo "jqStatus=$jqStatus" >> "$GITHUB_OUTPUT"
         echo "$jqStatus"
+    - name: Get add-on name and version
+      if: ${{ ! fromJSON(steps.checkDiscussion.outputs.jqStatus) }}
+      id: getAddonNameAndVersion
+      uses: actions/github-script@v9
+      with:
+        script: |
+          const setAddonNameAndVersion = require('./.github/workflows/getAddonNameAndVersion.js')
+          const addonFilename = "${{ needs.getAddonId.outputs.addonFileName }}"
+          setAddonNameAndVersion({core}, addonFilename)
     - name: Create discussion for add-on id
       id: createDiscussion
       if: ${{ ! fromJSON(steps.checkDiscussion.outputs.jqStatus) }}
@@ -121,9 +132,9 @@ jobs:
     - name: Get review URL and add it to job footer
       id: getReviewUrl
       run: |
-        if [ "${{ fromJSON(steps.checkDiscussion.outputs.jqStatus) }}" = "true" ]; then
+        if [ "${{ steps.checkDiscussion.outputs.jqStatus }}" = "true" ]; then
           reviewUrl=$(
-            jq --tab ".\"${{ needs.getAddonId.outputs.addonId }}\".discussionUrl" discussions.json
+            jq --raw-output ".\"${{ needs.getAddonId.outputs.addonId }}\".discussionUrl" discussions.json
           )
         else
           reviewUrl=${{ steps.createDiscussion.outputs.discussion-url }}
@@ -477,14 +488,6 @@ jobs:
         git pull --rebase origin ${{ env.branchName }}
         git fetch origin master
         git merge origin/master --no-edit
-    - name: Get add-on name and version
-      id: getAddonNameAndVersion
-      uses: actions/github-script@v9
-      with:
-        script: |
-          const setAddonNameAndVersion = require('./.github/workflows/getAddonNameAndVersion.js')
-          const addonFilename = "${{ needs.getAddonId.outputs.addonFileName }}"
-          setAddonNameAndVersion({core}, addonFilename)
     - name: Add add-on ID and submitter to JSON file
       if: ${{ needs.requireSubmitterManualApproval.result == 'success' && needs.requireSubmitterManualApproval2.result == 'success' }}
       run: |
@@ -513,35 +516,17 @@ jobs:
           git commit -m "Add ${{ inputs.issueAuthorName }} as an approved submitter for ${{ needs.getAddonId.outputs.addonId }}"
           git push --set-upstream origin ${{ env.branchName }}
         fi
-    - name: Check if discussion for this add-on exists
-      id: checkDiscussion
-      run: |
-        jqStatus=$(jq 'has("${{ needs.getAddonId.outputs.addonId }}")' discussions.json)
-        echo "jqStatus=$jqStatus" >> "$GITHUB_OUTPUT"
-        echo "$jqStatus"
-    - name: Create discussion for add-on id
-      id: createDiscussion
-      if: ${{ ! fromJSON(steps.checkDiscussion.outputs.jqStatus) }}
-      uses: nvdaes/build-discussion@v2
-      with:
-        category-position: 1
-        title: Reviews for ${{ steps.getAddonNameAndVersion.outputs.addonName }} (${{ needs.getAddonId.outputs.addonId }})
-        body: |
-          Community add-on reviews for ${{ steps.getAddonNameAndVersion.outputs.addonName }}.
-          Please use threaded replies and avoid email responses.
-          You can specify the add-on version and other info that you consider relevant in your comment.
-          Reviews should abide by the [NVDA code of conduct](https://github.com/nvaccess/nvda/blob/master/CODE_OF_CONDUCT.md).
     - name: Add add-on ID and discussion data to json file
-      if: ${{ ! fromJSON(steps.checkDiscussion.outputs.jqStatus) }}
+      if: ${{ ! fromJSON(needs.ensureDiscussionExists.outputs.discussionExists) }}
       run: |
         addonId=$(
           echo ${{ needs.getAddonId.outputs.addonId }}
-         )
+        )
         discussionId=$(
-          echo ${{ steps.createDiscussion.outputs.discussion-id }}
+          echo ${{ needs.ensureDiscussionExists.outputs.discussionId }}
         )
         discussionUrl=$(
-          echo ${{ steps.createDiscussion.outputs.discussion-url }}
+          echo ${{ needs.ensureDiscussionExists.outputs.reviewUrl }}
         )
         jqCode="
         .[\"$addonId\"].discussionId = \"$discussionId\"
