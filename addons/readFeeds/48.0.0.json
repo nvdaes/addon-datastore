@@ -203,5 +203,6 @@
 			"description": "افزونه‌ای برای استفاده از NVDA به عنوانِ یک خوراک‌خوان.",
 			"changelog": "* Updates to translations."
 		}
-	]
+	],
+	"reviewUrl": "https://github.com/nvdaes/addon-datastore/discussions/1509"
 }

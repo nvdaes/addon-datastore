@@ -2434,5 +2434,9 @@
 	"webRotor": {
 		"discussionId": "D_kwDODeB9Us4Aq-iE",
 		"discussionUrl": "https://github.com/nvaccess/addon-datastore/discussions/12899"
+	},
+	"readFeeds": {
+		"discussionId": "D_kwDODeDxhs4ArBt_",
+		"discussionUrl": "https://github.com/nvdaes/addon-datastore/discussions/1509"
 	}
 }
