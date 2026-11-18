@@ -101,5 +101,6 @@
 			"description": "Adds ability to move the cursor to additional details, and back to the original element, in browse mode.\nThis has been requested at\nhttps://github.com/nvaccess/nvda/issues/13940\n",
 			"changelog": "* Updates to translations."
 		}
-	]
+	],
+	"reviewUrl": "https://github.com/nvdaes/addon-datastore/discussions/1518"
 }
