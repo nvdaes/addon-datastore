@@ -185,5 +185,6 @@
 			"description": "Improves eMule's accessibility with NVDA.\neMule is a P2P program to search and share files.\nYou can get more information about eMule at\nhttp://www.emule-project.net",
 			"changelog": "* Updates to translations."
 		}
-	]
+	],
+	"reviewUrl": "https://github.com/nvdaes/addon-datastore/discussions/1515"
 }
