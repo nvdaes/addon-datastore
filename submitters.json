@@ -23,7 +23,6 @@
 		"githubName": "josephsl",
 		"addons": [
 			"resourceMonitor",
-			"stationPlaylist",
 			"wintenApps",
 			"enhancedTouchGestures",
 			"objPad",
@@ -339,7 +338,6 @@
 	},
 	"64235743": {
 		"addons": [
-			"stationPlaylist",
 			"objPad"
 		],
 		"githubName": "ChrisDuffley"
