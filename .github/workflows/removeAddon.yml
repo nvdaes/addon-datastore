@@ -7,25 +7,38 @@ on:
         required: true
 jobs:
   remove-addon:
+    permissions:
+      contents: write
+      pull-requests: write
     runs-on: ubuntu-latest
+    env:
+      addonId: ${{ inputs.addonId }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
       - name: Remove addon
+        shell: bash
+        run: ./remove-addon.sh "$addonId"
+      - name: Commit changes and create pull request
         env:
-          addonId: ${{ inputs.addonId }}
-        run: remove-addon $addonId
-      - name: Commit and push
-        env:
-          branchName: remove-${{ inputs.addonId }}
           GH_TOKEN: ${{ github.token }}
+          baseBranch: ${{ github.event.repository.default_branch }}
+        shell: bash
         run: |
-          git add .
+          git add addons discussions.json submitters.json
           if git diff --staged --quiet; then
-            echo "No staged changes; skipping commit and push."
-          else
-            git commit -m "Remove addon $ADDON_ID"
-            git switch -c ${{ env.branchName }}
-            git push --set-upstream origin ${{ env.branchName }}
+            echo "No changes to commit"
+            exit 0
           fi
-          gh pr create --base ${{ env.branchName }} --title "Remove addon ${{ inputs.addonId }}" --body "This PR removes the addon ${{ inputs.addonId }}"  
+
+          headBranch="remove-addon-$addonId"
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git switch -c "$headBranch"
+          git commit -m "Remove addon $addonId"
+          git push --set-upstream origin "$headBranch"
+          gh pr create \
+            --base "$baseBranch" \
+            --head "$headBranch" \
+            --title "Remove addon $addonId" \
+            --body "This PR removes the addon $addonId"
