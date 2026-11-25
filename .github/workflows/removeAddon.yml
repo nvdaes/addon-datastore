@@ -1,0 +1,31 @@
+name: Remove Addon
+on:
+  workflow_dispatch:
+    inputs:
+      addonId:
+        description: 'Name of the addon to remove'
+        required: true
+jobs:
+  remove-addon:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+      - name: Remove addon
+        env:
+          addonId: ${{ inputs.addonId }}
+        run: remove-addon $addonId
+      - name: Commit and push
+        env:
+          branchName: remove-${{ inputs.addonId }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git add .
+          if git diff --staged --quiet; then
+            echo "No staged changes; skipping commit and push."
+          else
+            git commit -m "Remove addon $ADDON_ID"
+            git switch -c ${{ env.branchName }}
+            git push --set-upstream origin ${{ env.branchName }}
+          fi
+          gh pr create --base ${{ env.branchName }} --title "Remove addon ${{ inputs.addonId }}" --body "This PR removes the addon ${{ inputs.addonId }}"  
