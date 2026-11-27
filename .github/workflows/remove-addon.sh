@@ -3,12 +3,16 @@
 set -euo pipefail
 
 addon_id=$1
-here=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+here=$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)
 addons_dir="$here/addons"
 discussions_file="$here/discussions.json"
 submitters_file="$here/submitters.json"
 
+tmp_discussions=
+tmp_submitters=
 trap 'rm -f -- "$tmp_discussions" "$tmp_submitters"' EXIT
+tmp_discussions=$(mktemp "${discussions_file}.XXXXXX")
+tmp_submitters=$(mktemp "${submitters_file}.XXXXXX")
 cp -p -- "$discussions_file" "$tmp_discussions"
 cp -p -- "$submitters_file" "$tmp_submitters"
 
